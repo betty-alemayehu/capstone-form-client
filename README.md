@@ -162,12 +162,10 @@ server/
 │   ├── dbConfig.js                 # MySQL database connection configuration
 │   ├── migrations/                 # Database schema migrations (e.g., creating tables)
 │   │   ├── create_users_table.js   # Migration for the Users table
-│   │   ├── create_poses_table.js   # Migration for the Poses table
 │   │   ├── create_progressions_table.js # Migration for the Progressions table
 │   │   └── create_media_table.js   # Migration for the Media table
 │   └── seeds/                      # Seed files to populate database with initial data
 │       ├── seed_users.js           # Seed data for users
-│       ├── seed_poses.js           # Seed data for poses
 │       └── seed_media.js           # Seed data for media
 ├── uploads/                        # Folder for storing user-uploaded media files
 ├── middleware/
