@@ -64,8 +64,6 @@ Mastering physical movements like yoga, dance, or calisthenics is challenging du
 - **Knex.js**: Query builder for database management.
 - **MySQL**: Database for structured storage.
 
-- **bcryptjs**: For secure password hashing.
-- **jsonwebtoken (JWT)**: Manages user authentication.
 - **express-fileupload**: Handles file uploads.
 - **dotenv**: Protects environment variables.
 - **cors**: Enables secure cross-origin requests.
@@ -173,7 +171,6 @@ server/
 │       └── seed_media.js           # Seed data for media
 ├── uploads/                        # Folder for storing user-uploaded media files
 ├── middleware/
-│   ├── authenticate.js             # Middleware for verifying JWT tokens for protected routes
 │   └── multerConfig.js             # Middleware configuration for handling file uploads (e.g., express file upload)
 ├── server.js                       # Main entry point for starting the backend server
 ├── .env.example                    # Example environment variables configuration
@@ -238,8 +235,7 @@ server/
    - **Response**:
      ```json
      {
-       "message": "Login successful",
-       "token": "jwt-token-example"
+       "message": "Login successful"
      }
      ```
 
@@ -248,12 +244,7 @@ server/
    - **URL**: `/api/users/profile`
    - **Method**: `GET`
    - **Status Code**: `200 OK`
-   - **Headers**:
-     ```json
-     {
-       "Authorization": "Bearer jwt-token-example"
-     }
-     ```
+
    - **Response**:
      ```json
      {
@@ -268,12 +259,6 @@ server/
    - **URL**: `/api/users/profile`
    - **Method**: `DELETE`
    - **Status Code**: `204 No Content`
-   - **Headers**:
-     ```json
-     {
-       "Authorization": "Bearer jwt-token-example"
-     }
-     ```
    - **Response**:
      No response body.
 
@@ -330,12 +315,6 @@ server/
     - **URL**: `/api/progressions`
     - **Method**: `GET`
     - **Status Code**: `200 OK`
-    - **Headers**:
-      ```json
-      {
-        "Authorization": "Bearer jwt-token-example"
-      }
-      ```
     - **Response**:
 
       ```json
