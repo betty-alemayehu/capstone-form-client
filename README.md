@@ -174,13 +174,13 @@ server/
 
 ## 🖼️ Mockups
 
-![](src/assets/Proposal/StartScreens.jpg)
-![](src/assets/Proposal/TreeScreens.jpg)
-![](src/assets/Proposal/ProfileSettings.jpg)
+![](public/assets/Proposal/StartScreens.jpg)
+![](public/assets/Proposal/TreeScreens.jpg)
+![](public/assets/Proposal/ProfileSettings.jpg)
 
 ## 🗄️ Data and Relationships:
 
-![](src/assets/Proposal/drawSQL.png)
+![](public/assets/Proposal/drawSQL.png)
 
 ## 📬 Endpoints
 
