@@ -148,27 +148,39 @@ server/
 ├── controllers/
 │   ├── authController.js           # Handles authentication logic (e.g., login, signup)
 │   ├── poseController.js           # Manages CRUD operations for poses
-│   └── progressionController.js    # Handles user progression tracking and updates
+│   ├── progressionController.js    # Handles user progression tracking and updates
+│   └── mediaController.js          # Handles CRUD operations for media files (e.g., upload, fetch, delete)
 ├── routes/
 │   ├── authRoutes.js               # API routes for user authentication
 │   ├── poseRoutes.js               # API routes for fetching and managing pose data
-│   └── progressionRoutes.js        # API routes for tracking and updating progressions
+│   ├── progressionRoutes.js        # API routes for tracking and updating progressions
+│   └── mediaRoutes.js              # API routes for managing media files
 ├── models/
 │   ├── User.js                     # Database model for user accounts and profile data
 │   ├── Pose.js                     # Database model for poses (e.g., name, difficulty, media links)
-│   └── Progression.js              # Database model for tracking user progress for each pose
+│   ├── Progression.js              # Database model for tracking user progress for each pose
+│   └── Media.js                    # Database model for managing uploaded media files
 ├── db/
 │   ├── dbConfig.js                 # MySQL database connection configuration
-│   └── migrations/                 # Database schema migrations (e.g., creating tables)
+│   ├── migrations/                 # Database schema migrations (e.g., creating tables)
+│   │   ├── create_users_table.js   # Migration for the Users table
+│   │   ├── create_poses_table.js   # Migration for the Poses table
+│   │   ├── create_progressions_table.js # Migration for the Progressions table
+│   │   └── create_media_table.js   # Migration for the Media table
+│   └── seeds/                      # Seed files to populate database with initial data
+│       ├── seed_users.js           # Seed data for users
+│       ├── seed_poses.js           # Seed data for poses
+│       └── seed_media.js           # Seed data for media
 ├── uploads/                        # Folder for storing user-uploaded media files
 ├── middleware/
 │   ├── authenticate.js             # Middleware for verifying JWT tokens for protected routes
-│   └── multerConfig.js             # Middleware configuration for handling file uploads (e.g. express file upload)
+│   └── multerConfig.js             # Middleware configuration for handling file uploads (e.g., express file upload)
 ├── server.js                       # Main entry point for starting the backend server
-├── .env.example
-├── .gitignore
-├── package.json
-└── package-lock.json
+├── .env.example                    # Example environment variables configuration
+├── .gitignore                      # List of files and directories to ignore in version control
+├── package.json                    # NPM package metadata and scripts
+└── package-lock.json               # NPM dependency lock file
+
 
 ```
 
@@ -313,103 +325,125 @@ server/
 
 #### **Progressions Endpoints**
 
-7. **Get User Progressions**
+7.  **Get User Progressions**
 
-   - **URL**: `/api/progressions`
-   - **Method**: `GET`
-   - **Status Code**: `200 OK`
-   - **Headers**:
-     ```json
-     {
-       "Authorization": "Bearer jwt-token-example"
-     }
-     ```
-   - **Response**:
-     ```json
-     [
-       {
-         "id": 1,
-         "pose_id": 5,
-         "status": "Completed",
-         "custom_media": [
-           "https://example.com/uploads/media1.jpg",
-           "https://example.com/uploads/media2.jpg"
-         ]
-       },
-       {
-         "id": 2,
-         "pose_id": 8,
-         "status": "In Progress",
-         "custom_media": []
-       }
-     ]
-     ```
-
-8. **Update User Progression**
-
-   - **URL**: `/api/progressions/:id`
-   - **Method**: `PATCH`
-   - **Status Code**: `200 OK`
-   - **URL Parameters**:
-     - `id` (integer): The ID of the progression to update.
-   - **Request Body**:
-     ```json
-     {
-       "status": "Completed"
-     }
-     ```
-   - **Response**:
-     ```json
-     {
-       "message": "Progression updated successfully",
-       "progression": {
-         "id": 2,
-         "status": "Completed",
-         "custom_media": []
-       }
-     }
-     ```
-
-9. **Add Media to Progression**
-
-   - **URL**: `/api/progressions/:id/media`
-   - **Method**: `POST`
-   - **Status Code**: `201 Created`
-   - **URL Parameters**:
-     - `id` (integer): The ID of the progression.
-   - **Request Body**:
-     ```json
-     {
-       "url": "https://example.com/uploads/media3.jpg"
-     }
-     ```
-   - **Response**:
-     ```json
-     {
-       "message": "Media added successfully",
-       "media": {
-         "id": 3,
-         "progression_id": 2,
-         "url": "https://example.com/uploads/media3.jpg"
-       }
-     }
-     ```
-
-10. **Get Progression with Media**
-    - **URL**: `/api/progressions/:id`
+    - **URL**: `/api/progressions`
     - **Method**: `GET`
     - **Status Code**: `200 OK`
+    - **Headers**:
+      ```json
+      {
+        "Authorization": "Bearer jwt-token-example"
+      }
+      ```
+    - **Response**:
+
+      ```json
+      [
+        {
+          "id": 1,
+          "pose_id": 5,
+          "status": "Completed"
+        },
+        {
+          "id": 2,
+          "pose_id": 8,
+          "status": "In Progress"
+        }
+      ]
+      ```
+
+8.  **Update User Progression**
+
+    - **URL**: `/api/progressions/:id`
+    - **Method**: `PATCH`
+    - **Status Code**: `200 OK`
+    - **URL Parameters**:
+      - `id` (integer): The ID of the progression to update.
+    - **Request Body**:
+      ```json
+      {
+        "status": "Completed"
+      }
+      ```
     - **Response**:
       ```json
       {
-        "id": 2,
-        "status": "Completed",
-        "custom_media": [
-          "https://example.com/uploads/media1.jpg",
-          "https://example.com/uploads/media3.jpg"
-        ]
+        "message": "Progression updated successfully",
+        "progression": {
+          "id": 2,
+          "status": "Completed"
+        }
       }
       ```
+
+---
+
+#### Media Endpoints
+
+9.  **Get Media to Progression**
+
+    - **URL**: `/api/media/:progressionId`
+    - **Method**: `GET`
+    - **Status Code**: `200 OK`
+    - **URL Parameters**:
+      - `progressionId` (integer): The ID of the progression.
+    - **Response**:
+
+      ```json
+      [
+        {
+          "id": 1,
+          "progression_id": 2,
+          "custom_media": "https://example.com/uploads/media1.jpg",
+          "caption_feedback": "Great posture!"
+        },
+        {
+          "id": 2,
+          "progression_id": 2,
+          "custom_media": "https://example.com/uploads/media3.jpg",
+          "caption_feedback": "Try to keep your back straight."
+        }
+      ]
+      ```
+
+10. **Add Media to a Progression**
+
+    - **URL**: `/api/media`
+    - **Method**: `POST`
+    - **Status Code**: `201 Created`
+    - **Request Body**:
+
+      ```json
+      {
+        "progression_id": 2,
+        "custom_media": "https://example.com/uploads/media3.jpg",
+        "caption_feedback": "Try to keep your back straight."
+      }
+      ```
+
+    - **Response**:
+
+      ```json
+      {
+        "message": "Media added successfully",
+        "media": {
+          "id": 3,
+          "progression_id": 2,
+          "custom_media": "https://example.com/uploads/media3.jpg",
+          "caption_feedback": "Try to keep your back straight."
+        }
+      }
+      ```
+
+11. **Delete Media**
+
+    - **URL**: `/api/media/:id`
+    - **Method**: `Delete`
+    - **Status Code**: `204 No Content`
+    - **URL Parameters**:
+      - `id` (integer): The ID of the media entry to delete.
+    - **Response**: No response body
 
 ---
 
