@@ -56,7 +56,7 @@ Mastering physical movements like yoga, dance, or calisthenics is challenging du
 - **react-router-dom**: For page navigation.
 - **axios**: Handles API calls.
 - **sass**: Streamlines advanced styling.
-- **Mediapipe**: AI posture analysis.
+- **Mediapipe**: AI posture analysis (npm i @mediapipe/pose styled-components)
 
 #### **Backend**
 
