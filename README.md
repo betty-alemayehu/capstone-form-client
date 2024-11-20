@@ -86,7 +86,7 @@ Mastering physical movements like yoga, dance, or calisthenics is challenging du
    - _Usage_: Preloaded yoga pose data for initializing the app's tree nodes and pose cards.
    - _Limitations_: Limited to yoga poses; future expansion to other disciplines (e.g., dance or calisthenics) will require additional data sources or manual input.
 
-2. **Mediapipe API** ([MediaPipe Pose Landmarker](https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker)):
+2. **MediaPipe API** ([MediaPipe Pose Landmarker](https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker)):
 
    - Provides pre-trained pose estimation models for detecting and analyzing user posture.
    - _Usage_: Used to identify body landmarks and assess alignment for AI-powered feedback on poses (e.g., "Standing" vs. "Sitting").
@@ -119,7 +119,7 @@ client/
 │   ├── pages/
 │   │   ├── SplashScreen.jsx
 │   │   ├── LandingPage.jsx         # Landing page with get started or login options, includes signup modal
-│   │   ├── LoginPage.jsx            # Login page for user authentication
+│   │   ├── LoginPage.jsx           # Login page for user authentication
 │   │   ├── HomeTree.jsx            # Main page showing the user's tree path
 │   │   ├── PoseCard.jsx            # Signup page for new users
 │   │   └── ProfileSettings.jsx     # Profile settings, includes account deletion option and modal
