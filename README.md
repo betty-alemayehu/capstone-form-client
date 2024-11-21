@@ -92,11 +92,10 @@ Mastering physical movements like yoga, dance, or calisthenics is challenging du
 
 ## 🗺️ Sitemap
 
-- Splash screen
 - Landing Page + Sign Up Modal
 - Login Page
 - Home page (i.e. tree path)
-- Pose card
+- Pose card/details
 - Profile Settings + Delete Modal
 
 ```plaintext
