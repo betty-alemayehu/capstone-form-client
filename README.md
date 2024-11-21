@@ -112,7 +112,7 @@ client/
 │   │   ├── Tree.jsx                # Component to visualize and manage the progress tree
 │   │   ├── TreeBranch.jsx          # Component to visualize and manage the branches (units) of the tree
 │   │   ├── TreeNode.jsx            # Component to visualize and manage the nodes of the tree
-│   │   ├── PoseCard.jsx            # Component for displaying pose instructions and user-uploaded media
+│   │   ├── PoseCardWidget.jsx      # Component for displaying pose instructions and user-uploaded media
 │   │   └── PoseEvaluation.jsx      # Component for pose evaluation and image carousel with dynamic feedback
 │   ├── pages/
 │   │   ├── SplashScreen.jsx
