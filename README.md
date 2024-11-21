@@ -275,11 +275,14 @@ server/
        {
          "id": 5,
          "english_name": "Butterfly",
+         "sanskrit_name_adapted": "Baddha Konasana",
          "sanskrit_name": "Baddha Koṇāsana",
-         "pose_description": "In sitting position, bend both knees and drop the knees to each side...",
-         "pose_benefits": "Opens the hips and groins. Stretches the shoulders, rib cage, and back...",
+         "translation_name": "baddha = bound, koṇa = angle, āsana = posture",
+         "pose_description": "In sitting position, bend both knees and drop the knees to each side, opening the hips.  Bring the soles of the feet together and bring the heels as close to the groin as possible, keeping the knees close to the ground.  The hands may reach down and grasp and maneuver the feet so that the soles are facing upwards and the heels and little toes are connected.  The shoulders should be pulled back and no rounding of the spine.",
+         "pose_benefits": "Opens the hips and groins.  Stretches the shoulders, rib cage and back.  Stimulates the abdominal organs, lungs and heart.",
          "url_svg": "https://res.cloudinary.com/dko1be2jy/image/upload/fl_sanitize/v1676483074/yoga-api/5_i64gif.svg",
-         "url_png": "https://res.cloudinary.com/dko1be2jy/image/upload/fl_sanitize/v1676483074/yoga-api/5_i64gif.png"
+         "url_png": "https://res.cloudinary.com/dko1be2jy/image/upload/fl_sanitize/v1676483074/yoga-api/5_i64gif.png",
+         "url_svg_alt": "https://www.dropbox.com/s/3h2pts6xbn28dh7/butterfly%3F.svg?raw=1"
        }
      ]
      ```
@@ -296,11 +299,14 @@ server/
      {
        "id": 5,
        "english_name": "Butterfly",
+       "sanskrit_name_adapted": "Baddha Konasana",
        "sanskrit_name": "Baddha Koṇāsana",
-       "pose_description": "In sitting position, bend both knees and drop the knees to each side...",
-       "pose_benefits": "Opens the hips and groins. Stretches the shoulders, rib cage, and back...",
+       "translation_name": "baddha = bound, koṇa = angle, āsana = posture",
+       "pose_description": "In sitting position, bend both knees and drop the knees to each side, opening the hips.  Bring the soles of the feet together and bring the heels as close to the groin as possible, keeping the knees close to the ground.  The hands may reach down and grasp and maneuver the feet so that the soles are facing upwards and the heels and little toes are connected.  The shoulders should be pulled back and no rounding of the spine.",
+       "pose_benefits": "Opens the hips and groins.  Stretches the shoulders, rib cage and back.  Stimulates the abdominal organs, lungs and heart.",
        "url_svg": "https://res.cloudinary.com/dko1be2jy/image/upload/fl_sanitize/v1676483074/yoga-api/5_i64gif.svg",
-       "url_png": "https://res.cloudinary.com/dko1be2jy/image/upload/fl_sanitize/v1676483074/yoga-api/5_i64gif.png"
+       "url_png": "https://res.cloudinary.com/dko1be2jy/image/upload/fl_sanitize/v1676483074/yoga-api/5_i64gif.png",
+       "url_svg_alt": "https://www.dropbox.com/s/3h2pts6xbn28dh7/butterfly%3F.svg?raw=1"
      }
      ```
 
