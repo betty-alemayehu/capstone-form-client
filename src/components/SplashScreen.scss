@@ -1,0 +1,29 @@
+.splash-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f4f6f4; // background matches image background//
+}
+
+.splash-img {
+  font-size: 2rem;
+  //consider animation like duolingo owl
+  // animation: zoomInOut 1s ease-in-out;
+}
+
+// Zoom in and out animation //
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1); // Normal size //
+    opacity: 0; // Fade in //
+  }
+  50% {
+    transform: scale(1.5); // Zoom in //
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1); // Back to normal size //
+    opacity: 0; // Fade out //
+  }
+}

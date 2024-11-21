@@ -102,81 +102,83 @@ Mastering physical movements like yoga, dance, or calisthenics is challenging du
 ```plaintext
 client/
 ├── public/
-│   └── Assets/
+│   └── assets/
+│       ├── icons/
+│       └── images/
 ├── src/
 │   ├── components/
-│   │   ├── Splash.jsx
-│   │   ├── SignUpModal.jsx
-│   │   ├── DeleteModal.jsx
-│   │   ├── NavBar.jsx              # Component for styling NavBar on HomePage and Profile settings
-│   │   ├── Tree.jsx                # Component to visualize and manage the progress tree
-│   │   ├── TreeBranch.jsx          # Component to visualize and manage the branches (units) of the tree
-│   │   ├── TreeNode.jsx            # Component to visualize and manage the nodes of the tree
-│   │   ├── PoseCardWidget.jsx      # Component for displaying pose instructions and user-uploaded media
-│   │   └── PoseEvaluation.jsx      # Component for pose evaluation and image carousel with dynamic feedback
+│   │   ├── SplashScreen.jsx       # Splash animation shown on app launch
+│   │   ├── SignUpModal.jsx        # Modal for user sign-up form
+│   │   ├── DeleteModal.jsx        # Modal for account deletion confirmation
+│   │   ├── NavBar.jsx             # Navigation bar component
+│   │   ├── TreeNode.jsx           # Component for rendering individual nodes in the tree
+│   │   ├── PoseWidget.jsx         # Carousel to display pose images, including uploads
+│   │   ├── UploadEvaluation.jsx     # Component for evaluating poses and providing feedback
+│   │   └── SplashScreen.scss      # Styling for the SplashScreen
 │   ├── pages/
-│   │   ├── SplashScreen.jsx
-│   │   ├── LandingPage.jsx         # Landing page with get started or login options, includes signup modal
-│   │   ├── LoginPage.jsx           # Login page for user authentication
-│   │   ├── HomeTree.jsx            # Main page showing the user's tree path
-│   │   ├── PoseCard.jsx            # Signup page for new users
-│   │   └── ProfileSettings.jsx     # Profile settings, includes account deletion option and modal
+│   │   ├── SplashScreen.jsx       # Splash screen page
+│   │   ├── LandingPage.jsx        # Landing page with navigation options
+│   │   ├── LoginPage.jsx          # Login form for existing users
+│   │   ├── HomeTree.jsx           # Main tree visualization page
+│   │   ├── PoseDetails.jsx        # Detailed view of a pose, allows image upload
+│   │   └── ProfileSettings.jsx    # User profile page with editable details and account deletion
 │   ├── services/
-│   │   ├── api.js                  # Manages API calls between the frontend and backend
-│   │   └── mediapipeServ.js        # Handles Mediapipe integration for AI posture feedback
+│   │   ├── api.js                 # Centralized API management for yoga and related data
+│   │   └── mediapipeServ.js       # Placeholder for AI feedback integration
 │   ├── styles/
-│   │   ├── \_variables.scss
-│   │   ├── \_mixins.scss
-│   │   ├── \_global.scss
-│   │   └── \_typography.scss
-│   ├── App.jsx
-│   ├── index.scss
-│   └── main.jsx
-├── vite.config.js
-├── eslint.config.js
-├── .env.example
-├── .gitignore
-├── package.json
-└── package-lock.json
-
+│   │   ├── _variables.scss        # SCSS variables for consistent styling
+│   │   ├── _mixins.scss           # Reusable SCSS mixins
+│   │   ├── _global.scss           # Global SCSS styles
+│   │   └── _typography.scss       # Typography-specific SCSS styles
+│   ├── App.jsx                    # Main app component
+│   ├── index.scss                 # Root styles for the application
+│   └── main.jsx                   # Entry point for React application
+├── vite.config.js                 # Configuration for Vite
+├── eslint.config.js               # ESLint configuration for linting
+├── .env.example                   # Environment variable template
+├── .gitignore                     # Ignored files and directories for Git
+├── package.json                   # Dependencies and scripts for the project
+└── package-lock.json              # Locked dependencies for consistent installs
 ```
 
 ```plaintext
 server/
 ├── controllers/
-│   ├── authController.js           # Handles authentication logic (e.g., login, signup)
-│   ├── poseController.js           # Manages CRUD operations for poses
-│   ├── progressionController.js    # Handles user progression tracking and updates
-│   └── mediaController.js          # Handles CRUD operations for media files (e.g., upload, fetch, delete)
-├── routes/
-│   ├── authRoutes.js               # API routes for user authentication
-│   ├── poseRoutes.js               # API routes for fetching and managing pose data
-│   ├── progressionRoutes.js        # API routes for tracking and updating progressions
-│   └── mediaRoutes.js              # API routes for managing media files
-├── models/
-│   ├── User.js                     # Database model for user accounts and profile data
-│   ├── Pose.js                     # Database model for poses (e.g., name, difficulty, media links)
-│   ├── Progression.js              # Database model for tracking user progress for each pose
-│   └── Media.js                    # Database model for managing uploaded media files
+│   ├── PoseController.js          # Logic for handling pose-related API requests
+│   ├── UserController.js          # Logic for handling user-related API requests
+│   ├── ProgressionController.js   # Logic for handling progression-related API requests
+│   └── MediaController.js         # Logic for handling media-related API requests (e.g., uploads)
 ├── db/
-│   ├── dbConfig.js                 # MySQL database connection configuration
-│   ├── migrations/                 # Database schema migrations (e.g., creating tables)
-│   │   ├── create_users_table.js   # Migration for the Users table
-│   │   ├── create_progressions_table.js # Migration for the Progressions table
-│   │   └── create_media_table.js   # Migration for the Media table
-│   └── seeds/                      # Seed files to populate database with initial data
-│       ├── seed_users.js           # Seed data for users
-│       └── seed_media.js           # Seed data for media
-├── uploads/                        # Folder for storing user-uploaded media files
+│   ├── dbConfig.js                # Configuration for database connection using Knex.js
+│   ├── migrations/
+│   │   ├── create_users_table.js          # Migration to create the users table
+│   │   ├── create_poses_table.js          # Migration to create the poses table
+│   │   ├── create_progressions_table.js   # Migration to create the progressions table
+│   │   └── create_media_table.js          # Migration to create the media table
+│   └── seeds/
+│       ├── 01_seed_users.js        # Seeds for populating users table with initial data
+│       ├── 02_seed_poses.js        # Seeds for populating poses table with initial data
+│       ├── 03_seed_progressions.js # Seeds for populating progressions table with initial data
+│       └── 04_seed_media.js        # Seeds for populating media table with initial data
+├── knexfile.js                     # Configuration for Knex.js migrations and database setup
 ├── middleware/
-│   └── multerConfig.js             # Middleware configuration for handling file uploads (e.g., express file upload)
-├── server.js                       # Main entry point for starting the backend server
-├── .env.example                    # Example environment variables configuration
-├── .gitignore                      # List of files and directories to ignore in version control
-├── package.json                    # NPM package metadata and scripts
-└── package-lock.json               # NPM dependency lock file
-
-
+│   ├── authMiddleware.js           # Middleware for authentication and user authorization
+│   └── errorHandler.js             # Middleware for handling API errors and exceptions
+├── models/
+│   ├── Media.js                    # Model for interacting with the media table
+│   ├── Pose.js                     # Model for interacting with the poses table
+│   ├── Progression.js              # Model for interacting with the progressions table
+│   └── User.js                     # Model for interacting with the users table
+├── routes/
+│   ├── poseRoutes.js               # Routes for pose-related API endpoints
+│   ├── userRoutes.js               # Routes for user-related API endpoints
+│   ├── progressionRoutes.js        # Routes for progression-related API endpoints
+│   └── mediaRoutes.js              # Routes for media-related API endpoints
+├── uploads/                        # Directory for storing uploaded media files
+├── server.js                       # Main server file to set up the Express app and API routes
+├── package.json                    # Dependencies and scripts for the backend
+├── package-lock.json               # Locked dependencies for consistent installs
+└── .gitignore                      # Files and directories to ignore in version control
 ```
 
 ## 🖼️ Mockups
@@ -257,8 +259,7 @@ server/
    - **URL**: `/api/users/profile`
    - **Method**: `DELETE`
    - **Status Code**: `204 No Content`
-   - **Response**:
-     No response body.
+   - **Response**: No response body.
 
 ---
 
