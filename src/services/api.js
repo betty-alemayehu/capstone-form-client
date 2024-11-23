@@ -12,3 +12,13 @@ export const getPoseById = (id) => yogaApi.get(`poses/?id=${id}`);
 //=========================================================
 
 // Base instance for next set of server needs
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_URL, // Use environment variable for API base URL
+});
+
+// Example API Services
+export const registerUser = (userData) => API.post("/users/register", userData);
+export const loginUser = (credentials) => API.post("/users/login", credentials);
+
+// Export default API instance for general use
+export default API;

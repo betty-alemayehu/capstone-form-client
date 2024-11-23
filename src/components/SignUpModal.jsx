@@ -1,17 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../services/api"; // Import the function
 
 const SignUpModal = ({ onClose }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Signing up with:", { name, email, password });
-    onClose(); // Close the modal
-    navigate("/login"); // Redirect to login page
+    try {
+      await registerUser({ name, email, password });
+      onClose(); // Close the modal
+      navigate("/login");
+    } catch (err) {
+      console.error("Registration failed:", err);
+      setError(err.response?.data?.error || "Something went wrong");
+    }
   };
 
   return (

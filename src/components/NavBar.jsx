@@ -11,7 +11,7 @@ const NavBar = () => {
           <Link to="/profile-settings">Profile</Link>
         </li>
         <li>
-          <Link to="/logout">Logout</Link>
+          <Link to="/">Logout</Link>
         </li>
       </ul>
     </nav>

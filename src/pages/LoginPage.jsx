@@ -1,16 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API from "../services/api";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Logging in with:", { email, password });
-    // Navigate to the HomeTree after login
-    navigate("/home-tree");
+    try {
+      const response = await API.post("/users/login", { email, password });
+      console.log("Login successful:", response.data);
+      navigate("/home-tree");
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError(err.response?.data?.error || "Invalid credentials");
+    }
   };
 
   return (
@@ -29,7 +36,8 @@ const LoginPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Log In</button>
+        {error && <p className="error">{error}</p>}
+        <button type="submit">Log In</button>{" "}
       </form>
     </div>
   );
