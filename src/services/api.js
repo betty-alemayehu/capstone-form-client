@@ -17,8 +17,8 @@ const API = axios.create({
 });
 
 // Example API Services
-export const registerUser = (userData) => API.post("/users/register", userData);
-export const loginUser = (credentials) => API.post("/users/login", credentials);
+export const registerUser = (userData) => API.post("/users", userData);
+export const loginUser = (credentials) => API.post("/users", credentials);
 
 // Export default API instance for general use
 export default API;
