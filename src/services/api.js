@@ -52,6 +52,10 @@ export const uploadMedia = async (formData) => {
   });
 };
 
+export const updateProgressionStatus = async (userId, poseId) => {
+  return await axios.put("/progressions", { user_id: userId, pose_id: poseId });
+};
+
 // Fetch the most recent media for a specific progression
 export const getLatestMediaByProgression = (progressionId) =>
   API.get(`/media/latest`, { params: { progression_id: progressionId } });

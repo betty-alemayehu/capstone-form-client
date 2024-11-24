@@ -2,7 +2,12 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import PoseWidget from "../components/PoseWidget"; // Carousel for displaying media
-import { getPoseById, getUserMediaByPose, uploadMedia } from "../services/api";
+import {
+  getPoseById,
+  getUserMediaByPose,
+  uploadMedia,
+  updateProgressionStatus,
+} from "../services/api";
 import { UserContext } from "../contexts/UserContext";
 
 const PoseDetails = () => {
@@ -11,8 +16,8 @@ const PoseDetails = () => {
   const [pose, setPose] = useState(null); // Pose details
   const [media, setMedia] = useState([]); // Media for the pose and user
   const [file, setFile] = useState(null); // File for upload
-  const [progressionId, setProgressionId] = useState(null); // Progression ID (dynamic if needed)
   const [error, setError] = useState(null);
+  const [refresh, setRefresh] = useState(false); // State to trigger refresh
 
   // Fetch pose details and user-specific media
   useEffect(() => {
@@ -26,29 +31,28 @@ const PoseDetails = () => {
 
         // Fetch media for the user and pose
         const mediaResponse = await getUserMediaByPose(user.user_id, poseId);
-
-        if (mediaResponse.data.length === 0) {
-          console.warn("No media records found for the user and pose.");
-          setMedia([]); // Set media to an empty array for empty state handling
-        } else {
-          setMedia(mediaResponse.data);
-          setProgressionId(mediaResponse.data[0].progression_id); // Set progression ID if media exists
-        }
+        console.log("Media Response:", mediaResponse.data); // Debugging log
+        setMedia(mediaResponse.data);
       } catch (err) {
-        console.warn("Failed to fetch pose details or media:", err);
-        setError("An unexpected error occurred. Please try again.");
+        if (err.response?.status === 404) {
+          console.warn("No user media found for this pose.");
+          setMedia([]); // Handle as empty state
+        } else {
+          console.error("Failed to fetch pose details or media:", err);
+          setError("An unexpected error occurred. Please try again.");
+        }
       }
     };
 
     fetchDetails();
-  }, [poseId, user]);
+  }, [poseId, user, refresh]); // Add `refresh` to the dependency array
 
-  // Handle file upload
+  // Handle file upload and progression update
   const handleUpload = async (e) => {
     e.preventDefault();
 
-    if (!file || !progressionId) {
-      alert("Please select a file and ensure progression ID is available.");
+    if (!file) {
+      alert("Please select a file.");
       return;
     }
 
@@ -56,15 +60,21 @@ const PoseDetails = () => {
     formData.append("image", file);
     formData.append("user_id", user.user_id);
     formData.append("pose_id", poseId);
-    formData.append("progression_id", progressionId);
 
     try {
-      const response = await uploadMedia(formData);
+      // Upload the file
+      const uploadResponse = await uploadMedia(formData);
       alert("File uploaded successfully!");
-      setMedia([...media, response.data.mediaRecord]); // Update media state with new record
+
+      // Trigger a refresh by toggling the `refresh` state
+      setRefresh((prev) => !prev);
+
+      // Update progression status
+      await updateProgressionStatus(user.user_id, poseId);
+      alert("Progression status updated to 'complete'.");
     } catch (err) {
-      console.error("Error uploading file:", err);
-      setError("Failed to upload file.");
+      console.error("Error during upload or progression update:", err);
+      setError("Failed to upload file or update progression.");
     }
   };
 

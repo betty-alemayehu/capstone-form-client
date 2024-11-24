@@ -2,18 +2,22 @@
 import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
+import API from "../services/api";
 
 const PoseWidget = ({ pose, media }) => {
   const [carouselItems, setCarouselItems] = useState([]);
 
   useEffect(() => {
-    // Sort user media by date and place default image last
+    // Get the base URL from the API instance
+    const baseURL = API.defaults.baseURL;
+
+    // Add base URL only to media table URLs
     const sortedMedia = media.map((item) => ({
-      url: item.custom_media,
+      url: `${baseURL}${item.custom_media}`, // Prepend base URL for media table items
       name: item.caption_feedback || "User Uploaded Image",
     }));
 
-    // Add default image at the end
+    // Add default image at the end (no base URL for default)
     const defaultImage = { url: pose.url_png, name: "Default Pose Image" };
     setCarouselItems([...sortedMedia, defaultImage]);
   }, [pose, media]);
