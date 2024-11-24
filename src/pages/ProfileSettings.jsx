@@ -1,26 +1,74 @@
 //ProfileSettings
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext"; // Access the logged-in user
+import { getUserById, updateUserById, deleteUserById } from "../services/api"; // Import necessary API functions
 import DeleteModal from "../components/DeleteModal";
 
 const ProfileSettings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(""); // Optional password update
+  const [error, setError] = useState(null); // Handle potential errors
+  const [loading, setLoading] = useState(true); // Indicate loading state
+  const { user, logout } = useContext(UserContext); // Access logged-in user and logout function
+  const navigate = useNavigate();
+
+  // Fetch user details on component mount
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const response = await getUserById(user.user_id); // Fetch user details by ID
+        setName(response.data.name);
+        setEmail(response.data.email);
+      } catch (err) {
+        console.error("Error fetching user details:", err);
+        setError("Failed to load user details.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (user) {
+      fetchUserDetails();
+    } else {
+      setLoading(false); // No user logged in, stop loading
+    }
+  }, [user]);
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Edited: ", { name, email, password });
+
+    try {
+      // Create an object with updated fields
+      const updatedData = { name, email };
+      if (password) {
+        updatedData.password = password; // Include password if updated
+      }
+
+      await updateUserById(user.user_id, updatedData); // Update user details via PUT
+      alert("Profile updated successfully!");
+    } catch (err) {
+      console.error("Error updating profile:", err);
+      setError("Failed to update profile. Please try again.");
+    }
   };
 
   // Handle account deletion
-  const handleDelete = () => {
-    console.log("Account deleted");
-    setIsModalOpen(false);
-    navigate("/"); // Redirect to the landing page after deletion
+  const handleDelete = async () => {
+    try {
+      await deleteUserById(user.user_id); // Call API to delete user
+      logout(); // Clear user session
+      alert("Account deleted successfully.");
+      navigate("/"); // Redirect to the landing page after deletion
+    } catch (err) {
+      console.error("Error deleting account:", err);
+      setError("Failed to delete account. Please try again.");
+    } finally {
+      setIsModalOpen(false);
+    }
   };
 
   const handleOpenModal = () => {
@@ -30,6 +78,9 @@ const ProfileSettings = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p className="error">{error}</p>;
 
   return (
     <div>
@@ -49,7 +100,7 @@ const ProfileSettings = () => {
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="New Password (optional)"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />

@@ -23,6 +23,16 @@ API.interceptors.request.use(
 export const registerUser = (userData) => API.post("/users", userData);
 export const loginUser = (credentials) => API.post("/users/login", credentials);
 
+// Fetch user by ID
+export const getUserById = (id) => API.get(`/users/${id}`);
+
+// Update user by ID
+export const updateUserById = (id, updatedData) =>
+  API.put(`/users/${id}`, updatedData);
+
+// Update user by ID
+export const deleteUserById = (id) => API.delete(`/users/${id}`);
+
 // Pose-related services
 export const getAllPoses = () => API.get("/poses");
 export const getPoseById = (id) => API.get(`/poses/${id}`);
