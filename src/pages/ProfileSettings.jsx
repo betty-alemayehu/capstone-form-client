@@ -26,6 +26,7 @@ const ProfileSettings = () => {
         console.error("Error fetching user details:", err);
         setError("Failed to load user details.");
       } finally {
+        //cleanup actions that should always occur regardless of success or failure
         setLoading(false);
       }
     };
@@ -67,6 +68,7 @@ const ProfileSettings = () => {
       console.error("Error deleting account:", err);
       setError("Failed to delete account. Please try again.");
     } finally {
+      //cleanup actions that should always occur regardless of success or failure
       setIsModalOpen(false);
     }
   };

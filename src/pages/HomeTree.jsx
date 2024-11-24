@@ -22,6 +22,7 @@ const HomeTree = () => {
         console.error("Error fetching progressions:", err);
         setError("Failed to load progressions. Please try again.");
       } finally {
+        //cleanup actions that should always occur regardless of success or failure
         setLoading(false);
       }
     };
