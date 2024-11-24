@@ -43,6 +43,15 @@ export const getUserProgressions = (userId) =>
 
 // Media-related services
 
+// Upload media file
+export const uploadMedia = async (formData) => {
+  return API.post("/media/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
 // Fetch the most recent media for a specific progression
 export const getLatestMediaByProgression = (progressionId) =>
   API.get(`/media/latest`, { params: { progression_id: progressionId } });

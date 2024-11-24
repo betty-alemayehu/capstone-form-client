@@ -1,4 +1,5 @@
 //HomeTree.jsx
+import "./HomeTree.scss";
 import { useEffect, useState, useContext } from "react";
 import TreeNode from "../components/TreeNode";
 import { getUserProgressions } from "../services/api";

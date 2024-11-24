@@ -46,8 +46,8 @@ const TreeNode = ({ progression }) => {
         alt={progression.english_name || "Pose"}
         className="pose-image"
       />
-      <p className="pose-name">{progression.english_name}</p>
-      <p className="pose-status">{progression.status}</p>
+      {/* <p className="pose-name">{progression.english_name}</p> */}
+      {/* <p className="pose-status">{progression.status}</p> */}
     </li>
   );
 };
