@@ -3,8 +3,9 @@ import {
   Routes,
   Route,
   useLocation,
+  Navigate,
 } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import HomeTree from "./pages/HomeTree";
@@ -12,7 +13,20 @@ import PoseDetails from "./pages/PoseDetails";
 import ProfileSettings from "./pages/ProfileSettings";
 import NavBar from "./components/NavBar";
 import SplashScreen from "./components/SplashScreen";
+import { UserContext } from "./contexts/UserContext"; // Import UserContext for user data
 import "./App.scss";
+
+// ProtectedRoute Component
+const ProtectedRoute = ({ children }) => {
+  const { user } = useContext(UserContext); // Access user from UserContext
+
+  if (!user) {
+    // Redirect to login if user is not authenticated
+    return <Navigate to="/login" replace />;
+  }
+
+  return children; // Render protected content if user exists
+};
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(() => {
@@ -32,6 +46,7 @@ const App = () => {
 
   const AppContent = () => {
     const location = useLocation();
+
     // Determine if NavBar should be shown
     const showNavBar =
       !["/", "/login", "/logout"].includes(location.pathname) &&
@@ -45,11 +60,37 @@ const App = () => {
           <>
             {showNavBar && <NavBar />}
             <Routes>
+              {/* Public Routes */}
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/home-tree" element={<HomeTree />} />
-              <Route path="/pose-card/:id" element={<PoseDetails />} />
-              <Route path="/profile-settings" element={<ProfileSettings />} />
+
+              {/* Protected Routes */}
+              <Route
+                path="/home-tree"
+                element={
+                  <ProtectedRoute>
+                    <HomeTree />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/pose-card/:id"
+                element={
+                  <ProtectedRoute>
+                    <PoseDetails />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile-settings"
+                element={
+                  <ProtectedRoute>
+                    <ProfileSettings />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Fallback Route */}
               <Route path="*" element={<LandingPage />} />
             </Routes>
           </>

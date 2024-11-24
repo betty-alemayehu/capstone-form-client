@@ -1,3 +1,4 @@
+//ProfileSettings
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../components/DeleteModal";
@@ -9,18 +10,17 @@ const ProfileSettings = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Edited: ", { name, email, password });
   };
 
+  // Handle account deletion
   const handleDelete = () => {
-    // Insert logic for account deletion (API call or state update) here
     console.log("Account deleted");
     setIsModalOpen(false);
-
-    // Navigate to the home page after deletion
-    navigate("/");
+    navigate("/"); // Redirect to the landing page after deletion
   };
 
   const handleOpenModal = () => {

@@ -1,50 +1,54 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import TreeNode from "../components/TreeNode";
-import { getAllPoses } from "../services/api";
+import { getUserProgressions } from "../services/api";
+import { UserContext } from "../contexts/UserContext";
 
 const HomeTree = () => {
-  const [poses, setPoses] = useState([]);
+  const [progressions, setProgressions] = useState([]);
   const [error, setError] = useState(null);
-  const [totalPoses, setTotalPoses] = useState(0); // State to track the total count of poses
+  const [loading, setLoading] = useState(true);
+  const { user } = useContext(UserContext); // Get logged-in user's details
 
   useEffect(() => {
-    const fetchPoses = async () => {
+    const fetchProgressions = async () => {
       try {
-        const response = await getAllPoses();
-        setPoses(response.data);
-        setTotalPoses(response.data.length); // Set the total count of poses
+        setLoading(true);
+        const response = await getUserProgressions(user.user_id);
+        setProgressions(response.data); // Use `.data` to handle Axios response
       } catch (err) {
-        console.error("Error fetching poses:", err);
-        setError("Failed to load poses. Please try again.");
+        console.error("Error fetching progressions:", err);
+        setError("Failed to load progressions. Please try again.");
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchPoses();
-  }, []);
+    if (user) fetchProgressions();
+  }, [user]);
 
-  // Group poses into levels of 10 each
+  // Group progressions into levels of 10 each
   const levels = [];
-  for (let i = 0; i < poses.length; i += 10) {
-    levels.push(poses.slice(i, i + 10));
+  for (let i = 0; i < progressions.length; i += 10) {
+    levels.push(progressions.slice(i, i + 10));
   }
 
   return (
     <div className="tree">
-      <h1>Total Poses: {totalPoses}</h1>
-      {/* Future state: Update count to show completed poses */}
-
+      <h1>Total Progressions: {progressions.length}</h1>
+      {loading && <p>Loading progressions...</p>}
       {error && <p className="error">{error}</p>}
-
-      {levels.map((level, index) => (
-        <div key={index} className="tree-level">
-          <h2>Level {index + 1}</h2>
-          <ul className="pose-list">
-            {level.map((pose) => (
-              <TreeNode key={pose.id} pose={pose} />
-            ))}
-          </ul>
-        </div>
-      ))}
+      {!loading &&
+        !error &&
+        levels.map((level, index) => (
+          <div key={index} className="tree-level">
+            <h2>Level {index + 1}</h2>
+            <ul className="pose-list">
+              {level.map((progression) => (
+                <TreeNode key={progression.id} progression={progression} />
+              ))}
+            </ul>
+          </div>
+        ))}
     </div>
   );
 };

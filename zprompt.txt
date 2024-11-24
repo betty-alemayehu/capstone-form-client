@@ -1,0 +1,7 @@
+for this project instead of a local storage file setup for uploads, I would like to leverage express file upload (kind of like multer), my goal is that users on the site will be able to: 
+- upload a photo while on the pose details page
+- which will then be saved into the server side public uploads folder
+- and adding a new record to the media table whereby the current
+- the name of the file will follow
+
+all good - let's work on the other pages in the front end to render user specific information, e.g. I want add the status from the progressions table for the active user to the the home tree for each pose. additionally, the home tree nodes should be pulling the most recently created image from the media table that match the user 

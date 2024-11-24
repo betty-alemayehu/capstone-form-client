@@ -1,3 +1,4 @@
+//PoseDetails.jsx
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import PoseWidget from "../components/PoseWidget";
@@ -11,6 +12,7 @@ const PoseDetails = () => {
   const [uploadedImages, setUploadedImages] = useState([]); // State for uploaded images
   const [feedback, setFeedback] = useState(""); // State for feedback from evaluation
 
+  // Fetch pose details on component mount
   useEffect(() => {
     const fetchPose = async () => {
       try {
