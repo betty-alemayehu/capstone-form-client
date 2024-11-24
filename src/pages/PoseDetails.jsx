@@ -2,12 +2,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import PoseWidget from "../components/PoseWidget"; // Carousel for displaying media
-import {
-  getPoseById,
-  getUserMediaByPose,
-  uploadMedia,
-  updateProgressionStatus,
-} from "../services/api";
+import { getPoseById, getUserMediaByPose, uploadMedia } from "../services/api";
 import { UserContext } from "../contexts/UserContext";
 
 const PoseDetails = () => {
@@ -62,19 +57,15 @@ const PoseDetails = () => {
     formData.append("pose_id", poseId);
 
     try {
-      // Upload the file
+      // Upload the file (backend handles progression update)
       const uploadResponse = await uploadMedia(formData);
       alert("File uploaded successfully!");
 
       // Trigger a refresh by toggling the `refresh` state
       setRefresh((prev) => !prev);
-
-      // Update progression status
-      await updateProgressionStatus(user.user_id, poseId);
-      alert("Progression status updated to 'complete'.");
     } catch (err) {
-      console.error("Error during upload or progression update:", err);
-      setError("Failed to upload file or update progression.");
+      console.error("Error during upload:", err);
+      setError("Failed to upload file.");
     }
   };
 
