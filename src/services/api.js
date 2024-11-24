@@ -30,7 +30,7 @@ export const getUserById = (id) => API.get(`/users/${id}`);
 export const updateUserById = (id, updatedData) =>
   API.put(`/users/${id}`, updatedData);
 
-// Update user by ID
+// Delete user by ID
 export const deleteUserById = (id) => API.delete(`/users/${id}`);
 
 // Pose-related services
