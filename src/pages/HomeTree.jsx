@@ -1,3 +1,4 @@
+//HomeTree.jsx
 import { useEffect, useState, useContext } from "react";
 import TreeNode from "../components/TreeNode";
 import { getUserProgressions } from "../services/api";
@@ -7,14 +8,16 @@ const HomeTree = () => {
   const [progressions, setProgressions] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { user } = useContext(UserContext); // Get logged-in user's details
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchProgressions = async () => {
+      if (!user) return;
+
       try {
         setLoading(true);
         const response = await getUserProgressions(user.user_id);
-        setProgressions(response.data); // Use `.data` to handle Axios response
+        setProgressions(response.data || []);
       } catch (err) {
         console.error("Error fetching progressions:", err);
         setError("Failed to load progressions. Please try again.");
@@ -23,10 +26,9 @@ const HomeTree = () => {
       }
     };
 
-    if (user) fetchProgressions();
+    fetchProgressions();
   }, [user]);
 
-  // Group progressions into levels of 10 each
   const levels = [];
   for (let i = 0; i < progressions.length; i += 10) {
     levels.push(progressions.slice(i, i + 10));

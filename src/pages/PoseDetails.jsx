@@ -1,31 +1,39 @@
 //PoseDetails.jsx
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import PoseWidget from "../components/PoseWidget";
 import UploadEvaluation from "../components/UploadEvaluation";
-import { getPoseById } from "../services/api";
+import { getPoseById, getUserMediaByPose } from "../services/api";
+import { UserContext } from "../contexts/UserContext";
 
 const PoseDetails = () => {
-  const { id } = useParams();
-  const [pose, setPose] = useState(null);
+  const { id } = useParams(); // Pose ID from URL
+  const { user } = useContext(UserContext); // Get logged-in user info
+  const [pose, setPose] = useState(null); // Pose details
+  const [media, setMedia] = useState([]); // Media for the pose and user
   const [error, setError] = useState(null);
-  const [uploadedImages, setUploadedImages] = useState([]); // State for uploaded images
-  const [feedback, setFeedback] = useState(""); // State for feedback from evaluation
+  const [feedback, setFeedback] = useState("");
 
-  // Fetch pose details on component mount
   useEffect(() => {
-    const fetchPose = async () => {
+    const fetchDetails = async () => {
+      if (!user) return;
+
       try {
-        const response = await getPoseById(id);
-        setPose(response.data);
+        // Fetch pose details
+        const poseResponse = await getPoseById(id);
+        setPose(poseResponse.data);
+
+        // Fetch media for the user and pose
+        const mediaResponse = await getUserMediaByPose(user.user_id, id);
+        setMedia(mediaResponse.data);
       } catch (err) {
-        console.error("Error fetching pose:", err);
+        console.error("Error fetching pose details or media:", err);
         setError("Failed to load pose details. Please try again.");
       }
     };
 
-    fetchPose();
-  }, [id]);
+    fetchDetails();
+  }, [id, user]);
 
   if (error) return <p className="error">{error}</p>;
   if (!pose) return <p>Loading...</p>;
@@ -39,15 +47,21 @@ const PoseDetails = () => {
         />
       </Link>
       <h1>{pose.english_name}</h1>
-      <PoseWidget pose={pose} uploadedImages={uploadedImages} />
+
+      {/* Pass pose and user-specific media to PoseWidget */}
+      <PoseWidget pose={pose} media={media} />
+
       <p>{feedback || "Upload your pose to receive feedback!"}</p>
+
       <h2>Description:</h2>
       <p>{pose.pose_description}</p>
+
       <h3>Benefits:</h3>
       <p>{pose.pose_benefits}</p>
+
       <UploadEvaluation
-        setUploadedImages={setUploadedImages}
-        uploadedImages={uploadedImages}
+        uploadedImages={media} // Ensure this is the correct state
+        setUploadedImages={setMedia} // Ensure this is the correct setter function
         setFeedback={setFeedback}
       />
     </div>

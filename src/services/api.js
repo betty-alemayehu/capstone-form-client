@@ -1,18 +1,7 @@
 //api.js
 import axios from "axios";
 
-// Base instance for Yoga API
-const yogaApi = axios.create({
-  baseURL: "https://yoga-api-nzy4.onrender.com/v1/",
-});
-
-// Yoga API services
-export const getAllPoses = () => yogaApi.get("poses");
-export const getPoseById = (id) => yogaApi.get(`poses/?id=${id}`);
-
-//=========================================================
-
-// Base instance for next set of server needs
+// Base instance for your server API
 const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL, // Use environment variable for API base URL
 });
@@ -20,29 +9,37 @@ const API = axios.create({
 // Add a request interceptor to include the Authorization header
 API.interceptors.request.use(
   (config) => {
-    // Retrieve and parse the 'user' object
     const user = JSON.parse(localStorage.getItem("user"));
     const token = user?.token;
-
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`; // Add the Bearer token to headers
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
   (error) => Promise.reject(error)
 );
 
-// Example API Services
+// User-related services
 export const registerUser = (userData) => API.post("/users", userData);
-export const loginUser = (credentials) => API.post("/users", credentials);
+export const loginUser = (credentials) => API.post("/users/login", credentials);
 
-// Fetch progressions for a specific user
+// Pose-related services
+export const getAllPoses = () => API.get("/poses");
+export const getPoseById = (id) => API.get(`/poses/${id}`);
+
+// Progression-related services
 export const getUserProgressions = (userId) =>
   API.get(`/progressions/user`, { params: { user_id: userId } });
+
+// Media-related services
 
 // Fetch the most recent media for a specific progression
 export const getLatestMediaByProgression = (progressionId) =>
   API.get(`/media/latest`, { params: { progression_id: progressionId } });
+
+// Fetch all media for a specific user and pose
+export const getUserMediaByPose = (userId, poseId) =>
+  API.get(`/media/user-pose`, { params: { user_id: userId, pose_id: poseId } });
 
 // Export default API instance for general use
 export default API;
