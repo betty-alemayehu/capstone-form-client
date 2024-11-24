@@ -31,6 +31,11 @@ const HomeTree = () => {
     fetchProgressions();
   }, [user]);
 
+  // Calculate completed progressions
+  const completedCount = progressions.filter(
+    (progression) => progression.status === "Completed"
+  ).length;
+
   const levels = [];
   for (let i = 0; i < progressions.length; i += 10) {
     levels.push(progressions.slice(i, i + 10));
@@ -38,8 +43,10 @@ const HomeTree = () => {
 
   return (
     <div className="tree">
-      <h1>Total Progressions: {progressions.length}</h1>
-      {loading && <p>Loading progressions...</p>}
+      <h1>
+        Practiced: {completedCount}/{progressions.length}
+      </h1>
+      {loading && <p>Loading tree...</p>}
       {error && <p className="error">{error}</p>}
       {!loading &&
         !error &&
