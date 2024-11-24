@@ -1,3 +1,4 @@
+//App.jsx
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,11 +19,14 @@ import "./App.scss";
 
 // ProtectedRoute Component
 const ProtectedRoute = ({ children }) => {
-  const { user } = useContext(UserContext); // Access user from UserContext
+  const { user, loading } = useContext(UserContext); // Access user and loading state
+
+  if (loading) {
+    return <p>Loading...</p>; // Show loading while user data is being retrieved
+  }
 
   if (!user) {
-    // Redirect to login if user is not authenticated
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace />; // Redirect to login if user is not authenticated
   }
 
   return children; // Render protected content if user exists
@@ -46,11 +50,16 @@ const App = () => {
 
   const AppContent = () => {
     const location = useLocation();
+    const { loading } = useContext(UserContext);
 
     // Determine if NavBar should be shown
     const showNavBar =
       !["/", "/login", "/logout"].includes(location.pathname) &&
       !location.pathname.startsWith("/pose-card/");
+
+    if (loading) {
+      return <p>Loading application...</p>; // Optional global loading state
+    }
 
     return (
       <div className="app-container">
