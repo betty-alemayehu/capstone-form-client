@@ -12,7 +12,7 @@ const ProfileSettings = () => {
   const [password, setPassword] = useState(""); // Optional password update
   const [error, setError] = useState(null); // Handle potential errors
   const [loading, setLoading] = useState(true); // Indicate loading state
-  const { user, logout } = useContext(UserContext); // Access logged-in user and logout function
+  const { user, logout, updateUser } = useContext(UserContext); // Access logged-in user, logout, and updateUser function
   const navigate = useNavigate();
 
   // Fetch user details on component mount
@@ -26,8 +26,7 @@ const ProfileSettings = () => {
         console.error("Error fetching user details:", err);
         setError("Failed to load user details.");
       } finally {
-        //cleanup actions that should always occur regardless of success or failure
-        setLoading(false);
+        setLoading(false); // Set loading state to false after fetch
       }
     };
 
@@ -49,8 +48,17 @@ const ProfileSettings = () => {
         updatedData.password = password; // Include password if updated
       }
 
-      await updateUserById(user.user_id, updatedData); // Update user details via PUT
-      alert("Profile updated successfully!");
+      // Update user details via API
+      await updateUserById(user.user_id, updatedData);
+
+      // Refetch updated user details
+      const response = await getUserById(user.user_id);
+      updateUser({ name: response.data.name, email: response.data.email });
+
+      // Reset form state to reflect the updated user details
+      setName(response.data.name);
+      setEmail(response.data.email);
+      setPassword(""); // Clear password field
     } catch (err) {
       console.error("Error updating profile:", err);
       setError("Failed to update profile. Please try again.");
@@ -68,18 +76,13 @@ const ProfileSettings = () => {
       console.error("Error deleting account:", err);
       setError("Failed to delete account. Please try again.");
     } finally {
-      //cleanup actions that should always occur regardless of success or failure
       setIsModalOpen(false);
     }
   };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
+  const handleOpenModal = () => setIsModalOpen(true);
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const handleCloseModal = () => setIsModalOpen(false);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p className="error">{error}</p>;

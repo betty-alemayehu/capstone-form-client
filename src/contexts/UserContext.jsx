@@ -1,11 +1,11 @@
-//UserContext.jsx
+//UserContext.jsx// src/contexts/UserContext.jsx
 import { createContext, useState, useEffect } from "react";
 
 // Create UserContext
-export const UserContext = createContext();
+const UserContext = createContext();
 
 // Provide UserContext to children
-export const UserProvider = ({ children }) => {
+const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null); // Holds user info
   const [loading, setLoading] = useState(true); // Indicates loading state
 
@@ -30,9 +30,19 @@ export const UserProvider = ({ children }) => {
     setUser(null);
   };
 
+  // Update user details dynamically
+  const updateUser = (updatedUser) => {
+    const newUserData = { ...user, ...updatedUser }; // Merge updated fields with existing user data
+    setUser(newUserData);
+    localStorage.setItem("user", JSON.stringify(newUserData)); // Persist changes
+  };
+
   return (
-    <UserContext.Provider value={{ user, login, logout, loading }}>
+    <UserContext.Provider value={{ user, login, logout, updateUser, loading }}>
       {children}
     </UserContext.Provider>
   );
 };
+
+// Named exports for context and provider
+export { UserContext, UserProvider };

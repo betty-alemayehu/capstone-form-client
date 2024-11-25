@@ -11,6 +11,8 @@ const NavBar = () => {
 
   useEffect(() => {
     const fetchUserDetails = async () => {
+      if (!user?.user_id) return; // Avoid API call if user is not defined
+
       try {
         const response = await getUserById(user.user_id);
         setUserName(response.data.name);
@@ -18,8 +20,9 @@ const NavBar = () => {
         console.error("Error fetching user details:", error);
       }
     };
+
     fetchUserDetails();
-  }, [userName]);
+  }, [user]); // Run effect whenever user changes
 
   const handleLogout = () => {
     logout(); // Clear user session
@@ -40,7 +43,7 @@ const NavBar = () => {
         {user ? (
           <>
             <li>
-              <span>Welcome, {userName}</span>
+              <span>Welcome, {userName || user.name}</span>
             </li>
             <li>
               <button onClick={handleLogout}>Logout</button>
