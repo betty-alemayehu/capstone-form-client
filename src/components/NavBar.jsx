@@ -1,11 +1,25 @@
 //NavBar.jsx
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
+import { getUserById } from "../services/api.js";
 
 const NavBar = () => {
   const { user, logout } = useContext(UserContext); // Access user and logout from context
   const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const response = await getUserById(user.user_id);
+        setUserName(response.data.name);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+    fetchUserDetails();
+  }, [userName]);
 
   const handleLogout = () => {
     logout(); // Clear user session
@@ -26,7 +40,7 @@ const NavBar = () => {
         {user ? (
           <>
             <li>
-              <span>Welcome, {user.email}</span>
+              <span>Welcome, {userName}</span>
             </li>
             <li>
               <button onClick={handleLogout}>Logout</button>
