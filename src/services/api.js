@@ -21,7 +21,7 @@ API.interceptors.request.use(
 
 // User-related services
 export const registerUser = (userData) => API.post("/users", userData);
-export const loginUser = (credentials) => API.post("/users/login", credentials);
+// export const loginUser = (credentials) => API.post("/users/login", credentials);
 
 // Fetch user by ID
 export const getUserById = (id) => API.get(`/users/${id}`);
@@ -34,7 +34,7 @@ export const updateUserById = (id, updatedData) =>
 export const deleteUserById = (id) => API.delete(`/users/${id}`);
 
 // Pose-related services
-export const getAllPoses = () => API.get("/poses");
+// export const getAllPoses = () => API.get("/poses");
 export const getPoseById = (id) => API.get(`/poses/${id}`);
 
 // Progression-related services
@@ -52,9 +52,9 @@ export const uploadMedia = async (formData) => {
   });
 };
 
-export const updateProgressionStatus = async (userId, poseId) => {
-  return await axios.put("/progressions", { user_id: userId, pose_id: poseId });
-};
+// export const updateProgressionStatus = async (userId, poseId) => {
+//   return await axios.put("/progressions", { user_id: userId, pose_id: poseId });
+// };
 
 // Fetch the most recent media for a specific progression
 export const getLatestMediaByProgression = (progressionId) =>

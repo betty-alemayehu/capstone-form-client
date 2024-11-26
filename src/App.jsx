@@ -16,6 +16,7 @@ import NavBar from "./components/NavBar";
 import SplashScreen from "./components/SplashScreen";
 import { UserContext } from "./contexts/UserContext"; // Import UserContext for user data
 import "./App.scss";
+import "./styles/_global.scss";
 
 // ProtectedRoute Component
 const ProtectedRoute = ({ children }) => {
