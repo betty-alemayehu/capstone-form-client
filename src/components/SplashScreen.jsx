@@ -14,11 +14,20 @@ const SplashScreen = () => {
   }, [navigate]);
 
   return (
-    <div className="splash-screen">
-      <img
-        className="splash-img"
-        src="https://media1.tenor.com/m/t5rCDbus_cgAAAAC/blob-fufi.gif"
-      />
+    <div className="landing-page">
+      <div className="landing-page__image-wrapper">
+        <img
+          className="landing-page__image"
+          src="assets/images/Jumper.gif"
+          alt="gif animation of man doing forearm stand"
+        />
+      </div>
+      <section className="landing-page__ctas">
+        <button className="splash-screen__button">Get Started</button>
+        <button className="splash-screen__button">
+          I Already Have An Account
+        </button>
+      </section>
     </div>
   );
 };

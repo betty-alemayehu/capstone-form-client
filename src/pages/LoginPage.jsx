@@ -34,7 +34,7 @@ const LoginPage = () => {
       <div className="login-page__image-wrapper">
         <img
           className="login-page__image"
-          src="/assets/images/large_image_placeholder.png"
+          src="public/assets/images/Jumper.png"
         />
       </div>
       <section className="login-page__ctas">

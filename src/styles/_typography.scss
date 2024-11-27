@@ -46,6 +46,7 @@
   line-height: 1.125rem;
   font-weight: $font-weight-bold;
   padding-top: $spacing-gutter-mobile;
+  padding-bottom: $spacing-gutter-mobile;
 
   @include tablet {
     font-size: 0.875rem;

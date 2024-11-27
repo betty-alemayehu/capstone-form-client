@@ -63,7 +63,6 @@ select {
   border-radius: 8px;
   background: #f8f9fe;
   width: 100%;
-  box-sizing: border-box; // Ensures padding does not affect overall width
 
   &:focus {
     outline: 2px solid #006ffd;
@@ -73,11 +72,6 @@ select {
   &::placeholder {
     color: #71727a; // Placeholder color
     font-style: italic;
-  }
-
-  &[type="password"] {
-    font-size: 16px; // Slightly larger font for passwords if desired
-    letter-spacing: 0.5px; // Helps improve readability of hidden characters
   }
 }
 

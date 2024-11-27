@@ -18,10 +18,7 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <div className="landing-page__image-wrapper">
-        <img
-          className="landing-page__image"
-          src="/assets/images/large_image_placeholder.png"
-        />
+        <img className="landing-page__image" src="/assets/images/Jumper.png" />
       </div>
       {/* Get Started is the future home of the onboarding journey/tutorial */}
       <section className="landing-page__ctas">
