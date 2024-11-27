@@ -1,3 +1,4 @@
+// NavBar.scss
 .navbar {
   background: #fff;
   display: flex;
@@ -19,9 +20,28 @@
     font-size: 0.75rem; // Matches button font size
     font-weight: 600;
     cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1); // Subtle hover effect
+    }
 
     &--active {
-      background-color: blue; // Active color
+      color: #4caf50; // Active color (green, for example)
+    }
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+    filter: grayscale(100%); // Default: greyscale for inactive
+    opacity: 0.6; // Dim the icon slightly for inactive state
+    transition: filter 0.3s ease, opacity 0.3s ease;
+
+    &--active {
+      filter: none; // Remove greyscale for active
+      opacity: 1; // Fully visible for active
     }
   }
 

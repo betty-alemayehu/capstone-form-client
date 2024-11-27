@@ -8,9 +8,24 @@ const NavBar = () => {
   const [activeTab, setActiveTab] = useState(location.pathname); // Initialize with current path
 
   const tabs = [
-    { name: "Learn", link: "/home-tree" },
-    { name: "Collections", link: "/collections" },
-    { name: "Settings", link: "/profile-settings" },
+    {
+      name: "Learn",
+      link: "/home-tree",
+      icon: "/assets/icons/learn-icon.png",
+      iconAlt: "Learn icon",
+    },
+    {
+      name: "Collections",
+      link: "/collections",
+      icon: "/assets/icons/collections-icon.png",
+      iconAlt: "Collections icon",
+    },
+    {
+      name: "Settings",
+      link: "/profile-settings",
+      icon: "/assets/icons/settings-icon.png",
+      iconAlt: "Settings icon",
+    },
   ];
 
   return (
@@ -24,6 +39,13 @@ const NavBar = () => {
           }`}
           onClick={() => setActiveTab(tab.link)} // Update active tab on click
         >
+          <img
+            src={tab.icon}
+            alt={tab.iconAlt}
+            className={`navbar__icon ${
+              activeTab === tab.link ? "navbar__icon--active" : ""
+            }`}
+          />
           <span className="navbar__label">{tab.name}</span>
         </Link>
       ))}
