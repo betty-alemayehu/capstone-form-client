@@ -16,7 +16,7 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      <h1>Form Landing Page</h1>
+      <img src="/assets/images/large_image_placeholder.png" />
       {/* Get Started is the future home of the onboarding journey/tutorial */}
       <button className="button button--primary" onClick={handleOpenModal}>
         Get Started

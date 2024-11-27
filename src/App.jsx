@@ -55,72 +55,68 @@ const App = () => {
     const location = useLocation();
     const { loading } = useContext(UserContext);
 
-    // Determine if NavBar should be shown
     const showNavBar =
       !["/", "/login", "/logout"].includes(location.pathname) &&
       !location.pathname.startsWith("/pose-card/");
 
     if (loading) {
-      return <p>Loading application...</p>; // Optional global loading state
+      return <p>Loading application...</p>;
     }
 
     return (
       <div className="app-container">
         {showSplash ? (
-          <SplashScreen /> // Show splash screen animation
+          <SplashScreen />
         ) : (
           <>
-            {showNavBar && <NavBar />}
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<LoginPage />} />
-
-              {/* Protected Routes */}
-              <Route
-                path="/home-tree"
-                element={
-                  <ProtectedRoute>
-                    <HomeTree />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/pose-card/:id"
-                element={
-                  <ProtectedRoute>
-                    <PoseDetails />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/profile-settings"
-                element={
-                  <ProtectedRoute>
-                    <ProfileSettings />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/collections"
-                element={
-                  <ProtectedRoute>
-                    <CollectionsPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/pose-AI-cam"
-                element={
-                  <ProtectedRoute>
-                    <PoseAICamPage />
-                  </ProtectedRoute>
-                }
-              />
-
-              {/* Fallback Route */}
-              <Route path="*" element={<LandingPage />} />
-            </Routes>
+            <div className="app-content">
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route
+                  path="/home-tree"
+                  element={
+                    <ProtectedRoute>
+                      <HomeTree />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/pose-card/:id"
+                  element={
+                    <ProtectedRoute>
+                      <PoseDetails />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/profile-settings"
+                  element={
+                    <ProtectedRoute>
+                      <ProfileSettings />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/collections"
+                  element={
+                    <ProtectedRoute>
+                      <CollectionsPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/pose-AI-cam"
+                  element={
+                    <ProtectedRoute>
+                      <PoseAICamPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="*" element={<LandingPage />} />
+              </Routes>
+            </div>
+            {showNavBar && <NavBar className="nav-bar" />}
           </>
         )}
       </div>

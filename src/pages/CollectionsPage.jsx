@@ -44,7 +44,7 @@ const CollectionsPage = () => {
     <main className="collections-page">
       <form className="search-bar">
         <img
-          src="public/assets/icons/search-24px.svg"
+          src="/assets/icons/search-24px.svg"
           alt="Search"
           className="search-bar__icon"
         />

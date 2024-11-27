@@ -94,7 +94,7 @@ const ProfileSettings = () => {
       <div className="profile-card">
         <img
           className="profile-card__avatar"
-          src="public/assets/icons/image-placeholder.png"
+          src="/assets/icons/image-placeholder.png"
           alt="Profile avatar"
           loading="lazy"
         />
