@@ -34,7 +34,7 @@ const LoginPage = () => {
       <div className="login-page__image-wrapper">
         <img
           className="login-page__image"
-          src="public/assets/images/Jumper.png"
+          src="public/assets/images/Grid_figures.png"
           alt="Login Illustration"
         />
       </div>
