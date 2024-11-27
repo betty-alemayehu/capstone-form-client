@@ -29,7 +29,7 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />; // Redirect to login if user is not authenticated
+    return <Navigate to="/" replace />; // Redirect to login if user is not authenticated
   }
 
   return children; // Render protected content if user exists
