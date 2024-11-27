@@ -1,0 +1,32 @@
+//variables.scss
+// Font variables
+$font-family-base: "Inter", sans-serif;
+$font-weight-regular: 400;
+$font-weight-demi: 600;
+$font-weight-bold: 700;
+
+// Spacing and padding
+$spacing-base-unit: 0.5rem; // Base unit for scaling spacing
+$spacing-gutter-mobile: 1rem; // Mobile padding
+$spacing-gutter-tablet-desktop: 1.5rem; // Tablet and desktop padding
+
+// Site colors
+
+// Primary colors
+$color-primary-text: #323232; // Black for text
+$color-primary-cta: #006ffd; // Blue for CTAs
+$color-primary-label: #afafaf; // Silver for labels and secondary text
+$color-primary-bg: #ffffff; // White for background and CTA text
+
+// Secondary colors
+$color-secondary-divider: #e1e1e1; // Mercury for dividers
+$color-secondary-field-bg: #fafafa; // Alabaster for form fields
+
+// Error state
+$color-error: #d22d2d; // Red for error messages
+
+// Buttons
+$button-border-radius: 12px;
+$button-padding: 17px 16px;
+$button-min-height: 48px;
+$button-gap: 8px;

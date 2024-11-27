@@ -1,51 +1,40 @@
 //PoseDetails.jsx
-import { useEffect, useState, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
-import PoseWidget from "../components/PoseWidget"; // Carousel for displaying media
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { getPoseById, getUserMediaByPose, uploadMedia } from "../services/api";
 import { UserContext } from "../contexts/UserContext";
+import PoseCarousel from "../components/PoseCarousel";
+import "./PoseDetails.scss";
 
 const PoseDetails = () => {
-  const { id: poseId } = useParams(); // Pose ID from URL
-  const { user } = useContext(UserContext); // Get logged-in user info
-  const [pose, setPose] = useState(null); // Pose details
-  const [media, setMedia] = useState([]); // Media for the pose and user
-  const [file, setFile] = useState(null); // File for upload
+  const { id: poseId } = useParams();
+  const { user } = useContext(UserContext);
+  const [pose, setPose] = useState(null);
+  const [media, setMedia] = useState([]);
   const [error, setError] = useState(null);
-  const [refresh, setRefresh] = useState(false); // State to trigger refresh
+  const [refresh, setRefresh] = useState(false);
+  const navigate = useNavigate();
 
-  // Fetch pose details and user-specific media
   useEffect(() => {
     const fetchDetails = async () => {
       if (!user) return;
 
       try {
-        // Fetch pose details
         const poseResponse = await getPoseById(poseId);
         setPose(poseResponse.data);
 
-        // Fetch media for the user and pose
         const mediaResponse = await getUserMediaByPose(user.user_id, poseId);
-        console.log("Media Response:", mediaResponse.data); // Debugging log
         setMedia(mediaResponse.data);
       } catch (err) {
-        if (err.response?.status === 404) {
-          console.warn("No user media found for this pose.");
-          setMedia([]); // Handle as empty state
-        } else {
-          console.error("Failed to fetch pose details or media:", err);
-          setError("An unexpected error occurred. Please try again.");
-        }
+        setError("Failed to fetch pose details. Please try again.");
       }
     };
 
     fetchDetails();
-  }, [poseId, user, refresh]); // Add `refresh` to the dependency array
+  }, [poseId, user, refresh]);
 
-  // Handle file upload and progression update
-  const handleUpload = async (e) => {
-    e.preventDefault();
-
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
     if (!file) {
       alert("Please select a file.");
       return;
@@ -57,55 +46,70 @@ const PoseDetails = () => {
     formData.append("pose_id", poseId);
 
     try {
-      // Upload the file (backend handles progression update)
-      const uploadResponse = await uploadMedia(formData);
-      alert("File uploaded successfully!");
-
-      // Trigger a refresh by toggling the `refresh` state
+      await uploadMedia(formData);
       setRefresh((prev) => !prev);
     } catch (err) {
-      console.error("Error during upload:", err);
-      setError("Failed to upload file.");
+      setError("Failed to upload file. Please try again.");
     }
+  };
+
+  const triggerFileDialog = () => {
+    document.getElementById("upload-input").click();
   };
 
   if (!pose) return <p>Loading...</p>;
 
   return (
-    <div>
+    <article className="pose-details">
       {/* Back button */}
       <Link to="/home-tree">
-        <img
-          src="https://www.svgrepo.com/show/305142/arrow-ios-back.svg"
-          alt="back icon"
-        />
+        <img src="/assets/icons/arrow_back-24px.svg" alt="back icon" />
       </Link>
+      {/* Carousel */}
+      <PoseCarousel pose={pose} media={media} />
+      {/* Pose Header */}
+      <section className="pose-details__header">
+        <div className="pose-details__title">
+          <h1>{pose.english_name}</h1>
+          <h2>{pose.sanskrit_name}</h2>
+        </div>
+      </section>
+      {/* Description */}
+      <section className="pose-details__description">
+        <h3>Description:</h3>
+        <p>{pose.pose_description}</p>
+      </section>
 
-      {/* Pose title */}
-      <h1>{pose.english_name}</h1>
+      {/* Benefits */}
+      <section className="pose-details__benefits">
+        <h3>Benefits:</h3>
+        <p>{pose.pose_benefits}</p>
+      </section>
 
-      {/* PoseWidget for media carousel */}
-      <PoseWidget pose={pose} media={media} />
-
-      {/* Pose description */}
-      <h2>Description:</h2>
-      <p>{pose.pose_description}</p>
-
-      {/* Pose benefits */}
-      <h3>Benefits:</h3>
-      <p>{pose.pose_benefits}</p>
-
-      {/* File upload form */}
-      <form onSubmit={handleUpload}>
-        <h3>Upload Your Pose Image</h3>
+      {/* Upload Button */}
+      <section className="pose-details__actions">
         <input
+          id="upload-input"
+          className="pose-details__file-input"
           type="file"
           accept="image/*"
-          onChange={(e) => setFile(e.target.files[0])}
+          onChange={handleFileChange}
         />
-        <button type="submit">Upload Image</button>
-      </form>
-    </div>
+        <button
+          className="button button--secondary"
+          onClick={triggerFileDialog}
+        >
+          Upload Practice
+        </button>
+
+        <button
+          className="button button--primary"
+          onClick={() => navigate("/pose-AI-cam", { state: { poseId } })}
+        >
+          Check My Form
+        </button>
+      </section>
+    </article>
   );
 };
 

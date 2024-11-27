@@ -1,5 +1,189 @@
+//global.scss
+@use "./mixins" as *;
+@use "./variables" as *;
+@use "./typography" as *;
+
+// Global style reset
 * {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  border: 0.0625rem solid black;
+  font-family: $font-family-base;
+  color: $color-primary-text;
+  font-weight: $font-weight-regular;
+  line-height: 1.5; // Consistent line height
+}
+
+html {
+  font-size: 16px; // Base font size
+}
+
+body {
+  font-family: $font-family-base;
+  color: $color-primary-text;
+  background-color: $color-primary-bg;
+}
+
+h1 {
+  @include h1-page-header;
+}
+
+h2,
+.label {
+  @include h2-section-header;
+}
+
+h3 {
+  @include h3-sub-header;
+}
+
+h4 {
+  @include h4-labels-and-buttons;
+}
+
+p {
+  @include p-body-copy;
+}
+
+// Explicit font family for inputs, text areas, and selects
+input,
+textarea,
+select {
+  font-family: $font-family-base;
+}
+
+.input {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #1f2024;
+  padding: 12px;
+  border: 1px solid #c5c6cc;
+  border-radius: 8px;
+  background: #f8f9fe;
+  width: 100%;
+  box-sizing: border-box; // Ensures padding does not affect overall width
+
+  &:focus {
+    outline: 2px solid #006ffd;
+    outline-offset: 2px;
+  }
+
+  &::placeholder {
+    color: #71727a; // Placeholder color
+    font-style: italic;
+  }
+
+  &[type="password"] {
+    font-size: 16px; // Slightly larger font for passwords if desired
+    letter-spacing: 0.5px; // Helps improve readability of hidden characters
+  }
+}
+
+.text-secondary {
+  color: $color-primary-label;
+}
+
+a,
+label,
+button {
+  text-decoration: none;
+  color: inherit;
+}
+li {
+  list-style-type: none;
+}
+
+// Buttons
+.button {
+  font-family: $font-family-base;
+  font-size: 0.75rem;
+  align-self: stretch;
+  border-radius: $button-border-radius;
+  min-height: $button-min-height;
+  width: 100%;
+  gap: $button-gap;
+  overflow: hidden;
+  padding: $button-padding;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  white-space: nowrap;
+  text-align: center;
+
+  &--primary {
+    background: $color-primary-cta;
+    color: $color-primary-bg;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &--secondary {
+    background: transparent;
+    color: $color-primary-cta;
+    border: 1.5px solid $color-primary-cta;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &--tertiary {
+    background: transparent;
+    color: $color-primary-cta;
+    // border: 1.5px solid $color-primary-cta;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &--delete {
+    background: $color-error;
+    color: $color-primary-bg;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 24px;
+  background: #f8f9fe;
+  max-width: 343px;
+  width: 100%;
+  margin: 8px auto 0;
+  padding: 12px 16px;
+  gap: 16px;
+
+  &__icon {
+    width: 16px;
+    aspect-ratio: 1;
+  }
+
+  &__input {
+    background: transparent;
+    border: none;
+    flex: 1;
+    min-width: 240px;
+    font: 400 14px/1.2 "Inter", sans-serif;
+    color: #1f2024;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.error {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #d22d2d;
+  margin-bottom: 16px;
+  text-align: center;
 }

@@ -12,6 +12,8 @@ import LoginPage from "./pages/LoginPage";
 import HomeTree from "./pages/HomeTree";
 import PoseDetails from "./pages/PoseDetails";
 import ProfileSettings from "./pages/ProfileSettings";
+import CollectionsPage from "./pages/CollectionsPage";
+import PoseAICamPage from "./pages/PoseAICamPage";
 import NavBar from "./components/NavBar";
 import SplashScreen from "./components/SplashScreen";
 import { UserContext } from "./contexts/UserContext"; // Import UserContext for user data
@@ -96,6 +98,22 @@ const App = () => {
                 element={
                   <ProtectedRoute>
                     <ProfileSettings />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/collections"
+                element={
+                  <ProtectedRoute>
+                    <CollectionsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/pose-AI-cam"
+                element={
+                  <ProtectedRoute>
+                    <PoseAICamPage />
                   </ProtectedRoute>
                 }
               />

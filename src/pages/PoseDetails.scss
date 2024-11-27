@@ -1,0 +1,32 @@
+.pose-details {
+  align-self: stretch;
+  background: #fff;
+
+  &__header {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    &__icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+    }
+  }
+
+  &__description,
+  &__benefits {
+    margin-top: 24px;
+  }
+
+  &__actions {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    .pose-details__file-input {
+      display: none;
+    }
+  }
+}

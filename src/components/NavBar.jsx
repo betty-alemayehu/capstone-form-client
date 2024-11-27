@@ -3,15 +3,16 @@ import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { getUserById } from "../services/api.js";
+import "./NavBar.scss";
 
 const NavBar = () => {
-  const { user, logout } = useContext(UserContext); // Access user and logout from context
+  const { user, logout } = useContext(UserContext);
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
     const fetchUserDetails = async () => {
-      if (!user?.user_id) return; // Avoid API call if user is not defined
+      if (!user?.user_id) return;
 
       try {
         const response = await getUserById(user.user_id);
@@ -22,39 +23,32 @@ const NavBar = () => {
     };
 
     fetchUserDetails();
-  }, [user]); // Run effect whenever user changes
+  }, [user]);
 
-  const handleLogout = () => {
-    logout(); // Clear user session
-    navigate("/"); // Redirect to login page
-  };
+  // const handleLogout = () => {
+  //   logout();
+  //   navigate("/");
+  // };
 
-  console.log("Current user:", user); // Debugging log
+  const tabs = [
+    { name: "Learn", link: "/home-tree", active: false },
+    { name: "Collections", link: "/collections", active: false },
+    { name: "Settings", link: "/profile-settings", active: false },
+  ];
 
   return (
     <nav className="navbar">
-      <ul>
-        <li>
-          <Link to="/home-tree">Home</Link>
-        </li>
-        <li>
-          <Link to="/profile-settings">Profile</Link>
-        </li>
-        {user ? (
-          <>
-            <li>
-              <span>Welcome, {userName || user.name}</span>
-            </li>
-            <li>
-              <button onClick={handleLogout}>Logout</button>
-            </li>
-          </>
-        ) : (
-          <li>
-            <Link to="/">Login</Link>
-          </li>
-        )}
-      </ul>
+      {tabs.map((tab, index) => (
+        <Link
+          key={index}
+          to={tab.link}
+          className={`navbar__button ${
+            tab.active ? "navbar__button--active" : ""
+          }`}
+        >
+          <span className="navbar__label">{tab.name}</span>
+        </Link>
+      ))}
     </nav>
   );
 };

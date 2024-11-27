@@ -1,0 +1,83 @@
+//typography.scss
+
+@use "./variables" as *;
+@use "./mixins" as *;
+
+// Typography mixins
+
+// h1 Page Header
+@mixin h1-page-header {
+  font-family: $font-family-base;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: $font-weight-bold;
+  padding-top: $spacing-base-unit * 3;
+  padding-bottom: $spacing-base-unit * 2;
+
+  @include tablet {
+    font-size: 2.0625rem;
+    line-height: 2.75rem;
+    padding-top: 1.25rem;
+    padding-bottom: 0;
+  }
+}
+
+// h2 Section Header
+@mixin h2-section-header {
+  font-family: $font-family-base;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  font-weight: $font-weight-demi;
+  text-transform: uppercase;
+  color: $color-primary-label;
+  padding-top: $spacing-gutter-mobile;
+  padding-bottom: $spacing-base-unit;
+
+  @include tablet {
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+  }
+}
+
+// h3 Subheader
+@mixin h3-sub-header {
+  font-family: $font-family-base;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  font-weight: $font-weight-bold;
+  padding-top: $spacing-gutter-mobile;
+
+  @include tablet {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+}
+
+// h4 Labels and Buttons
+@mixin h4-labels-and-buttons {
+  font-family: $font-family-base;
+  font-size: 0.625rem;
+  line-height: 1.25rem;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  color: $color-primary-bg;
+
+  @include tablet {
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+  }
+}
+
+// Paragraph Body Copy
+@mixin p-body-copy {
+  font-family: $font-family-base;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  font-weight: $font-weight-regular;
+  padding-top: $spacing-gutter-mobile;
+
+  @include tablet {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+}

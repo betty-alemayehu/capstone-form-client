@@ -23,7 +23,6 @@ const HomeTree = () => {
         console.error("Error fetching progressions:", err);
         setError("Failed to load progressions. Please try again.");
       } finally {
-        //cleanup actions that should always occur regardless of success or failure
         setLoading(false);
       }
     };
@@ -36,28 +35,27 @@ const HomeTree = () => {
     (progression) => progression.status === "Completed"
   ).length;
 
-  const levels = [];
-  for (let i = 0; i < progressions.length; i += 10) {
-    levels.push(progressions.slice(i, i + 10));
-  }
+  // Alignment pattern for pose nodes
+  const getAlignment = (index) => {
+    const pattern = ["center", "right", "center", "left"];
+    return pattern[index % pattern.length];
+  };
 
   return (
     <div className="tree">
-      <h1>
+      <h1 className="tree__header">
         Practiced: {completedCount}/{progressions.length}
       </h1>
       {loading && <p>Loading tree...</p>}
       {error && <p className="error">{error}</p>}
       {!loading &&
         !error &&
-        levels.map((level, index) => (
-          <div key={index} className="tree-level">
-            <h2>Level {index + 1}</h2>
-            <ul className="pose-list">
-              {level.map((progression) => (
-                <TreeNode key={progression.id} progression={progression} />
-              ))}
-            </ul>
+        progressions.map((progression, index) => (
+          <div
+            key={progression.id}
+            className={`tree-node tree-node--${getAlignment(index)}`}
+          >
+            <TreeNode progression={progression} />
           </div>
         ))}
     </div>

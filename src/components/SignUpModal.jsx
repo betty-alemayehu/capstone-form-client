@@ -30,25 +30,32 @@ const SignUpModal = ({ onClose }) => {
           <input
             type="text"
             placeholder="Name"
+            className="input"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <input
             type="email"
             placeholder="Email"
+            className="input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
+            className="input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">Sign Up</button>
+          <button className="button button--primary" type="submit">
+            Sign Up
+          </button>
         </form>
 
-        <button onClick={onClose}>Cancel</button>
+        <button className="button button--secondary" onClick={onClose}>
+          Cancel
+        </button>
       </div>
     </div>
   );

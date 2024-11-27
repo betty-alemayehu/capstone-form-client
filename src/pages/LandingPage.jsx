@@ -18,8 +18,15 @@ const LandingPage = () => {
     <div className="landing-page">
       <h1>Form Landing Page</h1>
       {/* Get Started is the future home of the onboarding journey/tutorial */}
-      <button onClick={handleOpenModal}>Get Started</button>
-      <button onClick={handleNavigateToLogin}>I Already Have An Account</button>
+      <button className="button button--primary" onClick={handleOpenModal}>
+        Get Started
+      </button>
+      <button
+        className="button button--secondary"
+        onClick={handleNavigateToLogin}
+      >
+        I Already Have An Account
+      </button>
 
       {showSignUpModal && <SignUpModal onClose={handleCloseModal} />}
     </div>

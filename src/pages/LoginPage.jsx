@@ -37,6 +37,7 @@ const LoginPage = () => {
         <input
           type="email"
           placeholder="Email"
+          className="input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -44,12 +45,15 @@ const LoginPage = () => {
         <input
           type="password"
           placeholder="Password"
+          className="input"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
         {error && <p className="error">{error}</p>}
-        <button type="submit">Log In</button>
+        <button className="button button--primary" type="submit">
+          Log In
+        </button>
       </form>
     </div>
   );

@@ -1,9 +1,10 @@
-//ProfileSettings
+//ProfileSettings.jsx
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext"; // Access the logged-in user
 import { getUserById, updateUserById, deleteUserById } from "../services/api"; // Import necessary API functions
 import DeleteModal from "../components/DeleteModal";
+import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,35 +89,57 @@ const ProfileSettings = () => {
   if (error) return <p className="error">{error}</p>;
 
   return (
-    <div>
-      <h1>Profile Settings</h1>
-      <form onSubmit={handleSubmit}>
+    <main className="profile-settings">
+      <h1 className="profile-settings__title">Settings</h1>
+      <div className="profile-card">
+        <img
+          className="profile-card__avatar"
+          src="public/assets/icons/image-placeholder.png"
+          alt="Profile avatar"
+          loading="lazy"
+        />
+        <div className="profile-card__info">
+          <h2 className="profile-card__name">name</h2>
+          <p className="profile-card__username">username</p>
+        </div>
+      </div>
+      <form className="profile-settings__form" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="profile-settings__input input"
         />
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="profile-settings__input input"
         />
         <input
           type="password"
           placeholder="New Password (optional)"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="profile-settings__input input"
         />
-        <button type="submit">Save</button>
+        <button type="submit" className="button button--primary">
+          Save
+        </button>
       </form>
-      <button onClick={handleOpenModal}>Delete Account</button>
 
+      <button className="button button--secondary" onClick={logout}>
+        Logout
+      </button>
+      <button className="button button--tertiary" onClick={handleOpenModal}>
+        Delete Account
+      </button>
       {isModalOpen && (
         <DeleteModal onDelete={handleDelete} onClose={handleCloseModal} />
       )}
-    </div>
+    </main>
   );
 };
 
