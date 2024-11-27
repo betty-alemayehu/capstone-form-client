@@ -27,7 +27,6 @@ const SignUpModal = ({ onClose }) => {
   const handleOverlayClick = (e) => {
     if (e.target.className === "sign-up-modal") {
       onClose(); // Close modal if the overlay is clicked
-      navigate("/"); // Navigate back to landing page
     }
   };
 

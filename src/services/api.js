@@ -21,7 +21,7 @@ API.interceptors.request.use(
 
 // User-related services
 export const registerUser = (userData) => API.post("/users", userData);
-// export const loginUser = (credentials) => API.post("/users/login", credentials);
+export const loginUser = (credentials) => API.post("/users/login", credentials);
 
 // Fetch user by ID
 export const getUserById = (id) => API.get(`/users/${id}`);
