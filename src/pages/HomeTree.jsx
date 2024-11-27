@@ -43,9 +43,13 @@ const HomeTree = () => {
 
   return (
     <div className="tree">
-      <h1 className="tree__header">
-        Practiced: {completedCount}/{progressions.length}
-      </h1>
+      <div className="tree__header">
+        <h1>Yoga</h1>
+        <h2>
+          {" "}
+          {completedCount}/{progressions.length}
+        </h2>
+      </div>
       {loading && <p>Loading tree...</p>}
       {error && <p className="error">{error}</p>}
       {!loading &&

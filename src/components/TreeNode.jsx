@@ -47,8 +47,9 @@ const TreeNode = ({ progression }) => {
       <img
         src={imageSrc}
         alt={progression.english_name || "Pose"}
-        className="pose-image"
+        className={`${progression.status} "pose-image"`}
       />
+      {/* <p>{progression.status}</p> */}
       {/* <p className="pose-name">{progression.english_name}</p> */}
       {/* <p className="pose-status">{progression.status}</p> */}
     </li>
