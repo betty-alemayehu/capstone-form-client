@@ -91,18 +91,14 @@ const ProfileSettings = () => {
   return (
     <main className="profile-settings">
       <h1 className="profile-settings__title">Settings</h1>
-      <div className="profile-card">
-        <img
-          className="profile-card__avatar"
-          src="/assets/icons/image-placeholder.png"
-          alt="Profile avatar"
-          loading="lazy"
-        />
-        <div className="profile-card__info">
-          <h2 className="profile-card__name">{name}</h2>
-          <p className="profile-card__username">{email}</p>
-        </div>
-      </div>
+
+      <img
+        className="profile-card__avatar"
+        src="/assets/images/User_placeholder.jpg"
+        alt="Profile avatar"
+        loading="lazy"
+      />
+
       <form className="profile-settings__form" onSubmit={handleSubmit}>
         <input
           type="text"
