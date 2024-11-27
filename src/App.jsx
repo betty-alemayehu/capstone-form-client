@@ -56,7 +56,7 @@ const App = () => {
     const { loading } = useContext(UserContext);
 
     const showNavBar =
-      !["/", "/login", "/logout"].includes(location.pathname) &&
+      !["/", "/login", "/logout", "/pose-AI-cam"].includes(location.pathname) &&
       !location.pathname.startsWith("/pose-card/");
 
     if (loading) {
