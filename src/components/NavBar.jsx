@@ -1,39 +1,16 @@
-//NavBar.jsx
-import { useContext, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
-import { getUserById } from "../services/api.js";
+// NavBar.jsx
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./NavBar.scss";
 
 const NavBar = () => {
-  const { user, logout } = useContext(UserContext);
-  const navigate = useNavigate();
-  const [userName, setUserName] = useState("");
-
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      if (!user?.user_id) return;
-
-      try {
-        const response = await getUserById(user.user_id);
-        setUserName(response.data.name);
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-      }
-    };
-
-    fetchUserDetails();
-  }, [user]);
-
-  // const handleLogout = () => {
-  //   logout();
-  //   navigate("/");
-  // };
+  const location = useLocation(); // Hook to get the current route
+  const [activeTab, setActiveTab] = useState(location.pathname); // Initialize with current path
 
   const tabs = [
-    { name: "Learn", link: "/home-tree", active: false },
-    { name: "Collections", link: "/collections", active: false },
-    { name: "Settings", link: "/profile-settings", active: false },
+    { name: "Learn", link: "/home-tree" },
+    { name: "Collections", link: "/collections" },
+    { name: "Settings", link: "/profile-settings" },
   ];
 
   return (
@@ -43,8 +20,9 @@ const NavBar = () => {
           key={index}
           to={tab.link}
           className={`navbar__button ${
-            tab.active ? "navbar__button--active" : ""
+            activeTab === tab.link ? "navbar__button--active" : ""
           }`}
+          onClick={() => setActiveTab(tab.link)} // Update active tab on click
         >
           <span className="navbar__label">{tab.name}</span>
         </Link>
