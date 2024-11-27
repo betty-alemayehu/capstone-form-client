@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignUpModal from "../components/SignUpModal";
+import "./LandingPage.scss";
 
 const LandingPage = () => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
@@ -16,18 +17,24 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      <img src="/assets/images/large_image_placeholder.png" />
+      <div className="landing-page__image-wrapper">
+        <img
+          className="landing-page__image"
+          src="/assets/images/large_image_placeholder.png"
+        />
+      </div>
       {/* Get Started is the future home of the onboarding journey/tutorial */}
-      <button className="button button--primary" onClick={handleOpenModal}>
-        Get Started
-      </button>
-      <button
-        className="button button--secondary"
-        onClick={handleNavigateToLogin}
-      >
-        I Already Have An Account
-      </button>
-
+      <section className="landing-page__ctas">
+        <button className="button button--primary" onClick={handleOpenModal}>
+          Get Started
+        </button>
+        <button
+          className="button button--secondary"
+          onClick={handleNavigateToLogin}
+        >
+          I Already Have An Account
+        </button>
+      </section>
       {showSignUpModal && <SignUpModal onClose={handleCloseModal} />}
     </div>
   );

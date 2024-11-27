@@ -99,8 +99,8 @@ const ProfileSettings = () => {
           loading="lazy"
         />
         <div className="profile-card__info">
-          <h2 className="profile-card__name">name</h2>
-          <p className="profile-card__username">username</p>
+          <h2 className="profile-card__name">{name}</h2>
+          <p className="profile-card__username">{email}</p>
         </div>
       </div>
       <form className="profile-settings__form" onSubmit={handleSubmit}>
@@ -129,7 +129,7 @@ const ProfileSettings = () => {
           Save
         </button>
       </form>
-
+      <hr></hr>
       <button className="button button--secondary" onClick={logout}>
         Logout
       </button>

@@ -1,12 +1,13 @@
+//SignUpModal.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/api"; // Import the function
+import "./SignUpModal.scss";
 
 const SignUpModal = ({ onClose }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -18,15 +19,22 @@ const SignUpModal = ({ onClose }) => {
       navigate("/login");
     } catch (err) {
       console.error("Registration failed:", err);
-      setError(err.response?.data?.error || "Something went wrong");
+    }
+  };
+
+  const handleOverlayClick = (e) => {
+    if (e.target.className === "sign-up-modal") {
+      onClose(); // Close modal if the overlay is clicked
+      navigate("/"); // Navigate back to landing page
     }
   };
 
   return (
-    <div className="sign-up-modal">
+    <div className="sign-up-modal" onClick={handleOverlayClick}>
       <div className="modal-content">
-        <h2>Sign Up</h2>
-        <form onSubmit={handleSubmit}>
+        <h1>Sign Up</h1>
+        <form className="modal-form" onSubmit={handleSubmit}>
+          <label className="h3">Name</label>
           <input
             type="text"
             placeholder="Name"
@@ -34,6 +42,7 @@ const SignUpModal = ({ onClose }) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+          <label className="h3">Email</label>
           <input
             type="email"
             placeholder="Email"
@@ -41,6 +50,7 @@ const SignUpModal = ({ onClose }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <label className="h3">Password</label>
           <input
             type="password"
             placeholder="Password"
@@ -52,7 +62,6 @@ const SignUpModal = ({ onClose }) => {
             Sign Up
           </button>
         </form>
-
         <button className="button button--secondary" onClick={onClose}>
           Cancel
         </button>

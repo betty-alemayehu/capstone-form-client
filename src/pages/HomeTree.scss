@@ -16,7 +16,11 @@
 .tree-node {
   display: flex;
   justify-content: center;
-  margin: 24px 0;
+  margin: 12px 0;
+  img {
+    max-width: 4rem;
+    max-height: 4rem;
+  }
 
   &--center {
     justify-content: center;
@@ -24,12 +28,12 @@
 
   &--right {
     justify-content: flex-end;
-    padding-right: 20%;
+    padding-right: 30%;
   }
 
   &--left {
     justify-content: flex-start;
-    padding-left: 20%;
+    padding-left: 30%;
   }
 }
 
