@@ -23,21 +23,21 @@ const PoseCarousel = ({ pose, media }) => {
   };
 
   return (
-    <div className="pose-widget">
-      <div className="pose-widget__carousel">
-        <div className="pose-widget__image-wrapper">
+    <div className="pose-carousel">
+      <div className="pose-carousel__carousel">
+        <div className="pose-carousel__image-wrapper">
           <img
-            className="pose-widget__image"
+            className="pose-carousel__image"
             src={carouselItems[currentSlide]?.url}
             alt={carouselItems[currentSlide]?.name || "Pose Image"}
           />
         </div>
-        <nav className="pose-widget__dots">
+        <nav className="pose-carousel__dots">
           {carouselItems.map((_, index) => (
             <button
               key={index}
-              className={`pose-widget__dot ${
-                index === currentSlide ? "pose-widget__dot--active" : ""
+              className={`pose-carousel__dot ${
+                index === currentSlide ? "pose-carousel__dot--active" : ""
               }`}
               onClick={() => handleDotClick(index)}
               aria-label={
@@ -49,7 +49,7 @@ const PoseCarousel = ({ pose, media }) => {
           ))}
         </nav>
       </div>
-      <figcaption className="pose-widget__caption">
+      <figcaption className="pose-carousel__caption">
         {carouselItems[currentSlide]?.name}
       </figcaption>
     </div>

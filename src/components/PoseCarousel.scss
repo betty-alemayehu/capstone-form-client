@@ -1,5 +1,5 @@
 //PoseCarousel.scss
-.pose-widget {
+.pose-carousel {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +24,7 @@
   &__image {
     width: 100%; // Take full width
     height: 100%; // Take full height
-    object-fit: fit; // Ensure the image covers the container area
+    object-fit: cover; // Ensure the image covers the container area
     object-position: center; // Center the image within the container
   }
 
