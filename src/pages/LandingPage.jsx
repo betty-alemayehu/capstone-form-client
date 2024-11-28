@@ -20,7 +20,7 @@ const LandingPage = () => {
       <div className="landing-page__image-wrapper">
         <img
           className="landing-page__image"
-          src="/assets/images/Grid_figures.png"
+          src="/assets/images/pincha_animation.png"
         />
       </div>
       {/* Get Started is the future home of the onboarding journey/tutorial */}

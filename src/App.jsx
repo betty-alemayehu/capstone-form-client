@@ -46,7 +46,7 @@ const App = () => {
       const timer = setTimeout(() => {
         setShowSplash(false);
         sessionStorage.setItem("splashShown", "true"); // Mark splash as shown for the session
-      }, 3000);
+      }, 3500);
       return () => clearTimeout(timer); // Cleanup timer on unmount
     }
   }, [showSplash]);

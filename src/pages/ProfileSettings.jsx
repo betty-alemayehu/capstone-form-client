@@ -108,7 +108,7 @@ const ProfileSettings = () => {
 
       <img
         className="profile-card__avatar"
-        src="/assets/images/User_placeholder.jpg"
+        src="/assets/images/User_placeholder.png"
         alt="Profile avatar"
         loading="lazy"
       />

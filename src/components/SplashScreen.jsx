@@ -18,7 +18,7 @@ const SplashScreen = () => {
       <div className="landing-page__image-wrapper">
         <img
           className="landing-page__image"
-          src="assets/images/Grid_figures.gif"
+          src="assets/images/pincha_animation.gif"
           alt="gif animation of man doing forearm stand"
         />
       </div>
