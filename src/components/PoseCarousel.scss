@@ -38,25 +38,24 @@
   &__dot {
     border: none;
     border-radius: 24px;
-    background: var(--Neutral-Dark-Darkest, #1f2024);
     opacity: 0.1;
     width: 8px;
     height: 8px;
     cursor: pointer;
 
     &:focus-visible {
-      outline: 2px solid var(--Highlight-Darkest, #006ffd);
+      outline: 2px solid #006ffd;
       outline-offset: 2px;
     }
 
     &--active {
-      background: var(--Highlight-Darkest, #006ffd);
+      background: #006ffd;
       opacity: 1;
     }
   }
 
   &__caption {
-    color: var(--Neutral-Dark-Light, #71727a);
+    color: #71727a;
     font-family: "Inter", sans-serif;
     font-size: 12px;
     font-weight: 400;
