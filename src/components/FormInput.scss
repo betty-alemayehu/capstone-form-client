@@ -1,4 +1,6 @@
 .form-input {
+  display: flex;
+  flex-direction: column;
   &__label {
     font-weight: bold;
     margin-bottom: 4px;
@@ -6,6 +8,27 @@
   &__input {
     border: 1px solid #ccc;
     padding: 8px;
+
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #1f2024;
+    padding: 12px;
+    border: 1px solid #c5c6cc;
+    border-radius: 8px;
+    background: #f8f9fe;
+    width: 100%;
+
+    &:focus {
+      outline: 2px solid #006ffd;
+      outline-offset: 2px;
+    }
+
+    &::placeholder {
+      color: #71727a; // Placeholder color
+      font-style: italic;
+    }
+
     &--error {
       border-color: red;
     }
