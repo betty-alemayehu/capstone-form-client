@@ -52,6 +52,10 @@ export const uploadMedia = async (formData) => {
   });
 };
 
+export const getUserProgressionsWithMedia = async (userId) => {
+  return API.get(`/progressions/user/${userId}/media`);
+};
+
 // export const updateProgressionStatus = async (userId, poseId) => {
 //   return await axios.put("/progressions", { user_id: userId, pose_id: poseId });
 // };

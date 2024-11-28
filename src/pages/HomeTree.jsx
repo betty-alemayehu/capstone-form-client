@@ -2,7 +2,7 @@
 import "./HomeTree.scss";
 import { useEffect, useState, useContext } from "react";
 import TreeNode from "../components/TreeNode";
-import { getUserProgressions } from "../services/api";
+import { getUserProgressionsWithMedia } from "../services/api";
 import { UserContext } from "../contexts/UserContext";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -10,38 +10,38 @@ import "react-circular-progressbar/dist/styles.css";
 const HomeTree = () => {
   const [progressions, setProgressions] = useState([]);
   const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(true);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    const fetchProgressions = async () => {
+    const fetchProgressionsWithMedia = async () => {
       if (!user) return;
 
       try {
-        // setLoading(true);
-        const response = await getUserProgressions(user.user_id);
-        setProgressions(response.data || []);
+        const response = await getUserProgressionsWithMedia(user.user_id);
+        console.log("API Response:", response); // Debugging
+
+        // Access the `data` property from the response object
+        const data = response.data;
+        setProgressions(Array.isArray(data) ? data : []); // Validate array response
       } catch (err) {
-        console.error("Error fetching progressions:", err);
+        console.error("Error fetching progressions with media:", err);
         setError("Failed to load progressions. Please try again.");
-      } finally {
-        // setLoading(false);
       }
     };
 
-    fetchProgressions();
+    fetchProgressionsWithMedia();
   }, [user]);
 
-  // Calculate completed progressions
-  const completedCount = progressions.filter(
-    (progression) => progression.status === "Completed"
-  ).length;
+  const completedCount = Array.isArray(progressions)
+    ? progressions.filter((progression) => progression.status === "Completed")
+        .length
+    : 0;
+
   const percentageComplete =
     progressions.length > 0
       ? Math.round((completedCount / progressions.length) * 100)
       : 0;
 
-  // Alignment pattern for pose nodes
   const getAlignment = (index) => {
     const pattern = [
       "center",
@@ -66,26 +66,24 @@ const HomeTree = () => {
             text={`${percentageComplete}%`}
             styles={buildStyles({
               textSize: "16px",
-              pathColor: "#4caf50", // Green progress bar
-              textColor: "#4caf50", // Green text
-              trailColor: "#d6d6d6", // Light gray trail
+              pathColor: "#4caf50",
+              textColor: "#4caf50",
+              trailColor: "#d6d6d6",
             })}
           />
         </div>
       </div>
       <div className="tree__content">
-        {/* {loading && <p>Loading tree...</p>} */}
-        {/* {error && <p className="error">{error}</p>} */}
-        {/* {!loading &&
-          !error && */}
-        {progressions.map((progression, index) => (
-          <div
-            key={progression.id}
-            className={`tree-node tree-node--${getAlignment(index)}`}
-          >
-            <TreeNode progression={progression} />
-          </div>
-        ))}
+        {error && <p className="error">{error}</p>}
+        {Array.isArray(progressions) &&
+          progressions.map((progression, index) => (
+            <div
+              key={progression.progression_id}
+              className={`tree-node tree-node--${getAlignment(index)}`}
+            >
+              <TreeNode progression={progression} />
+            </div>
+          ))}
       </div>
     </div>
   );
