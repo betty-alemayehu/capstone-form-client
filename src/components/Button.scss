@@ -53,4 +53,10 @@
       opacity: 0.9;
     }
   }
+
+  &--hidden {
+    background-color: #fff;
+    color: #fff;
+    border: none;
+  }
 }

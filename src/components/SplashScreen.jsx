@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "./Button";
 import "./SplashScreen.scss";
 
 const SplashScreen = () => {
@@ -14,19 +15,21 @@ const SplashScreen = () => {
   }, [navigate]);
 
   return (
-    <div className="landing-page">
-      <div className="landing-page__image-wrapper">
+    <div className="splash-screen">
+      <div className="splash-screen__image-wrapper">
         <img
-          className="landing-page__image"
+          className="splash-screen__image"
           src="assets/images/pincha_animation.gif"
           alt="gif animation of man doing forearm stand"
         />
       </div>
-      <section className="landing-page__ctas">
-        <button className="splash-screen__button">Get Started</button>
-        <button className="splash-screen__button">
+      <section className="splash-screen__ctas">
+        <Button variant="hidden" type="submit">
+          Get Started
+        </Button>
+        <Button variant="hidden" type="submit">
           I Already Have An Account
-        </button>
+        </Button>
       </section>
     </div>
   );

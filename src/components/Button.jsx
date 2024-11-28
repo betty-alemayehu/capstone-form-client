@@ -15,7 +15,14 @@ const Button = ({
 
 Button.propTypes = {
   type: PropTypes.string,
-  variant: PropTypes.oneOf(["primary", "secondary", "tertiary", "link"]),
+  variant: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "tertiary",
+    "link",
+    "delete",
+    "hidden",
+  ]),
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
 };

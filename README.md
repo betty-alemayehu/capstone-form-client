@@ -1,5 +1,5 @@
-<h1 align="center">🤸 BodyLingo</h1>
-<h2 align="center" style="font-weight: normal; color: gray;"><em>Learn the "language" of movement</em></h2>
+<h1 align="left">🤸 BodyLingo</h1>
+<h2 align="left" style="font-weight: normal; color: gray;"><em>Learn the "language" of movement</em></h2>
 
 ---
 
