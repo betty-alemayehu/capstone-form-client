@@ -92,7 +92,7 @@ const HomeTree = () => {
               key={progression.progression_id}
               className={`tree-node tree-node--${getAlignment(index)} `}
             >
-              <TreeNode className="Completed" progression={progression} />
+              <TreeNode progression={progression} />
             </div>
           ))}
       </div>
