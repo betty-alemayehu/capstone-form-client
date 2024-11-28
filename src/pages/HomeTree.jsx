@@ -3,7 +3,7 @@ import "./HomeTree.scss";
 import { useEffect, useState, useContext } from "react";
 import TreeNode from "../components/TreeNode";
 import { getUserProgressionsWithMedia } from "../services/api";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../utils/UserContext";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 

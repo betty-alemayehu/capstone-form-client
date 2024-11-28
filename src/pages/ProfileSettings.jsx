@@ -1,9 +1,10 @@
 //ProfileSettings.jsx
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../utils/UserContext";
 import { getUserById, updateUserById, deleteUserById } from "../services/api";
 import DeleteModal from "../components/DeleteModal";
+import FormInput from "../components/FormInput"; // New reusable input component
 import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
@@ -31,26 +32,18 @@ const ProfileSettings = () => {
       }
     };
 
-    if (user) {
-      fetchUserDetails();
-    } else {
-      setLoading(false);
-    }
+    if (user) fetchUserDetails();
+    else setLoading(false);
   }, [user]);
 
   const validateFields = () => {
     const newErrors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!name.trim()) {
-      newErrors.name = "Name is required.";
-    }
-
-    if (!email.trim()) {
-      newErrors.email = "Email is required.";
-    } else if (!emailRegex.test(email)) {
-      newErrors.email = "Please enter a valid email address.";
-    }
+    if (!name.trim()) newErrors.name = "Name is required.";
+    if (!email.trim()) newErrors.email = "Email is required.";
+    else if (!emailRegex.test(email))
+      newErrors.email = "Enter a valid email address.";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -61,20 +54,15 @@ const ProfileSettings = () => {
 
     if (validateFields()) {
       try {
-        const updatedData = { name, email };
-        if (password) {
-          updatedData.password = password;
-        }
+        const updatedData = { name, email, ...(password && { password }) };
 
-        await updateUserById(user.user_id, updatedData);
-
-        const response = await getUserById(user.user_id);
+        const response = await updateUserById(user.user_id, updatedData);
         updateUser({ name: response.data.name, email: response.data.email });
 
         setName(response.data.name);
         setEmail(response.data.email);
         setPassword("");
-        setErrors({}); // Clear errors after a successful update
+        setErrors({});
       } catch (err) {
         console.error("Error updating profile:", err);
         setError("Failed to update profile. Please try again.");
@@ -96,97 +84,60 @@ const ProfileSettings = () => {
     }
   };
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
-
   if (loading) return <p>Loading...</p>;
-  if (error) return <p className="error">{error}</p>;
+  if (error) return <p className="profile-settings__error">{error}</p>;
 
   return (
     <main className="profile-settings">
       <h1 className="profile-settings__title">Settings</h1>
-
       <img
-        className="profile-card__avatar"
+        className="profile-settings__avatar"
         src="/assets/images/User_placeholder.png"
         alt="Profile avatar"
         loading="lazy"
       />
-
       <form className="profile-settings__form" onSubmit={handleSubmit}>
-        {/* Name Input */}
-        <input
-          type="text"
-          placeholder="Name"
+        <FormInput
+          label="Name"
           value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-            if (errors.name) setErrors((prev) => ({ ...prev, name: "" }));
-          }}
-          className={`profile-settings__input input ${
-            errors.name ? "input--error" : ""
-          }`}
+          onChange={(e) => setName(e.target.value)}
+          error={errors.name}
+          placeholder="Name"
         />
-        {errors.name && (
-          <span className="error-message">
-            <img
-              src="/assets/icons/error-24px.svg"
-              alt="error icon"
-              className="error-icon"
-            />
-            {errors.name}
-          </span>
-        )}
-
-        {/* Email Input */}
-        <input
+        <FormInput
+          label="Email"
           type="email"
-          placeholder="Email"
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
-          }}
-          className={`profile-settings__input input ${
-            errors.email ? "input--error" : ""
-          }`}
+          onChange={(e) => setEmail(e.target.value)}
+          error={errors.email}
+          placeholder="Email"
         />
-        {errors.email && (
-          <span className="error-message">
-            <img
-              src="/assets/icons/error-24px.svg"
-              alt="error icon"
-              className="error-icon"
-            />
-            {errors.email}
-          </span>
-        )}
-
-        {/* Password Input */}
-        <input
+        <FormInput
+          label="New Password (optional)"
           type="password"
-          placeholder="New Password (optional)"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="profile-settings__input input"
+          placeholder="New Password"
         />
-
         <button type="submit" className="button button--primary">
           Save
         </button>
       </form>
-
       <hr />
-
       <button className="button button--secondary" onClick={logout}>
         Logout
       </button>
-      <button className="button button--tertiary" onClick={handleOpenModal}>
+      <button
+        className="button button--tertiary"
+        onClick={() => setIsModalOpen(true)}
+      >
         Delete Account
       </button>
-
       {isModalOpen && (
-        <DeleteModal onDelete={handleDelete} onClose={handleCloseModal} />
+        <DeleteModal
+          onDelete={handleDelete}
+          onClose={() => setIsModalOpen(false)}
+        />
       )}
     </main>
   );

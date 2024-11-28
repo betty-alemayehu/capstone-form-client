@@ -16,38 +16,23 @@ import CollectionsPage from "./pages/CollectionsPage";
 import PoseAICamPage from "./pages/PoseAICamPage";
 import NavBar from "./components/NavBar";
 import SplashScreen from "./components/SplashScreen";
-import { UserContext } from "./contexts/UserContext"; // Import UserContext for user data
+import { UserContext } from "./utils/UserContext";
+import ProtectedRoute from "./utils/ProtectedRoute";
 import "./App.scss";
 import "./styles/_global.scss";
 
-// ProtectedRoute Component
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useContext(UserContext); // Access user and loading state
-
-  if (loading) {
-    return <p>Loading...</p>; // Show loading while user data is being retrieved
-  }
-
-  if (!user) {
-    return <Navigate to="/" replace />; // Redirect to login if user is not authenticated
-  }
-
-  return children; // Render protected content if user exists
-};
-
 const App = () => {
-  const [showSplash, setShowSplash] = useState(() => {
-    // Check sessionStorage to see if the splash screen has been shown
-    return !sessionStorage.getItem("splashShown");
-  });
+  const [showSplash, setShowSplash] = useState(
+    !sessionStorage.getItem("splashShown")
+  );
 
   useEffect(() => {
     if (showSplash) {
       const timer = setTimeout(() => {
         setShowSplash(false);
-        sessionStorage.setItem("splashShown", "true"); // Mark splash as shown for the session
+        sessionStorage.setItem("splashShown", "true");
       }, 3500);
-      return () => clearTimeout(timer); // Cleanup timer on unmount
+      return () => clearTimeout(timer);
     }
   }, [showSplash]);
 
@@ -116,7 +101,7 @@ const App = () => {
                 <Route path="*" element={<LandingPage />} />
               </Routes>
             </div>
-            {showNavBar && <NavBar className="nav-bar" />}
+            {showNavBar && <NavBar />}
           </>
         )}
       </div>
@@ -124,12 +109,7 @@ const App = () => {
   };
 
   return (
-    <Router
-      future={{
-        v7_relativeSplatPath: true,
-        v7_startTransition: true,
-      }}
-    >
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <AppContent />
     </Router>
   );

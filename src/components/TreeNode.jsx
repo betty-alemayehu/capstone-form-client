@@ -1,5 +1,7 @@
 //TreeNode.jsx
+import React from "react";
 import { useNavigate } from "react-router-dom";
+// import "./TreeNode.scss";
 
 const PLACEHOLDER_IMAGE =
   "https://upload.wikimedia.org/wikipedia/commons/b/b1/Missing-image-232x150.png";
@@ -15,13 +17,13 @@ const TreeNode = ({ progression }) => {
   };
 
   return (
-    <li className="tree-node" onClick={handleNodeClick}>
+    <li className={`tree-node tree-node--${status}`} onClick={handleNodeClick}>
       <img
-        src={media_url || PLACEHOLDER_IMAGE} // Use placeholder if media_url is null
+        src={media_url || PLACEHOLDER_IMAGE}
         alt={english_name || "Pose"}
-        className={`${status} pose-image`}
+        className="tree-node__image"
         onError={(e) => {
-          e.target.src = PLACEHOLDER_IMAGE; // Fallback to placeholder on error
+          e.target.src = PLACEHOLDER_IMAGE;
         }}
       />
     </li>

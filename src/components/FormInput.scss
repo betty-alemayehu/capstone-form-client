@@ -1,0 +1,23 @@
+.form-input {
+  &__label {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  &__input {
+    border: 1px solid #ccc;
+    padding: 8px;
+    &--error {
+      border-color: red;
+    }
+  }
+  &__error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+  }
+  &__error-icon {
+    margin-right: 4px;
+  }
+}

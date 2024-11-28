@@ -1,6 +1,6 @@
 import "./DeleteModal.scss";
 import { getUserProgressions } from "../services/api.js";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../utils/UserContext.jsx";
 import { useEffect, useState, useContext } from "react";
 
 const DeleteModal = ({ onDelete, onClose }) => {

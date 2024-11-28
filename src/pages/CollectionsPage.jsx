@@ -4,37 +4,37 @@ const workoutData = [
   {
     title: "Move Freely",
     category: "Animal Flow",
-    icon: "public/assets/icons/image-placeholder.png",
+    icon: "/assets/icons/image-placeholder.png",
     highlight: true,
   },
   {
     title: "Graceful Movements",
     category: "Ballet",
-    icon: "public/assets/icons/image-placeholder.png",
+    icon: "/assets/icons/image-placeholder.png",
     highlight: true,
   },
   {
     title: "Master Form",
     category: "Calisthenics",
-    icon: "public/assets/icons/image-placeholder.png",
+    icon: "/assets/icons/image-placeholder.png",
     highlight: true,
   },
   {
     title: "Explosive Power",
     category: "CrossFit",
-    icon: "public/assets/icons/image-placeholder.png",
+    icon: "/assets/icons/image-placeholder.png",
     highlight: true,
   },
   {
     title: "Modern Movements",
     category: "Jazz",
-    icon: "public/assets/icons/image-placeholder.png",
+    icon: "/assets/icons/image-placeholder.png",
     highlight: true,
   },
   {
     title: "Mind and Body",
     category: "Yoga",
-    icon: "public/assets/icons/image-placeholder.png",
+    icon: "/assets/icons/image-placeholder.png",
     highlight: true,
   },
 ];

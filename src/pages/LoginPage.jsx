@@ -1,39 +1,27 @@
 //LoginPage.jsx
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../utils/UserContext";
 import SignUpModal from "../components/SignUpModal";
+import FormInput from "../components/FormInput";
+import Button from "../components/Button";
 import { loginUser } from "../services/api";
+import { validateEmail, validateRequired } from "../utils/validation";
 import "./LoginPage.scss";
 
 const LoginPage = () => {
   const { login } = useContext(UserContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const navigate = useNavigate();
 
-  const handleOpenSignUpModal = () => setShowSignUpModal(true);
-  const handleCloseSignUpModal = () => setShowSignUpModal(false);
-
   const validateFields = () => {
     const newErrors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Validate email format
-
-    // Check for blank email field
-    if (!email.trim()) {
-      newErrors.email = "Email is required.";
-    } else if (!emailRegex.test(email)) {
-      // Check for invalid email format
-      newErrors.email = "Please enter a valid email address.";
-    }
-
-    // Check for blank password field
-    if (!password.trim()) {
+    if (!validateEmail(form.email))
+      newErrors.email = "Enter a valid email address.";
+    if (!validateRequired(form.password))
       newErrors.password = "Password is required.";
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -42,13 +30,12 @@ const LoginPage = () => {
     e.preventDefault();
     if (validateFields()) {
       try {
-        const response = await loginUser({ email, password });
+        const response = await loginUser(form);
         const { token, user_id, email: userEmail } = response.data;
         login({ token, user_id, email: userEmail });
         navigate("/home-tree");
       } catch (err) {
         const status = err.response?.status;
-
         if (status === 404) {
           setErrors((prev) => ({
             ...prev,
@@ -81,56 +68,26 @@ const LoginPage = () => {
       <section className="login-page__ctas">
         <h1>Welcome!</h1>
         <form className="login-page__form" onSubmit={handleSubmit}>
-          {/* Email Input */}
-          <label className="h3">Email</label>
-          <input
+          <FormInput
+            label="Email"
             type="email"
             placeholder="Email"
-            className={`input ${errors.email ? "input--error" : ""}`}
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
-            }}
-            required
+            value={form.email}
+            onChange={(e) =>
+              setForm((prev) => ({ ...prev, email: e.target.value }))
+            }
+            error={errors.email}
           />
-          {errors.email && (
-            <span className="error-message">
-              <img
-                src="/assets/icons/error-24px.svg"
-                alt="error icon"
-                className="error-icon"
-              />
-              {errors.email}
-            </span>
-          )}
-
-          {/* Password Input */}
-          <label className="h3">Password</label>
-          <input
+          <FormInput
+            label="Password"
             type="password"
             placeholder="Password"
-            className={`input ${errors.password ? "input--error" : ""}`}
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              if (errors.password)
-                setErrors((prev) => ({ ...prev, password: "" }));
-            }}
-            required
+            value={form.password}
+            onChange={(e) =>
+              setForm((prev) => ({ ...prev, password: e.target.value }))
+            }
+            error={errors.password}
           />
-          {errors.password && (
-            <span className="error-message">
-              <img
-                src="/assets/icons/error-24px.svg"
-                alt="error icon"
-                className="error-icon"
-              />
-              {errors.password}
-            </span>
-          )}
-
-          {/* General Error */}
           {errors.general && (
             <span className="error-message error-message--general">
               <img
@@ -141,28 +98,16 @@ const LoginPage = () => {
               {errors.general}
             </span>
           )}
-
-          {/* Submit Button */}
-          <button className="button button--primary" type="submit">
-            Log In
-          </button>
+          <Button type="submit">Log In</Button>
         </form>
-
         <p className="login-page__register">
           Not a member?{" "}
-          <button
-            type="button"
-            className="button-link"
-            onClick={handleOpenSignUpModal}
-          >
+          <Button variant="link" onClick={() => setShowSignUpModal(true)}>
             Register now
-          </button>
+          </Button>
         </p>
-
         <hr className="login-page__divider" />
-
         <p className="login-page__continue">Or continue with</p>
-
         <div className="login-page__oauth-icons">
           <button className="oauth-icon">
             <img
@@ -184,7 +129,9 @@ const LoginPage = () => {
           </button>
         </div>
       </section>
-      {showSignUpModal && <SignUpModal onClose={handleCloseSignUpModal} />}
+      {showSignUpModal && (
+        <SignUpModal onClose={() => setShowSignUpModal(false)} />
+      )}
     </div>
   );
 };

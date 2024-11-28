@@ -1,19 +1,13 @@
 //LandingPage.jsx
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignUpModal from "../components/SignUpModal";
+import Button from "../components/Button";
 import "./LandingPage.scss";
 
 const LandingPage = () => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
-  const navigate = useNavigate(); // Initialize navigate hook
-
-  const handleOpenModal = () => setShowSignUpModal(true);
-  const handleCloseModal = () => setShowSignUpModal(false);
-
-  const handleNavigateToLogin = () => {
-    navigate("/login"); // Navigate to the login page
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="landing-page">
@@ -21,21 +15,18 @@ const LandingPage = () => {
         <img
           className="landing-page__image"
           src="/assets/images/pincha_animation.png"
+          alt="Landing"
         />
       </div>
-      {/* Get Started is the future home of the onboarding journey/tutorial */}
       <section className="landing-page__ctas">
-        <button className="button button--primary" onClick={handleOpenModal}>
-          Get Started
-        </button>
-        <button
-          className="button button--secondary"
-          onClick={handleNavigateToLogin}
-        >
+        <Button onClick={() => setShowSignUpModal(true)}>Get Started</Button>
+        <Button variant="secondary" onClick={() => navigate("/login")}>
           I Already Have An Account
-        </button>
+        </Button>
       </section>
-      {showSignUpModal && <SignUpModal onClose={handleCloseModal} />}
+      {showSignUpModal && (
+        <SignUpModal onClose={() => setShowSignUpModal(false)} />
+      )}
     </div>
   );
 };

@@ -1,40 +1,34 @@
-//UserContext.jsx// src/contexts/UserContext.jsx
+//UserContext.jsx
 import { createContext, useState, useEffect } from "react";
 
-// Create UserContext
 const UserContext = createContext();
 
-// Provide UserContext to children
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // Holds user info
-  const [loading, setLoading] = useState(true); // Indicates loading state
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Check localStorage for stored user on load
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
       setUser(storedUser);
     }
-    setLoading(false); // Set loading to false once check is complete
+    setLoading(false);
   }, []);
 
-  // Login function
   const login = (userData) => {
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
   };
 
-  // Logout function
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);
   };
 
-  // Update user details dynamically
   const updateUser = (updatedUser) => {
-    const newUserData = { ...user, ...updatedUser }; // Merge updated fields with existing user data
+    const newUserData = { ...user, ...updatedUser };
     setUser(newUserData);
-    localStorage.setItem("user", JSON.stringify(newUserData)); // Persist changes
+    localStorage.setItem("user", JSON.stringify(newUserData));
   };
 
   return (
@@ -44,5 +38,4 @@ const UserProvider = ({ children }) => {
   );
 };
 
-// Named exports for context and provider
 export { UserContext, UserProvider };
