@@ -24,8 +24,9 @@ const PoseDetails = () => {
         setPose(poseResponse.data);
 
         const mediaResponse = await getUserMediaByPose(user.user_id, poseId);
-        setMedia(mediaResponse.data);
+        setMedia(mediaResponse.length ? mediaResponse : []); // Handle empty media gracefully
       } catch (err) {
+        console.error("Unexpected error fetching pose details:", err.message);
         setError("Failed to fetch pose details. Please try again.");
       }
     };

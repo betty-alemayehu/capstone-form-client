@@ -65,8 +65,20 @@ export const getLatestMediaByProgression = (progressionId) =>
   API.get(`/media/latest`, { params: { progression_id: progressionId } });
 
 // Fetch all media for a specific user and pose
-export const getUserMediaByPose = (userId, poseId) =>
-  API.get(`/media/user-pose`, { params: { user_id: userId, pose_id: poseId } });
+export const getUserMediaByPose = async (userId, poseId) => {
+  try {
+    const response = await API.get(`/media/user-pose`, {
+      params: { user_id: userId, pose_id: poseId },
+    });
+    return response.data;
+  } catch (err) {
+    if (err.response && err.response.status === 404) {
+      // Return an empty array for 404 to avoid throwing errors
+      return [];
+    }
+    throw err; // Re-throw for unexpected errors
+  }
+};
 
 // Export default API instance for general use
 export default API;
