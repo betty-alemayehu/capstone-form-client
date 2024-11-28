@@ -25,7 +25,7 @@ const PoseDetails = () => {
         setPose(poseResponse.data);
 
         const mediaResponse = await getUserMediaByPose(user.user_id, poseId);
-        setMedia(mediaResponse || []); // Handle empty media gracefully
+        setMedia(mediaResponse || []);
       } catch (err) {
         console.error("Error fetching pose details:", err.message);
         setError("Failed to fetch pose details. Please try again.");
@@ -62,23 +62,25 @@ const PoseDetails = () => {
 
   return (
     <article className="pose-details">
-      <Link to="/home-tree" className="pose-details__back-button">
-        <img src="/assets/icons/arrow_back-24px.svg" alt="Back" />
-      </Link>
-      {error && <p className="pose-details__error">{error}</p>}
-      <PoseCarousel pose={pose} media={media} />
-      <section className="pose-details__header">
-        <h1>{pose.english_name}</h1>
-        <h2>{pose.sanskrit_name}</h2>
-      </section>
-      <section className="pose-details__description">
-        <h3>Description:</h3>
-        <p>{pose.pose_description}</p>
-      </section>
-      <section className="pose-details__benefits">
-        <h3>Benefits:</h3>
-        <p>{pose.pose_benefits}</p>
-      </section>
+      <div className="pose-details__scrollable-content">
+        <Link to="/home-tree" className="pose-details__back-button">
+          <img src="/assets/icons/arrow_back-24px.svg" alt="Back" />
+        </Link>
+        {error && <p className="pose-details__error">{error}</p>}
+        <PoseCarousel pose={pose} media={media} />
+        <section className="pose-details__header">
+          <h1>{pose.english_name}</h1>
+          <h2>{pose.sanskrit_name}</h2>
+        </section>
+        <section className="pose-details__description">
+          <p>{pose.pose_description}</p>
+        </section>
+        <section className="pose-details__benefits">
+          <h3>Benefits</h3>
+          <p>{pose.pose_benefits}</p>
+        </section>
+      </div>
+
       <section className="pose-details__actions">
         <input
           id="upload-input"

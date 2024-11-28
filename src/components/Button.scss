@@ -9,7 +9,6 @@
   width: 100%;
   gap: $button-gap;
   overflow: hidden;
-  padding: $button-padding;
   border: none;
   cursor: pointer;
   font: inherit;
@@ -29,7 +28,7 @@
   &--secondary {
     background: transparent;
     color: $color-primary-cta;
-    border: 1.5px solid $color-primary-cta;
+    border: 2px solid $color-primary-cta;
 
     &:hover {
       opacity: 0.9;
