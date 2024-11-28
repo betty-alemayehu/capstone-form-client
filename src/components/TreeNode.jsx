@@ -21,7 +21,7 @@ const TreeNode = ({ progression }) => {
       <img
         src={media_url || PLACEHOLDER_IMAGE}
         alt={english_name || "Pose"}
-        className="tree-node__image"
+        className={`tree-node__image ${progression.status}`}
         onError={(e) => {
           e.target.src = PLACEHOLDER_IMAGE;
         }}

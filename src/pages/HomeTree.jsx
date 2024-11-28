@@ -90,9 +90,9 @@ const HomeTree = () => {
           progressions.map((progression, index) => (
             <div
               key={progression.progression_id}
-              className={`tree-node tree-node--${getAlignment(index)}`}
+              className={`tree-node tree-node--${getAlignment(index)} `}
             >
-              <TreeNode progression={progression} />
+              <TreeNode className="Completed" progression={progression} />
             </div>
           ))}
       </div>
