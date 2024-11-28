@@ -1,8 +1,8 @@
 //ProfileSettings.jsx
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext"; // Access the logged-in user
-import { getUserById, updateUserById, deleteUserById } from "../services/api"; // Import necessary API functions
+import { UserContext } from "../contexts/UserContext";
+import { getUserById, updateUserById, deleteUserById } from "../services/api";
 import DeleteModal from "../components/DeleteModal";
 import "./ProfileSettings.scss";
 
@@ -10,69 +10,84 @@ const ProfileSettings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); // Optional password update
-  const [error, setError] = useState(null); // Handle potential errors
-  const [loading, setLoading] = useState(true); // Indicate loading state
-  const { user, logout, updateUser } = useContext(UserContext); // Access logged-in user, logout, and updateUser function
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { user, logout, updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // Fetch user details on component mount
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await getUserById(user.user_id); // Fetch user details by ID
+        const response = await getUserById(user.user_id);
         setName(response.data.name);
         setEmail(response.data.email);
       } catch (err) {
         console.error("Error fetching user details:", err);
         setError("Failed to load user details.");
       } finally {
-        setLoading(false); // Set loading state to false after fetch
+        setLoading(false);
       }
     };
 
     if (user) {
       fetchUserDetails();
     } else {
-      setLoading(false); // No user logged in, stop loading
+      setLoading(false);
     }
   }, [user]);
 
-  // Handle form submission
+  const validateFields = () => {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Validate email format
+
+    if (!name.trim()) {
+      newErrors.name = "Name is required.";
+    }
+
+    if (!email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      // Create an object with updated fields
-      const updatedData = { name, email };
-      if (password) {
-        updatedData.password = password; // Include password if updated
+    if (validateFields()) {
+      try {
+        const updatedData = { name, email };
+        if (password) {
+          updatedData.password = password;
+        }
+
+        await updateUserById(user.user_id, updatedData);
+
+        const response = await getUserById(user.user_id);
+        updateUser({ name: response.data.name, email: response.data.email });
+
+        setName(response.data.name);
+        setEmail(response.data.email);
+        setPassword("");
+        setErrors({}); // Clear errors after a successful update
+      } catch (err) {
+        console.error("Error updating profile:", err);
+        setError("Failed to update profile. Please try again.");
       }
-
-      // Update user details via API
-      await updateUserById(user.user_id, updatedData);
-
-      // Refetch updated user details
-      const response = await getUserById(user.user_id);
-      updateUser({ name: response.data.name, email: response.data.email });
-
-      // Reset form state to reflect the updated user details
-      setName(response.data.name);
-      setEmail(response.data.email);
-      setPassword(""); // Clear password field
-    } catch (err) {
-      console.error("Error updating profile:", err);
-      setError("Failed to update profile. Please try again.");
     }
   };
 
-  // Handle account deletion
   const handleDelete = async () => {
     try {
-      await deleteUserById(user.user_id); // Call API to delete user
-      logout(); // Clear user session
+      await deleteUserById(user.user_id);
+      logout();
       alert("Account deleted successfully.");
-      navigate("/"); // Redirect to the landing page after deletion
+      navigate("/");
     } catch (err) {
       console.error("Error deleting account:", err);
       setError("Failed to delete account. Please try again.");
@@ -82,7 +97,6 @@ const ProfileSettings = () => {
   };
 
   const handleOpenModal = () => setIsModalOpen(true);
-
   const handleCloseModal = () => setIsModalOpen(false);
 
   if (loading) return <p>Loading...</p>;
@@ -100,20 +114,55 @@ const ProfileSettings = () => {
       />
 
       <form className="profile-settings__form" onSubmit={handleSubmit}>
+        {/* Name Input */}
         <input
           type="text"
           placeholder="Name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="profile-settings__input input"
+          onChange={(e) => {
+            setName(e.target.value);
+            if (errors.name) setErrors((prev) => ({ ...prev, name: "" }));
+          }}
+          className={`profile-settings__input input ${
+            errors.name ? "input--error" : ""
+          }`}
         />
+        {errors.name && (
+          <span className="error-message">
+            <img
+              src="/assets/icons/error-24px.svg"
+              alt="error icon"
+              className="error-icon"
+            />
+            {errors.name}
+          </span>
+        )}
+
+        {/* Email Input */}
         <input
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="profile-settings__input input"
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
+          }}
+          className={`profile-settings__input input ${
+            errors.email ? "input--error" : ""
+          }`}
         />
+        {errors.email && (
+          <span className="error-message">
+            <img
+              src="/assets/icons/error-24px.svg"
+              alt="error icon"
+              className="error-icon"
+            />
+            {errors.email}
+          </span>
+        )}
+
+        {/* Password Input */}
         <input
           type="password"
           placeholder="New Password (optional)"
@@ -121,17 +170,21 @@ const ProfileSettings = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="profile-settings__input input"
         />
+
         <button type="submit" className="button button--primary">
           Save
         </button>
       </form>
-      <hr></hr>
+
+      <hr />
+
       <button className="button button--secondary" onClick={logout}>
         Logout
       </button>
       <button className="button button--tertiary" onClick={handleOpenModal}>
         Delete Account
       </button>
+
       {isModalOpen && (
         <DeleteModal onDelete={handleDelete} onClose={handleCloseModal} />
       )}
