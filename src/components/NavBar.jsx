@@ -11,13 +11,13 @@ const NavBar = () => {
     {
       name: "Learn",
       link: "/home-tree",
-      icon: "/assets/icons/learn-icon.png",
+      icon: "/assets/icons/collections-icon.png",
       iconAlt: "Learn icon",
     },
     {
-      name: "Collections",
+      name: "Discover",
       link: "/collections",
-      icon: "/assets/icons/collections-icon.png",
+      icon: "/assets/icons/discover-icon.png",
       iconAlt: "Collections icon",
     },
     {

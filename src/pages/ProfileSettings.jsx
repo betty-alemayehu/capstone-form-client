@@ -92,7 +92,7 @@ const ProfileSettings = () => {
       <h1 className="profile-settings__title">Settings</h1>
       <img
         className="profile-settings__avatar"
-        src="/assets/images/User_placeholder.png"
+        src="/assets/icons/user_placeholder.png"
         alt="Profile avatar"
         loading="lazy"
       />
