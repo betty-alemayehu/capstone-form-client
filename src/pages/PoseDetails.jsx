@@ -64,7 +64,7 @@ const PoseDetails = () => {
     <article className="pose-details">
       <div className="pose-details__scrollable-content">
         <div className="pose-details__back-button-wrapper">
-          <Link to="/home-tree" className="pose-details__back-button">
+          <Link to="/home-tree" className="pose-details__close-button">
             <img src="/assets/icons/close-24px.svg" alt="Back" />
           </Link>
         </div>

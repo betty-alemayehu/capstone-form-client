@@ -61,7 +61,7 @@
       width: 100%;
       height: 100%;
       z-index: 1;
-      border-radius: 10px;
+      // border-radius: 10px;
       pointer-events: none; /* Prevent interaction with the canvas */
       transform: rotateY(180deg); /* Mirror the feed for a natural look */
     }
@@ -126,5 +126,27 @@
     line-height: 16px;
     letter-spacing: 0.12px;
     margin: 24px 0 0;
+  }
+
+  &__back-button-wrapper {
+    position: absolute; // Float the button over the video/canvas
+    top: 16px; // Align with PoseDetails styling
+    left: 16px;
+    z-index: 20; // Ensure it appears above other elements
+  }
+
+  &__back-button {
+    display: inline-flex;
+    background-color: rgba(0, 0, 0, 0.1); // Semi-transparent background
+    border-radius: 50%; // Circle shape
+    padding: 8px;
+    cursor: pointer;
+    max-width: 40px;
+    max-height: 40px;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
   }
 }

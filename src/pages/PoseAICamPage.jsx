@@ -130,13 +130,15 @@ export function PoseAICamPage() {
 
   return (
     <div className="pose-ai-cam-page">
-      <header className="pose-ai-cam-page__header">
+      <header className="pose-ai-cam-page__back-button-wrapper">
         <img
           onClick={handleBackClick}
-          src="/assets/icons/close-24px.svg"
+          src="/assets/icons/arrow_back-24px.png" // Use SVG for consistency
           alt="Back"
+          className="pose-ai-cam-page__back-button"
         />
       </header>
+
       <main className="pose-ai-cam-page__main">
         <section className="pose-ai-cam-page__pose-image">
           <video
