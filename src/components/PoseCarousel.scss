@@ -1,30 +1,31 @@
+//PoseCarousel.scss
 .pose-widget {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%; // Stretch the widget to fill the parent container
 
   &__carousel {
     display: flex;
     flex-direction: column;
-    max-width: 375px;
-    width: 100%;
+    width: 100%; // Ensure the carousel takes full width
+    height: 100%; // Full height for the cover effect
   }
 
   &__image-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    // background: var(--Highlight-Lightest, #eaf2ff);
-    min-height: 30vh;
     width: 100%;
+    height: 50vh; // Adjust for desired vertical space
+    overflow: hidden; // Prevent any overflow from images
   }
 
   &__image {
-    aspect-ratio: 1.03;
-    object-fit: contain;
-    object-position: center;
-    width: 100%;
-    max-width: 320px;
+    width: 100%; // Take full width
+    height: 100%; // Take full height
+    object-fit: fit; // Ensure the image covers the container area
+    object-position: center; // Center the image within the container
   }
 
   &__dots {
@@ -32,7 +33,7 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-    margin-top: -23px;
+    margin-top: 16px;
   }
 
   &__dot {

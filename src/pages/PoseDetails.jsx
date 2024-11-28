@@ -1,5 +1,5 @@
 //PoseDetails.jsx
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { getPoseById, getUserMediaByPose, uploadMedia } from "../services/api";
 import { UserContext } from "../utils/UserContext";
@@ -63,19 +63,19 @@ const PoseDetails = () => {
   return (
     <article className="pose-details">
       <div className="pose-details__scrollable-content">
-        <Link to="/home-tree" className="pose-details__back-button">
-          <img src="/assets/icons/arrow_back-24px.svg" alt="Back" />
-        </Link>
+        <div className="pose-details__back-button-wrapper">
+          <Link to="/home-tree" className="pose-details__back-button">
+            <img src="/assets/icons/close-24px.svg" alt="Back" />
+          </Link>
+        </div>
         {error && <p className="pose-details__error">{error}</p>}
-        <PoseCarousel pose={pose} media={media} />
-        <section className="pose-details__header">
+        <div className="pose-details__carousel-container">
+          <PoseCarousel pose={pose} media={media} />
+        </div>
+        <section className="pose-details__description">
           <h1>{pose.english_name}</h1>
           <h2>{pose.sanskrit_name}</h2>
-        </section>
-        <section className="pose-details__description">
           <p>{pose.pose_description}</p>
-        </section>
-        <section className="pose-details__benefits">
           <h3>Benefits</h3>
           <p>{pose.pose_benefits}</p>
         </section>
