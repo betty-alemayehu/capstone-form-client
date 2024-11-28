@@ -7,6 +7,8 @@ import { UserContext } from "../contexts/UserContext";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const HomeTree = () => {
   const [progressions, setProgressions] = useState([]);
   const [error, setError] = useState(null);
@@ -18,11 +20,20 @@ const HomeTree = () => {
 
       try {
         const response = await getUserProgressionsWithMedia(user.user_id);
-        console.log("API Response:", response); // Debugging
-
-        // Access the `data` property from the response object
         const data = response.data;
-        setProgressions(Array.isArray(data) ? data : []); // Validate array response
+
+        // Ensure correct media_url formatting
+        const updatedData = data.map((progression) => ({
+          ...progression,
+          media_url:
+            progression.status === "Completed" &&
+            progression.media_url &&
+            !progression.media_url.startsWith("http")
+              ? `${BASE_URL}${progression.media_url}` // Prepend BASE_URL for relative paths
+              : progression.media_url, // Leave absolute URLs as they are
+        }));
+        console.log("Updated Progressions:", updatedData); // Debug updated data
+        setProgressions(updatedData);
       } catch (err) {
         console.error("Error fetching progressions with media:", err);
         setError("Failed to load progressions. Please try again.");
