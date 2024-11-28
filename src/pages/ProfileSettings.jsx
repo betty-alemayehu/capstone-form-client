@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../utils/UserContext";
 import { getUserById, updateUserById, deleteUserById } from "../services/api";
 import DeleteModal from "../components/DeleteModal";
-import FormInput from "../components/FormInput"; // New reusable input component
+import FormInput from "../components/FormInput";
 import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState(""); // Default to empty string
+  const [email, setEmail] = useState(""); // Default to empty string
+  const [password, setPassword] = useState(""); // Default to empty string
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,8 +22,8 @@ const ProfileSettings = () => {
     const fetchUserDetails = async () => {
       try {
         const response = await getUserById(user.user_id);
-        setName(response.data.name);
-        setEmail(response.data.email);
+        setName(response.data.name || ""); // Ensure fallback to empty string
+        setEmail(response.data.email || "");
       } catch (err) {
         console.error("Error fetching user details:", err);
         setError("Failed to load user details.");
@@ -99,7 +99,7 @@ const ProfileSettings = () => {
       <form className="profile-settings__form" onSubmit={handleSubmit}>
         <FormInput
           label="Name"
-          value={name}
+          value={name || ""} // Ensure controlled input
           onChange={(e) => setName(e.target.value)}
           error={errors.name}
           placeholder="Name"
@@ -107,7 +107,7 @@ const ProfileSettings = () => {
         <FormInput
           label="Email"
           type="email"
-          value={email}
+          value={email || ""} // Ensure controlled input
           onChange={(e) => setEmail(e.target.value)}
           error={errors.email}
           placeholder="Email"
@@ -115,7 +115,7 @@ const ProfileSettings = () => {
         <FormInput
           label="New Password (optional)"
           type="password"
-          value={password}
+          value={password || ""} // Ensure controlled input
           onChange={(e) => setPassword(e.target.value)}
           placeholder="New Password"
         />
