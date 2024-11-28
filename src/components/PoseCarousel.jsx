@@ -1,14 +1,13 @@
 //PoseCarousel.jsx
 import React, { useEffect, useState } from "react";
 import "./PoseCarousel.scss";
-import API from "../services/api";
 
 const PoseCarousel = ({ pose, media }) => {
   const [carouselItems, setCarouselItems] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    const baseURL = API.defaults.baseURL;
+    const baseURL = import.meta.env.VITE_API_URL;
 
     const sortedMedia = media.map((item) => ({
       url: `${baseURL}${item.custom_media}`,
