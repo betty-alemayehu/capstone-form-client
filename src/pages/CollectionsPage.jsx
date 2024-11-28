@@ -1,4 +1,6 @@
+import React, { useState } from "react";
 import "./CollectionsPage.scss";
+import SearchBar from "../components/SearchBar"; // Import the new SearchBar component
 
 const workoutData = [
   {
@@ -40,24 +42,25 @@ const workoutData = [
 ];
 
 const CollectionsPage = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Filter workouts based on the search query
+  const filteredWorkouts = workoutData.filter(
+    (workout) =>
+      workout.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      workout.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <main className="collections-page">
-      <form className="search-bar">
-        <img
-          src="/assets/icons/search-24px.svg"
-          alt="Search"
-          className="search-bar__icon"
-        />
-        <input
-          type="search"
-          placeholder="Search"
-          aria-label="Search fitness collections"
-          className="search-bar__input"
-        />
-      </form>
+      {/* Use the SearchBar component */}
+      <SearchBar
+        placeholder="Search fitness collections"
+        onSearch={setSearchQuery}
+      />
 
       <section className="workout-grid">
-        {workoutData.map((workout, index) => (
+        {filteredWorkouts.map((workout, index) => (
           <article
             key={index}
             className={`workout-card ${

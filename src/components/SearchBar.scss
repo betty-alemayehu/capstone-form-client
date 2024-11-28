@@ -1,0 +1,29 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 24px;
+  background: #f8f9fe;
+  max-width: 343px;
+  width: 100%;
+  margin: 8px auto 0;
+  padding: 12px 16px;
+  gap: 16px;
+
+  &__icon {
+    width: 16px;
+    aspect-ratio: 1;
+  }
+
+  &__input {
+    background: transparent;
+    border: none;
+    flex: 1;
+    min-width: 240px;
+    font: 400 14px/1.2 "Inter", sans-serif;
+    color: #1f2024;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
