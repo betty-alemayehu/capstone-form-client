@@ -183,3 +183,20 @@ li {
   margin-bottom: 16px;
   text-align: center;
 }
+.error-message {
+  display: flex;
+  align-items: center;
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.error-icon {
+  margin-right: 0.5rem;
+  width: 20px;
+  height: 20px;
+}
+
+.input--error {
+  border-color: red;
+}
