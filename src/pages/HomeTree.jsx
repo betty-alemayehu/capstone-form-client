@@ -32,7 +32,7 @@ const HomeTree = () => {
               ? `${BASE_URL}${progression.media_url}` // Prepend BASE_URL for relative paths
               : progression.media_url, // Leave absolute URLs as they are
         }));
-        console.log("Updated Progressions:", updatedData); // Debug updated data
+        // console.log("Updated Progressions:", updatedData); // Debug updated data
         setProgressions(updatedData);
       } catch (err) {
         console.error("Error fetching progressions with media:", err);
