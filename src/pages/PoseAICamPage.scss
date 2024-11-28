@@ -1,22 +1,18 @@
+//PoseAICamPage.scss
 .pose-ai-cam-page {
   background: #fff;
-  max-width: 480px;
   width: 100%;
-  padding: 13px 0 0;
   display: flex;
   flex-direction: column;
   object-fit: contain;
-  margin: 0 auto;
   max-height: 100vh;
   height: 100vh;
 
-  /* Header styling */
   &__header {
     z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0 12px 0 24px;
 
     &__back-button {
       aspect-ratio: 1;
@@ -27,16 +23,13 @@
     }
   }
 
-  /* Main content section */
   &__main {
     display: flex;
     flex-direction: column;
-    margin-top: -74px;
-    min-height: 812px;
+    min-height: 100vh;
     width: 100%;
   }
 
-  /* Pose image and overlay */
   &__pose-image {
     display: flex;
     justify-content: center;
@@ -48,12 +41,10 @@
     padding: 40px;
     position: relative;
 
-    /* Hide the raw video feed */
     .hidden-video {
-      display: none; /* Completely hides the video element */
+      display: none;
     }
 
-    /* Canvas for the overlay */
     .pose-canvas {
       position: absolute;
       top: 0;
@@ -61,13 +52,11 @@
       width: 100%;
       height: 100%;
       z-index: 1;
-      // border-radius: 10px;
-      pointer-events: none; /* Prevent interaction with the canvas */
-      transform: rotateY(180deg); /* Mirror the feed for a natural look */
+      pointer-events: none;
+      transform: rotateY(180deg);
     }
   }
 
-  /* Feedback section styling */
   &__feedback-section {
     justify-content: center;
     display: flex;
@@ -75,9 +64,8 @@
     width: 100%;
     flex-direction: column;
     padding: 32px 24px;
-    border: 1px solid #298267; /* Default border styling */
+    border: 1px solid #298267;
 
-    /* Shared content styling */
     &__feedback-content {
       display: flex;
       flex-direction: column;
@@ -92,20 +80,16 @@
     &__feedback-message {
       color: #71727a;
       font-weight: 400;
-      line-height: 16px;
-      letter-spacing: 0.12px;
-      margin: 24px 0 0;
     }
 
-    /* State-specific styles */
     &--NA {
-      background-color: #ffe5e5; /* Light red for NA */
-      border-color: #ff4d4d; /* Strong red border for emphasis */
+      background-color: #ffe5e5;
+      border-color: #ff4d4d;
     }
 
     &--correct {
-      background-color: #e7f4e8; /* Light green for Correct */
-      border-color: #298267; /* Strong green border */
+      background-color: #e7f4e8;
+      border-color: #298267;
     }
   }
 
@@ -123,22 +107,19 @@
   &__feedback-message {
     color: #71727a;
     font-weight: 400;
-    line-height: 16px;
-    letter-spacing: 0.12px;
-    margin: 24px 0 0;
   }
 
   &__back-button-wrapper {
-    position: absolute; // Float the button over the video/canvas
-    top: 16px; // Align with PoseDetails styling
+    position: absolute;
+    top: 16px;
     left: 16px;
-    z-index: 20; // Ensure it appears above other elements
+    z-index: 20;
   }
 
   &__back-button {
     display: inline-flex;
-    background-color: rgba(0, 0, 0, 0.1); // Semi-transparent background
-    border-radius: 50%; // Circle shape
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
     padding: 8px;
     cursor: pointer;
     max-width: 40px;
