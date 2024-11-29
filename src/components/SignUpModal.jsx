@@ -54,7 +54,7 @@ const SignUpModal = ({ onClose }) => {
       onClick={(e) => e.target.className === "sign-up-modal" && onClose()}
     >
       <div className="modal-content">
-        <h1>Sign Up</h1>
+        <h2>Sign Up</h2>
         <p>Create an account to get started.</p>
         <form className="modal-form" onSubmit={handleSubmit}>
           <FormInput
@@ -101,11 +101,19 @@ const SignUpModal = ({ onClose }) => {
             <label htmlFor="terms-checkbox">
               {" "}
               I agree to the{" "}
-              <a href="/terms" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://lumon.industries/company/legal/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <strong>Terms and Conditions</strong>
               </a>{" "}
               and{" "}
-              <a href="/privacy" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://lumon.industries/company/legal/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <strong>Privacy Policy</strong>
               </a>
               .

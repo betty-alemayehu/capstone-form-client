@@ -11,19 +11,21 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      <div className="landing-page__image-wrapper">
-        <img
-          className="landing-page__image"
-          src="/assets/images/pincha_animation.png"
-          alt="Landing"
-        />
+      <div className="landing-page__content-wrapper">
+        <div className="landing-page__image-wrapper">
+          <img
+            className="landing-page__image"
+            src="/assets/images/pincha_animation.png"
+            alt="Landing"
+          />
+        </div>
+        <section className="landing-page__ctas">
+          <Button onClick={() => setShowSignUpModal(true)}>Get Started</Button>
+          <Button variant="secondary" onClick={() => navigate("/login")}>
+            I Already Have An Account
+          </Button>
+        </section>
       </div>
-      <section className="landing-page__ctas">
-        <Button onClick={() => setShowSignUpModal(true)}>Get Started</Button>
-        <Button variant="secondary" onClick={() => navigate("/login")}>
-          I Already Have An Account
-        </Button>
-      </section>
       {showSignUpModal && (
         <SignUpModal onClose={() => setShowSignUpModal(false)} />
       )}

@@ -30,25 +30,27 @@ const NavBar = () => {
 
   return (
     <nav className="navbar">
-      {tabs.map((tab, index) => (
-        <Link
-          key={index}
-          to={tab.link}
-          className={`navbar__button ${
-            activeTab === tab.link ? "navbar__button--active" : ""
-          }`}
-          onClick={() => setActiveTab(tab.link)} // Update active tab on click
-        >
-          <img
-            src={tab.icon}
-            alt={tab.iconAlt}
-            className={`navbar__icon ${
-              activeTab === tab.link ? "navbar__icon--active" : ""
+      <div className="navbar__container">
+        {tabs.map((tab, index) => (
+          <Link
+            key={index}
+            to={tab.link}
+            className={`navbar__button ${
+              activeTab === tab.link ? "navbar__button--active" : ""
             }`}
-          />
-          <span className="navbar__label">{tab.name}</span>
-        </Link>
-      ))}
+            onClick={() => setActiveTab(tab.link)} // Update active tab on click
+          >
+            <img
+              src={tab.icon}
+              alt={tab.iconAlt}
+              className={`navbar__icon ${
+                activeTab === tab.link ? "navbar__icon--active" : ""
+              }`}
+            />
+            <span className="navbar__label">{tab.name}</span>
+          </Link>
+        ))}
+      </div>
     </nav>
   );
 };

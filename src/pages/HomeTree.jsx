@@ -70,18 +70,20 @@ const HomeTree = () => {
   return (
     <div className="tree">
       <div className="tree__header">
-        <h1>Yoga</h1>
-        <div className="tree__progress-circle">
-          <CircularProgressbar
-            value={percentageComplete}
-            text={`${percentageComplete}%`}
-            styles={buildStyles({
-              textSize: "16px",
-              pathColor: "#4caf50",
-              textColor: "#4caf50",
-              trailColor: "#d6d6d6",
-            })}
-          />
+        <div className="tree__header-container">
+          <h1>Logo Here</h1>
+          <div className="tree__progress-circle">
+            <CircularProgressbar
+              value={percentageComplete}
+              text={`${percentageComplete}%`}
+              styles={buildStyles({
+                textSize: "16px",
+                pathColor: "#4caf50",
+                textColor: "#4caf50",
+                trailColor: "#d6d6d6",
+              })}
+            />
+          </div>
         </div>
       </div>
       <div className="tree__content">

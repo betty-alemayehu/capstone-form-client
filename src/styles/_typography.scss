@@ -25,9 +25,9 @@
 // h2 Section Header
 @mixin h2-section-header {
   font-family: $font-family-base;
-  font-size: 1rem;
+  font-size: 1.5rem;
   line-height: 1.25rem;
-  font-weight: $font-weight-regular;
+  font-weight: $font-weight-bold;
   padding-top: $spacing-gutter-mobile;
   // padding-bottom: $spacing-base-unit;
 
