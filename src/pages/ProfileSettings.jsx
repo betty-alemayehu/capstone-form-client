@@ -14,13 +14,15 @@ import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [name, setName] = useState(""); // Default to empty string
-  const [email, setEmail] = useState(""); // Default to empty string
-  const [password, setPassword] = useState(""); // Default to empty string
+  const [displayName, setDisplayName] = useState(""); // For displayed name
+  const [displayEmail, setDisplayEmail] = useState(""); // For displayed email
+  const [formName, setFormName] = useState(""); // For form-controlled name input
+  const [formEmail, setFormEmail] = useState(""); // For form-controlled email input
+  const [password, setPassword] = useState(""); // For password input
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [completedCount, setCompletedCount] = useState(0); // New state for completed poses
+  const [completedCount, setCompletedCount] = useState(0); // Completed poses count
   const { user, logout, updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -28,8 +30,11 @@ const ProfileSettings = () => {
     const fetchUserDetails = async () => {
       try {
         const response = await getUserById(user.user_id);
-        setName(response.data.name || ""); // Ensure fallback to empty string
-        setEmail(response.data.email || "");
+        const { name, email } = response.data;
+        setDisplayName(name || ""); // Set displayed name
+        setDisplayEmail(email || ""); // Set displayed email
+        setFormName(name || ""); // Initialize form-controlled name
+        setFormEmail(email || ""); // Initialize form-controlled email
       } catch (err) {
         console.error("Error fetching user details:", err);
         setError("Failed to load user details.");
@@ -65,9 +70,9 @@ const ProfileSettings = () => {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!name.trim()) newErrors.name = "Name is required.";
-    if (!email.trim()) newErrors.email = "Email is required.";
-    else if (!emailRegex.test(email))
+    if (!formName.trim()) newErrors.name = "Name is required.";
+    if (!formEmail.trim()) newErrors.email = "Email is required.";
+    else if (!emailRegex.test(formEmail))
       newErrors.email = "Enter a valid email address.";
 
     setErrors(newErrors);
@@ -79,13 +84,22 @@ const ProfileSettings = () => {
 
     if (validateFields()) {
       try {
-        const updatedData = { name, email, ...(password && { password }) };
+        const updatedData = {
+          name: formName,
+          email: formEmail,
+          ...(password && { password }),
+        };
 
         const response = await updateUserById(user.user_id, updatedData);
         updateUser({ name: response.data.name, email: response.data.email });
 
-        setName(response.data.name);
-        setEmail(response.data.email);
+        // Update displayed name and email after successful update
+        setDisplayName(response.data.name);
+        setDisplayEmail(response.data.email);
+
+        // Reset form fields
+        setFormName(response.data.name);
+        setFormEmail(response.data.email);
         setPassword("");
         setErrors({});
       } catch (err) {
@@ -122,31 +136,31 @@ const ProfileSettings = () => {
           alt="Profile avatar"
           loading="lazy"
         />
-        <h3>{name}</h3>
-        <p>{email}</p>
+        <h3>{displayName}</h3>
+        <p>{displayEmail}</p>
       </section>
       <form className="profile-settings__form" onSubmit={handleSubmit}>
         <FormInput
           label="Name"
-          value={name || ""} // Ensure controlled input
-          onChange={(e) => setName(e.target.value)}
+          value={formName} // Controlled by form state
+          onChange={(e) => setFormName(e.target.value)}
           error={errors.name}
           placeholder="Name"
         />
         <FormInput
           label="Email"
           type="email"
-          value={email || ""} // Ensure controlled input
-          onChange={(e) => setEmail(e.target.value)}
+          value={formEmail} // Controlled by form state
+          onChange={(e) => setFormEmail(e.target.value)}
           error={errors.email}
           placeholder="Email"
         />
         <FormInput
-          label="New Password (optional)"
+          label="Password"
           type="password"
-          value={password || ""} // Ensure controlled input
+          value={password} // Controlled by form state
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="New Password"
+          placeholder="Update Your Password"
         />
         <button type="submit" className="button button--primary">
           Save
