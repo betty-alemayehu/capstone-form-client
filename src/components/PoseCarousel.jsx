@@ -1,5 +1,6 @@
 //PoseCarousel.jsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { format } from "date-fns";
 import "./PoseCarousel.scss";
 
 const PoseCarousel = ({ pose, media }) => {
@@ -11,7 +12,9 @@ const PoseCarousel = ({ pose, media }) => {
 
     const sortedMedia = media.map((item) => ({
       url: `${baseURL}${item.custom_media}`,
-      name: item.caption_feedback || "User Uploaded Image",
+      name: item.created_at
+        ? format(new Date(item.created_at), "MMM yyyy")
+        : "User Uploaded Image",
     }));
 
     const defaultImage = { url: pose.url_png, name: "Default Pose Image" };
