@@ -20,6 +20,12 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+
+    &:hover {
+      transform: translateY(-5px); /* Slight lift effect */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add subtle shadow on hover */
+    }
 
     &--highlight {
       background: #f8f9fe;
@@ -61,6 +67,9 @@
       font-size: 14px;
       font-weight: 700;
       margin-top: 4px;
+      overflow: hidden; /* Ensures content doesn't overflow */
+      text-overflow: ellipsis; /* Displays ellipsis if truncated */
+      white-space: nowrap; /* Keeps text on a single line */
     }
   }
 }
