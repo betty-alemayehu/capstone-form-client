@@ -1,12 +1,8 @@
 //SignUpModal.jsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/api";
-import {
-  validateEmail,
-  validatePassword,
-  validateRequired,
-} from "../utils/validation";
+import { validateSignUpForm } from "../utils/validation";
 import FormInput from "../components/FormInput";
 import Button from "../components/Button";
 import "./SignUpModal.scss";
@@ -21,36 +17,33 @@ const SignUpModal = ({ onClose }) => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  const validateFields = () => {
-    const newErrors = {};
-
-    if (!validateRequired(form.name)) newErrors.name = "Name is required.";
-    if (!validateEmail(form.email))
-      newErrors.email = "Enter a valid email address.";
-    if (!validatePassword(form.password))
-      newErrors.password =
-        "Password must have at least 8 characters, 1 letter, and 1 number.";
-    if (!form.termsAccepted)
-      newErrors.termsAccepted = "You must accept the Terms and Conditions.";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (validateFields()) {
+    // Validate the form using the utility function
+    const validationErrors = validateSignUpForm(form);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
       try {
         await registerUser(form);
         onClose();
         navigate("/login");
       } catch (err) {
         console.error("Registration failed:", err);
-        setErrors((prev) => ({
-          ...prev,
-          general: "An error occurred during registration.",
-        }));
+
+        // Handle backend error for duplicate email
+        if (err.response?.status === 409) {
+          setErrors((prev) => ({
+            ...prev,
+            email: "User with this email already exists.",
+          }));
+        } else {
+          setErrors((prev) => ({
+            ...prev,
+            general: "An error occurred during registration. Please try again.",
+          }));
+        }
       }
     }
   };
@@ -103,21 +96,42 @@ const SignUpModal = ({ onClose }) => {
                   termsAccepted: e.target.checked,
                 }))
               }
+              className={errors.termsAccepted ? "input--error" : ""}
             />
             <label htmlFor="terms-checkbox">
               {" "}
               I agree to the{" "}
               <a href="/terms" target="_blank" rel="noopener noreferrer">
-                Terms and Conditions
+                <strong>Terms and Conditions</strong>
               </a>{" "}
               and{" "}
               <a href="/privacy" target="_blank" rel="noopener noreferrer">
-                Privacy Policy
+                <strong>Privacy Policy</strong>
               </a>
               .
             </label>
+            {errors.termsAccepted && (
+              <div className="error-message">
+                <img
+                  src="/assets/icons/error-24px.svg"
+                  alt="Error"
+                  className="error-icon"
+                />
+                {errors.termsAccepted}
+              </div>
+            )}
           </div>
           <Button type="submit">Sign Up</Button>
+          {errors.general && (
+            <div className="error">
+              <img
+                src="/assets/icons/error-24px.svg"
+                alt="Error"
+                className="error-icon"
+              />
+              {errors.general}
+            </div>
+          )}
         </form>
       </div>
     </div>

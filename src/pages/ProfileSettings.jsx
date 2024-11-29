@@ -113,7 +113,7 @@ const ProfileSettings = () => {
     try {
       await deleteUserById(user.user_id);
       logout();
-      alert("Account deleted successfully.");
+      // alert("Account deleted successfully.");
       navigate("/");
     } catch (err) {
       console.error("Error deleting account:", err);

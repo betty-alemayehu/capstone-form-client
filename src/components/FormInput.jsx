@@ -1,5 +1,4 @@
 //FormInput.jsx
-
 import PropTypes from "prop-types";
 import "./FormInput.scss";
 
@@ -18,17 +17,17 @@ const FormInput = ({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className={`form-input__input ${error ? "form-input__input--error" : ""}`}
+      className={`form-input__input ${error ? "input--error" : ""}`}
     />
     {error && (
-      <span className="form-input__error">
+      <div className="error-message">
         <img
           src="/assets/icons/error-24px.svg"
           alt="Error"
-          className="form-input__error-icon"
+          className="error-icon"
         />
         {error}
-      </span>
+      </div>
     )}
   </div>
 );
