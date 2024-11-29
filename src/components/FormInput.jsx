@@ -5,7 +5,7 @@ import "./FormInput.scss";
 const FormInput = ({
   label,
   type = "text",
-  value,
+  value = "", // Default to an empty string
   onChange,
   error,
   placeholder,
@@ -14,7 +14,7 @@ const FormInput = ({
     {label && <label className="form-input__label">{label}</label>}
     <input
       type={type}
-      value={value}
+      value={value} // Always controlled by default value
       onChange={onChange}
       placeholder={placeholder}
       className={`form-input__input ${error ? "input--error" : ""}`}
@@ -36,7 +36,7 @@ const FormInput = ({
 FormInput.propTypes = {
   label: PropTypes.string, //The label prop must be a string. It is optional (not marked as isRequired).
   type: PropTypes.string, //The type prop must be a string, commonly used to define the input type (e.g., text, password). It is also optional.
-  value: PropTypes.string.isRequired, //The value prop must be a string and is required. This ensures the component always receives a value prop.
+  value: PropTypes.string, // Required but now defaults to an empty string
   onChange: PropTypes.func.isRequired, //The onChange prop must be a function and is required. Typically used for handling input changes.
   error: PropTypes.string, //The error prop must be a string. It is optional and likely used to display validation error messages.
   placeholder: PropTypes.string, //The placeholder prop must be a string. It is optional and typically used to provide placeholder text in the input field.
