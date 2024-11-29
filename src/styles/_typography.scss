@@ -12,7 +12,7 @@
   line-height: 2rem;
   font-weight: $font-weight-bold;
   padding-top: $spacing-base-unit * 3;
-  // padding-bottom: $spacing-base-unit * 2;
+  padding-bottom: $spacing-base-unit * 2;
 
   @include tablet {
     font-size: 2.0625rem;

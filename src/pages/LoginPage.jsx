@@ -102,10 +102,18 @@ const LoginPage = () => {
         </form>
         <p className="login-page__register">
           Not a member?{" "}
-          <Button variant="link" onClick={() => setShowSignUpModal(true)}>
+          <a
+            href="#"
+            className="login-page__register-link"
+            onClick={(e) => {
+              e.preventDefault(); // Prevents page refresh
+              setShowSignUpModal(true);
+            }}
+          >
             Register now
-          </Button>
+          </a>
         </p>
+
         <hr className="login-page__divider" />
         <p className="login-page__continue">Or continue with</p>
         <div className="login-page__oauth-icons">

@@ -8,8 +8,6 @@ export const poseDatabase = {
       const rightAnkle = landmarks[28];
       const leftKnee = landmarks[25];
       const rightKnee = landmarks[26];
-      const leftHip = landmarks[23];
-      const rightHip = landmarks[24];
 
       const feetClose = Math.abs(leftAnkle.x - rightAnkle.x) < 0.1;
       const kneesAligned = Math.abs(leftKnee.x - rightKnee.x) < 0.1;
@@ -19,21 +17,34 @@ export const poseDatabase = {
     feedback:
       "Great job! You're standing upright with feet together for Mountain Pose.",
   },
-  tree: {
-    name: "Tree Pose",
+  extendedHandToToe: {
+    name: "Extended Hand-to-Big-Toe Pose (Utthita Hasta Pādāṅguṣṭhāsana)",
     conditions: (landmarks) => {
-      const leftKnee = landmarks[25];
-      const rightKnee = landmarks[26];
-      const leftAnkle = landmarks[27];
+      const leftHand = landmarks[15];
+      const rightHand = landmarks[16];
+      const leftFoot = landmarks[27];
+      const rightFoot = landmarks[28];
       const leftHip = landmarks[23];
+      const rightHip = landmarks[24];
 
-      const leftLegLifted = leftKnee.y < leftHip.y && leftAnkle.y < leftHip.y;
-      const rightLegLifted =
-        rightKnee.y < landmarks[24].y && landmarks[28].y < landmarks[24].y;
+      // Conditions:
+      // 1. One hand reaches to the same-side foot.
+      // 2. The lifted leg is extended forward or to the side.
+      // 3. The torso is upright and hips are relatively level.
 
-      return leftLegLifted || rightLegLifted;
+      // Check left leg extension:
+      const isLeftLegExtended =
+        leftFoot.y < leftHip.y && Math.abs(leftFoot.x - leftHand.x) < 0.2;
+
+      // Check right leg extension:
+      const isRightLegExtended =
+        rightFoot.y < rightHip.y && Math.abs(rightFoot.x - rightHand.x) < 0.2;
+
+      // Hips level:
+      const areHipsLevel = Math.abs(leftHip.y - rightHip.y) < 0.1;
+
+      return (isLeftLegExtended || isRightLegExtended) && areHipsLevel;
     },
-    feedback:
-      "Great job! You're raising one leg to balance and form Tree Pose.",
+    feedback: "Well done! Keep your torso upright for ExtendedHandToToe",
   },
 };

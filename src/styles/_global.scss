@@ -63,6 +63,9 @@ button {
   text-decoration: none;
   color: inherit;
 }
+label {
+  padding-top: 8px;
+}
 li {
   list-style-type: none;
 }
@@ -70,14 +73,14 @@ li {
 .error {
   font-family: "Inter", sans-serif;
   font-size: 14px;
-  color: #d22d2d;
+  color: $color-error;
   margin-bottom: 16px;
   text-align: center;
 }
 .error-message {
   display: flex;
   align-items: center;
-  color: red;
+  color: $color-error;
   font-size: 0.875rem;
   margin-top: 0.25rem;
 }
@@ -89,5 +92,9 @@ li {
 }
 
 .input--error {
-  border-color: red;
+  border-color: $color-error;
+}
+
+.delete {
+  color: $color-error;
 }

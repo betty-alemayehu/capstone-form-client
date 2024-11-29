@@ -171,7 +171,7 @@ const ProfileSettings = () => {
         Logout
       </button>
       <button
-        className="button button--tertiary"
+        className="button button--tertiary delete"
         onClick={() => setIsModalOpen(true)}
       >
         Delete Account
