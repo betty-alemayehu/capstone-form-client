@@ -20,6 +20,7 @@
   padding: $spacing-gutter-mobile;
   text-align: center;
   width: calc(100% - $spacing-gutter-mobile * 4);
+  max-width: 600px;
 
   &__actions {
     display: flex;
@@ -27,5 +28,9 @@
     align-items: center;
     gap: 8px;
     margin-top: 20px;
+  }
+  img {
+    width: calc(100% - $spacing-gutter-mobile * 4);
+    max-width: 600px;
   }
 }
