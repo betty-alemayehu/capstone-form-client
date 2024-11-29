@@ -2,7 +2,12 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../utils/UserContext";
-import { getUserById, updateUserById, deleteUserById } from "../services/api";
+import {
+  getUserById,
+  updateUserById,
+  deleteUserById,
+  getUserProgressionsWithMedia,
+} from "../services/api";
 import DeleteModal from "../components/DeleteModal";
 import FormInput from "../components/FormInput";
 import "./ProfileSettings.scss";
@@ -15,6 +20,7 @@ const ProfileSettings = () => {
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [completedCount, setCompletedCount] = useState(0); // New state for completed poses
   const { user, logout, updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -32,8 +38,27 @@ const ProfileSettings = () => {
       }
     };
 
-    if (user) fetchUserDetails();
-    else setLoading(false);
+    const fetchCompletedCount = async () => {
+      if (!user) return;
+
+      try {
+        const response = await getUserProgressionsWithMedia(user.user_id);
+        const progressions = response.data || [];
+        const count = progressions.filter(
+          (progression) => progression.status === "Completed"
+        ).length;
+        setCompletedCount(count);
+      } catch (err) {
+        console.error("Error fetching progressions:", err);
+      }
+    };
+
+    if (user) {
+      fetchUserDetails();
+      fetchCompletedCount();
+    } else {
+      setLoading(false);
+    }
   }, [user]);
 
   const validateFields = () => {
@@ -89,13 +114,17 @@ const ProfileSettings = () => {
 
   return (
     <main className="profile-settings">
-      <h1 className="profile-settings__title">Settings</h1>
-      <img
-        className="profile-settings__avatar"
-        src="/assets/icons/user_placeholder.png"
-        alt="Profile avatar"
-        loading="lazy"
-      />
+      <h1 className="profile-settings__title">Profile Settings</h1>
+      <section className="profile-settings__hero">
+        <img
+          className="profile-settings__avatar"
+          src="/assets/images/user_image_placeholder.png"
+          alt="Profile avatar"
+          loading="lazy"
+        />
+        <h3>{name}</h3>
+        <p>{email}</p>
+      </section>
       <form className="profile-settings__form" onSubmit={handleSubmit}>
         <FormInput
           label="Name"
@@ -135,6 +164,7 @@ const ProfileSettings = () => {
       </button>
       {isModalOpen && (
         <DeleteModal
+          completedCount={completedCount} // Pass the completed count as a prop
           onDelete={handleDelete}
           onClose={() => setIsModalOpen(false)}
         />

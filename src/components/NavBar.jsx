@@ -21,10 +21,10 @@ const NavBar = () => {
       iconAlt: "Collections icon",
     },
     {
-      name: "Settings",
+      name: "Profile",
       link: "/profile-settings",
-      icon: "/assets/icons/settings-icon.png",
-      iconAlt: "Settings icon",
+      icon: "/assets/icons/user_icon.png",
+      iconAlt: "Profile settings icon",
     },
   ];
 
