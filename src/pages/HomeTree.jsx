@@ -151,7 +151,7 @@ const HomeTree = () => {
           </div>
         </div>
       </div>
-      <div className="tree__sub-header">
+      <div className={`tree__sub-header tree__sub-header--${activeSection}`}>
         <h2>{activeSection}</h2> {/* Sub-header for active section */}
       </div>
       <div className="tree__content">
