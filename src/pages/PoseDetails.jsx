@@ -82,25 +82,27 @@ const PoseDetails = () => {
       </div>
 
       <section className="pose-details__actions">
-        <input
-          id="upload-input"
-          className="pose-details__file-input"
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-        />
-        <Button
-          variant="secondary"
-          onClick={() => triggerFileUpload("upload-input")}
-        >
-          Upload Practice
-        </Button>
-        <Button
-          variant="primary"
-          onClick={() => navigate("/pose-AI-cam", { state: { poseId } })}
-        >
-          Check My Form
-        </Button>
+        <div className="pose-details__actions-container">
+          <input
+            id="upload-input"
+            className="pose-details__file-input"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+          <Button
+            variant="secondary"
+            onClick={() => triggerFileUpload("upload-input")}
+          >
+            Upload Practice
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => navigate("/pose-AI-cam", { state: { poseId } })}
+          >
+            Check My Form
+          </Button>
+        </div>
       </section>
     </article>
   );

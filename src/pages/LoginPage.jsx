@@ -72,7 +72,7 @@ const LoginPage = () => {
             <FormInput
               label="Email"
               type="email"
-              placeholder="Email"
+              placeholder="Insert your email"
               value={form.email}
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, email: e.target.value }))
@@ -82,7 +82,7 @@ const LoginPage = () => {
             <FormInput
               label="Password"
               type="password"
-              placeholder="Password"
+              placeholder="Insert your password"
               value={form.password}
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, password: e.target.value }))
@@ -106,20 +106,20 @@ const LoginPage = () => {
 
             <Button type="submit">Login</Button>
           </form>
-          <p className="login-page__register">
-            Not a member?{" "}
-            <a
-              href="#"
-              className="login-page__register-link"
-              onClick={(e) => {
-                e.preventDefault(); // Prevents page refresh
-                setShowSignUpModal(true);
-              }}
-            >
-              Register now
-            </a>
-          </p>
           <section className="login-page__options">
+            <p className="login-page__register">
+              Not a member?{" "}
+              <a
+                href="#"
+                className="login-page__register-link"
+                onClick={(e) => {
+                  e.preventDefault(); // Prevents page refresh
+                  setShowSignUpModal(true);
+                }}
+              >
+                Register now
+              </a>
+            </p>
             <div className="login-page__ORoauth">
               <hr className="login-page__divider" />{" "}
               <p className="login-page__continue"> OR </p>{" "}
