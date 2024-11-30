@@ -95,11 +95,14 @@ const HomeTree = () => {
     };
 
     const observerCallback = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.dataset.level); // Update active section
-        }
-      });
+      // Sort by intersection ratio to handle overlapping sections
+      const visibleSections = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visibleSections.length > 0) {
+        setActiveSection(visibleSections[0].target.dataset.level); // Use the most visible section
+      }
     };
 
     const observer = new IntersectionObserver(
@@ -111,6 +114,20 @@ const HomeTree = () => {
     Object.values(sectionRefs).forEach((ref) => {
       if (ref.current) observer.observe(ref.current);
     });
+
+    // Initial check for the current scroll position
+    const initialSection = Object.keys(sectionRefs).find((level) => {
+      const section = sectionRefs[level]?.current;
+      if (!section) return false;
+      const rect = section.getBoundingClientRect();
+      return rect.top >= 0 && rect.top <= window.innerHeight / 2; // Check if section is near the top
+    });
+
+    if (initialSection) {
+      setActiveSection(initialSection); // Set the active section based on initial viewport
+    } else {
+      setActiveSection("Beginner"); // Default fallback
+    }
 
     return () => observer.disconnect();
   }, []);
@@ -142,7 +159,7 @@ const HomeTree = () => {
         {["Beginner", "Intermediate", "Advanced"].map((level) => (
           <div
             key={level}
-            className="tree__section"
+            className={`tree__section--${level}`}
             data-level={level} // Add data attribute for Intersection Observer
             ref={sectionRefs[level]} // Attach reference for observer
           >

@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center; /* Center-align the header content */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for separation */
-    padding: 16px 0; /* Padding inside the header */
+    padding: 8px 0; /* Padding inside the header */
     text-align: center;
   }
 
@@ -37,7 +37,7 @@
 
   &__sub-header {
     position: sticky; /* Makes the sub-header sticky */
-    top: 6rem; /* Position it below the main header */
+    top: 5rem; /* Position it below the main header */
     z-index: 9; /* Ensure it's below the main header */
     background: #f8f8f8; /* Slightly different background for visibility */
     padding: 8px 0;
@@ -67,7 +67,7 @@
     margin-top: 80px; /* Space for the fixed main header and sticky sub-header */
     display: flex;
     flex-direction: column;
-    // gap: 2rem; /* Space between sections */
+    gap: rem; /* Space between sections */
     width: 100%; /* Full width */
     max-width: 480px; /* Limit content width */
   }
@@ -75,24 +75,25 @@
   &__section {
     margin-bottom: 2rem; /* Space between sections */
     padding: 1rem; /* Padding for inner content */
+    padding-top: 1rem;
 
-    &--Beginner {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: green;
-    }
+    // &--Beginner {
+    //   border: 1px solid #ccc;
+    //   border-radius: 8px;
+    //   background-color: green;
+    // }
 
-    &--Intermediate {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: orange;
-    }
+    // &--Intermediate {
+    //   border: 1px solid #ccc;
+    //   border-radius: 8px;
+    //   background-color: orange;
+    // }
 
-    &--Advanced {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: lavender; /* Fixed invalid color */
-    }
+    // &--Advanced {
+    //   border: 1px solid #ccc;
+    //   border-radius: 8px;
+    //   background-color: lavender; /* Fixed invalid color */
+    // }
   }
 
   &__nodes {
