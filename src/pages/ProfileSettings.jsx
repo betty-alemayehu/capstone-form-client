@@ -175,16 +175,18 @@ const ProfileSettings = () => {
           Save
         </button>
       </form>
-      <hr />
-      <button className="button button--secondary" onClick={logout}>
-        Logout
-      </button>
-      <button
-        className="button button--tertiary delete"
-        onClick={() => setIsModalOpen(true)}
-      >
-        Delete Account
-      </button>
+      {/* <hr /> */}
+      <section className="profile-settings__ctas">
+        <button className="button button--secondary" onClick={logout}>
+          Logout
+        </button>
+        <button
+          className="button button--tertiary delete"
+          onClick={() => setIsModalOpen(true)}
+        >
+          Delete Account
+        </button>
+      </section>
       {isModalOpen && (
         <DeleteModal
           completedCount={completedCount}
