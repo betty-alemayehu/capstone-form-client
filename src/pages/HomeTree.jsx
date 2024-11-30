@@ -119,7 +119,7 @@ const HomeTree = () => {
     <div className="tree">
       <div className="tree__header">
         <div className="tree__header-container">
-          <h1>{activeSection}</h1> {/* Dynamically display active section */}
+          <h1>Logo Here</h1>
           <div className="tree__progress-circle">
             <CircularProgressbar
               value={percentageComplete}
@@ -134,6 +134,9 @@ const HomeTree = () => {
           </div>
         </div>
       </div>
+      <div className="tree__sub-header">
+        <h2>{activeSection}</h2> {/* Sub-header for active section */}
+      </div>
       <div className="tree__content">
         {error && <p className="error">{error}</p>}
         {["Beginner", "Intermediate", "Advanced"].map((level) => (
@@ -143,7 +146,6 @@ const HomeTree = () => {
             data-level={level} // Add data attribute for Intersection Observer
             ref={sectionRefs[level]} // Attach reference for observer
           >
-            <h2 className={`tree__section--${level}`}>{level}</h2>
             <div className="tree__nodes">
               {difficultyGroups[level].map((progression, index) => (
                 <div
