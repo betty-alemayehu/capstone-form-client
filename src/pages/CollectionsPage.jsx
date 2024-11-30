@@ -1,38 +1,77 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+//CollectionsPage.jsx
+import { useState, useEffect } from "react";
+import { getUserProgressionsWithMedia } from "../services/api";
 import "./CollectionsPage.scss";
-import SearchBar from "../components/SearchBar"; // Import the SearchBar component
+import SearchBar from "../components/SearchBar";
+
+const recommendationsData = [
+  { relatedPose: "Boat", recommendation: "V-Sit (Calisthenics)" },
+  { relatedPose: "Bridge", recommendation: "Glute Bridge (Fitness)" },
+  { relatedPose: "Crow", recommendation: "Handstand Prep (Gymnastics)" },
+  { relatedPose: "Camel", recommendation: "Backbend (Gymnastics)" },
+  { relatedPose: "Tree", recommendation: "Single-Leg Balance (Dance)" },
+  { relatedPose: "Plank", recommendation: "Push-Up (Calisthenics)" },
+  { relatedPose: "Half-Moon", recommendation: "Side Plank (Calisthenics)" },
+  {
+    relatedPose: "Downward-Facing Dog",
+    recommendation: "Mountain Climber (Calisthenics)",
+  },
+  { relatedPose: "Warrior Two", recommendation: "Lunge (Fitness)" },
+  { relatedPose: "Child's Pose", recommendation: "Resting Stretch (Dance)" },
+  {
+    relatedPose: "Standing Forward Bend",
+    recommendation: "Hamstring Stretch (Fitness)",
+  },
+  {
+    relatedPose: "Corpse",
+    recommendation: "Body Scan Meditation (Mindfulness)",
+  },
+  { relatedPose: "Bow", recommendation: "Superman (Fitness)" },
+  { relatedPose: "Lotus", recommendation: "Seated Meditation (Mindfulness)" },
+];
 
 const CollectionsPage = () => {
   const [workouts, setWorkouts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch workout categories from the API
   useEffect(() => {
-    const fetchWorkouts = async () => {
+    const fetchCompletedProgressions = async () => {
       try {
-        const response = await axios.get(
-          "https://yoga-api-nzy4.onrender.com/v1/categories"
-        );
+        const user = JSON.parse(localStorage.getItem("user"));
+        const userId = user?.user_id;
 
-        // Map API data to match the structure of `workoutData`
-        const formattedWorkouts = response.data.map((category) => ({
-          title: category.category_name,
-          category: category.category_description,
+        let completedPoseNames = [];
+
+        if (userId) {
+          const response = await getUserProgressionsWithMedia(userId);
+
+          // Extract completed poses
+          completedPoseNames = response.data
+            .filter((progression) => progression.status === "Completed")
+            .map((progression) => progression.english_name);
+        }
+
+        // Create workout cards:
+        const formattedWorkouts = recommendationsData.map((rec) => ({
+          title: rec.relatedPose,
+          category: rec.recommendation,
           icon: "/assets/icons/image-placeholder.png", // Placeholder icon
-          highlight: true, // Default set to true
+          highlight: completedPoseNames.includes(rec.relatedPose), // Highlight if completed
         }));
+
+        // Sort alphabetically by the 'category' (recommendation) field
+        formattedWorkouts.sort((a, b) => a.category.localeCompare(b.category));
 
         setWorkouts(formattedWorkouts);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching workouts:", error);
+        console.error("Error fetching completed progressions:", error);
         setIsLoading(false);
       }
     };
 
-    fetchWorkouts();
+    fetchCompletedProgressions();
   }, []);
 
   // Filter workouts based on the search query
@@ -44,14 +83,13 @@ const CollectionsPage = () => {
 
   return (
     <main className="collections-page">
-      {/* Use the SearchBar component */}
       <SearchBar
         placeholder="Search fitness collections"
         onSearch={setSearchQuery}
       />
 
       {isLoading ? (
-        <p className="collections-page__loading">Loading workouts...</p>
+        <p className="collections-page__loading">Loading recommendations...</p>
       ) : (
         <section className="workout-grid">
           {filteredWorkouts.map((workout, index) => (

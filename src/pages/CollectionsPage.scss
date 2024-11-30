@@ -16,6 +16,8 @@
 
   .workout-card {
     border-radius: 16px;
+    border: 1px solid #ccc;
+
     background: transparent;
     display: flex;
     flex-direction: column;
@@ -29,6 +31,8 @@
 
     &--highlight {
       background: #f8f9fe;
+      border: 2px solid #4caf50;
+      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.5);
     }
 
     &__icon-container {

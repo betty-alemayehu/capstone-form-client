@@ -1,5 +1,5 @@
 //LoginPage.jsx
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../utils/UserContext";
 import SignUpModal from "../components/SignUpModal";

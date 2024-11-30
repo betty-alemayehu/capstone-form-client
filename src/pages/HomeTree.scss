@@ -42,12 +42,14 @@
     background: #f8f8f8; /* Slightly different background for visibility */
     padding: 8px 0;
     width: 100%;
+    max-width: 480px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    border-radius: 8px;
 
     &--Beginner {
       border: 1px solid #ccc;
-      // border-radius: 8px;
+      border: 0 0 0.1 0;
       background-color: #fff;
     }
 
