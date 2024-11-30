@@ -16,7 +16,6 @@ const SignUpModal = ({ onClose }) => {
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 

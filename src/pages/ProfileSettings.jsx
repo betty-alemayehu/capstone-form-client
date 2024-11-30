@@ -2,6 +2,8 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../utils/UserContext";
+import { validateProfileForm } from "../utils/validation";
+
 import {
   getUserById,
   updateUserById,
@@ -14,15 +16,15 @@ import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [displayName, setDisplayName] = useState(""); // For displayed name
-  const [displayEmail, setDisplayEmail] = useState(""); // For displayed email
-  const [formName, setFormName] = useState(""); // For form-controlled name input
-  const [formEmail, setFormEmail] = useState(""); // For form-controlled email input
-  const [password, setPassword] = useState(""); // For password input
+  const [displayName, setDisplayName] = useState("");
+  const [displayEmail, setDisplayEmail] = useState("");
+  const [formName, setFormName] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [completedCount, setCompletedCount] = useState(0); // Completed poses count
+  const [completedCount, setCompletedCount] = useState(0);
   const { user, logout, updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -31,10 +33,10 @@ const ProfileSettings = () => {
       try {
         const response = await getUserById(user.user_id);
         const { name, email } = response.data;
-        setDisplayName(name || ""); // Set displayed name
-        setDisplayEmail(email || ""); // Set displayed email
-        setFormName(name || ""); // Initialize form-controlled name
-        setFormEmail(email || ""); // Initialize form-controlled email
+        setDisplayName(name || "");
+        setDisplayEmail(email || "");
+        setFormName(name || "");
+        setFormEmail(email || "");
       } catch (err) {
         console.error("Error fetching user details:", err);
         setError("Failed to load user details.");
@@ -66,43 +68,49 @@ const ProfileSettings = () => {
     }
   }, [user]);
 
-  const validateFields = () => {
-    const newErrors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!formName.trim()) newErrors.name = "Name is required.";
-    if (!formEmail.trim()) newErrors.email = "Email is required.";
-    else if (!emailRegex.test(formEmail))
-      newErrors.email = "Enter a valid email address.";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (validateFields()) {
-      try {
-        const updatedData = {
-          name: formName,
-          email: formEmail,
-          ...(password && { password }),
-        };
+    const formData = {
+      name: formName.trim(),
+      email: formEmail.trim(),
+      password: password,
+    };
 
-        const response = await updateUserById(user.user_id, updatedData);
-        updateUser({ name: response.data.name, email: response.data.email });
+    const validationErrors = validateProfileForm(formData);
+    setErrors(validationErrors);
 
-        // Update displayed name and email after successful update
-        setDisplayName(response.data.name);
-        setDisplayEmail(response.data.email);
+    if (Object.keys(validationErrors).length > 0) return; // Stop if there are errors
 
-        // Reset form fields
-        setFormName(response.data.name);
-        setFormEmail(response.data.email);
-        setPassword("");
-        setErrors({});
-      } catch (err) {
+    const updatedData = {
+      ...(formData.name && { name: formData.name }),
+      ...(formData.email && { email: formData.email }),
+      ...(formData.password && { password: formData.password.trim() }),
+    };
+
+    if (Object.keys(updatedData).length === 0) {
+      setError("Please update at least one field before submitting.");
+      return;
+    }
+
+    try {
+      const response = await updateUserById(user.user_id, updatedData);
+      updateUser({ name: response.data.name, email: response.data.email });
+
+      setDisplayName(response.data.name);
+      setDisplayEmail(response.data.email);
+      setFormName("");
+      setFormEmail("");
+      setPassword("");
+      setErrors({});
+      setError(null);
+    } catch (err) {
+      if (err.response?.status === 409) {
+        setErrors((prev) => ({
+          ...prev,
+          email: "Email is already in use.",
+        }));
+      } else {
         console.error("Error updating profile:", err);
         setError("Failed to update profile. Please try again.");
       }
@@ -113,7 +121,6 @@ const ProfileSettings = () => {
     try {
       await deleteUserById(user.user_id);
       logout();
-      // alert("Account deleted successfully.");
       navigate("/");
     } catch (err) {
       console.error("Error deleting account:", err);
@@ -124,11 +131,11 @@ const ProfileSettings = () => {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p className="profile-settings__error">{error}</p>;
 
   return (
     <main className="profile-settings">
       <h1 className="profile-settings__title">Profile Settings</h1>
+      {error && <p className="profile-settings__error">{error}</p>}
       <section className="profile-settings__hero">
         <img
           className="profile-settings__avatar"
@@ -142,26 +149,28 @@ const ProfileSettings = () => {
       <form className="profile-settings__form" onSubmit={handleSubmit}>
         <FormInput
           label="Name"
-          value={formName} // Controlled by form state
+          value={formName} // Keeps the input field empty
           onChange={(e) => setFormName(e.target.value)}
           error={errors.name}
-          placeholder="Name"
+          placeholder={displayName || "Name"} // Display current name as placeholder only
         />
         <FormInput
           label="Email"
           type="email"
-          value={formEmail} // Controlled by form state
+          value={formEmail} // Keeps the input field empty
           onChange={(e) => setFormEmail(e.target.value)}
           error={errors.email}
-          placeholder="Email"
+          placeholder={displayEmail || "Email"} // Display current email as placeholder only
         />
         <FormInput
           label="Password"
           type="password"
-          value={password} // Controlled by form state
+          value={password} // Keeps the input field empty
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Update Your Password"
+          error={errors.password}
+          placeholder="Update Your Password" // Static placeholder text
         />
+
         <button type="submit" className="button button--primary">
           Save
         </button>
@@ -178,7 +187,7 @@ const ProfileSettings = () => {
       </button>
       {isModalOpen && (
         <DeleteModal
-          completedCount={completedCount} // Pass the completed count as a prop
+          completedCount={completedCount}
           onDelete={handleDelete}
           onClose={() => setIsModalOpen(false)}
         />

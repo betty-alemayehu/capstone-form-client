@@ -10,14 +10,14 @@ const FormInput = ({
   error,
   placeholder,
 }) => (
-  <div className="form-input">
-    {label && <label className="form-input__label">{label}</label>}
+  <div className="form">
+    {label && <label className="form__label">{label}</label>}
     <input
       type={type}
       value={value} // Always controlled by default value
       onChange={onChange}
       placeholder={placeholder}
-      className={`form-input__input ${error ? "input--error" : ""}`}
+      className={`form__input ${error ? "input--error" : ""}`}
     />
     {error && (
       <div className="error-message">

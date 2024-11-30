@@ -9,7 +9,7 @@
   justify-content: center;
 
   &__content-wrapper {
-    max-width: 600px; /* Constrain the content width */
+    max-width: 480px; /* Constrain the content width */
     width: 100%; /* Allow flexibility on smaller viewports */
     padding: 1rem; /* Add some spacing */
     transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
