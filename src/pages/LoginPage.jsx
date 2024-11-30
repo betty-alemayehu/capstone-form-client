@@ -119,28 +119,33 @@ const LoginPage = () => {
               Register now
             </a>
           </p>
-          <hr className="login-page__divider" />
-          <p className="login-page__continue">Or continue with</p>
-          <div className="login-page__oauth-icons">
-            <button className="oauth-icon">
-              <img
-                src="https://pipedream.com/s.v0/app_m02hPO/logo/orig"
-                alt="Google"
-              />
-            </button>
-            <button className="oauth-icon">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/0/747.png"
-                alt="Apple"
-              />
-            </button>
-            <button className="oauth-icon">
-              <img
-                src="https://cdn-icons-png.flaticon.com/256/124/124010.png"
-                alt="Facebook"
-              />
-            </button>
-          </div>
+          <section className="login-page__options">
+            <div className="login-page__ORoauth">
+              <hr className="login-page__divider" />{" "}
+              <p className="login-page__continue"> OR </p>{" "}
+              <hr className="login-page__divider" />
+            </div>
+            <div className="login-page__oauth-icons">
+              <button className="oauth-icon">
+                <img
+                  src="https://pipedream.com/s.v0/app_m02hPO/logo/orig"
+                  alt="Google"
+                />
+              </button>
+              <button className="oauth-icon">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/0/747.png"
+                  alt="Apple"
+                />
+              </button>
+              <button className="oauth-icon">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/256/124/124010.png"
+                  alt="Facebook"
+                />
+              </button>
+            </div>
+          </section>
         </section>
       </div>
       {showSignUpModal && (

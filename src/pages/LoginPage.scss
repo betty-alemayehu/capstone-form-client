@@ -66,22 +66,39 @@
       text-decoration: underline;
     }
   }
+  &__ORoauth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  &__divider {
+    flex: 1;
+    border: none;
+    border-top: 1px solid #ccc;
+    height: 1px;
+  }
+
+  &__continue {
+    padding: 0 0.5rem;
+    color: #333;
+    white-space: nowrap; //Prevent text wrapping
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-gutter-mobile;
+  }
 }
 
 .login-page__extra {
-  // margin-top: 1.5rem;
   text-align: center;
-
-  hr {
-    // margin: 1rem 0;
-    border: none;
-    border-top: 1px solid #ccc;
-  }
 }
 
 .login-page__register {
   text-align: center;
-  // margin-top: 1rem;
 }
 
 .button-link {
@@ -99,7 +116,6 @@
 }
 
 .login-page__divider {
-  // margin: 2rem 0;
   border: none;
   border-top: 1px solid #ccc;
 }
@@ -114,7 +130,6 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
-  // margin-top: 1rem;
 }
 
 .oauth-icon {
@@ -133,7 +148,6 @@
 }
 .login-page__register {
   text-align: center;
-  // margin-top: 1rem;
 
   &-link {
     color: #007bff; /* Link blue color */
