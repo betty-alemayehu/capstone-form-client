@@ -91,4 +91,7 @@ export const getUserMediaByPose = async (userId, poseId) => {
   }
 };
 
+// Delete media
+export const deleteMedia = (mediaId) => API.delete(`/media/${mediaId}`);
+
 export default API;

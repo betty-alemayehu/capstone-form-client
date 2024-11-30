@@ -1,7 +1,12 @@
 //PoseDetails.jsx
 import { useEffect, useState, useContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { getPoseById, getUserMediaByPose, uploadMedia } from "../services/api";
+import {
+  getPoseById,
+  getUserMediaByPose,
+  uploadMedia,
+  deleteMedia,
+} from "../services/api";
 import { UserContext } from "../utils/UserContext";
 import PoseCarousel from "../components/PoseCarousel";
 import Button from "../components/Button";
@@ -34,6 +39,21 @@ const PoseDetails = () => {
 
     fetchDetails();
   }, [poseId, user, refresh]);
+
+  const handleDelete = async (mediaId) => {
+    if (!mediaId) {
+      console.error("Cannot delete default");
+      return;
+    }
+
+    try {
+      await deleteMedia(mediaId);
+      setRefresh((prev) => !prev); // Trigger refresh
+    } catch (err) {
+      console.error("Error deleting media:", err.message);
+      setError("Failed to delete media. Please try again.");
+    }
+  };
 
   const triggerFileUpload = (fileInputId) => {
     document.getElementById(fileInputId).click();
@@ -70,7 +90,7 @@ const PoseDetails = () => {
         </div>
         {error && <p className="pose-details__error">{error}</p>}
         <div className="pose-details__carousel-container">
-          <PoseCarousel pose={pose} media={media} />
+          <PoseCarousel pose={pose} media={media} onDelete={handleDelete} />
         </div>
         <section className="pose-details__description">
           <h1>{pose.english_name}</h1>
