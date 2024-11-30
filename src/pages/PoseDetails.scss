@@ -6,7 +6,6 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-
   min-height: 100vh;
 
   &__scrollable-content {
@@ -47,21 +46,42 @@
   &__carousel-container {
     width: 100vw; // Ensure PoseCarousel stretches full width
     max-width: 480px;
+    position: relative; // Relative positioning to anchor the delete icon
+  }
+
+  &__delete-icon {
+    position: absolute;
+    bottom: -2rem; // Below the carousel
+    right: 1rem; // Align to the right of the carousel
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      transform: scale(1.1); // Enlarge slightly on hover
+      transition: transform 0.2s ease-in-out;
+    }
   }
 
   &__description {
     display: flex;
     flex-direction: column;
     width: calc(100vw - #{$spacing-gutter-mobile * 2});
-
     max-width: 480px;
+    margin-bottom: 1rem;
   }
 
   &__actions {
     position: sticky;
     bottom: 0;
     background: #fff;
-    padding: 1rem;
+    padding: 1rem 1rem 30px 1rem;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     z-index: 10;
     width: 100%;
@@ -71,6 +91,7 @@
     align-items: center;
 
     gap: 1rem;
+
     &-container {
       display: flex;
       flex-direction: row;
@@ -81,7 +102,13 @@
     }
 
     .pose-details__file-input {
-      display: none;
+      display: none; // Hide the file input
     }
+  }
+
+  &__error {
+    color: red;
+    margin: 0.5rem 0;
+    text-align: center;
   }
 }

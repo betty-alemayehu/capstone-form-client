@@ -28,6 +28,10 @@ const recommendationsData = [
   },
   { relatedPose: "Bow", recommendation: "Superman (Fitness)" },
   { relatedPose: "Lotus", recommendation: "Seated Meditation (Mindfulness)" },
+  {
+    relatedPose: "Extended Hand to Toe",
+    recommendation: "Pistol Squat (Calisthenics)",
+  },
 ];
 
 const CollectionsPage = () => {

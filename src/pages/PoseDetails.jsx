@@ -90,7 +90,19 @@ const PoseDetails = () => {
         </div>
         {error && <p className="pose-details__error">{error}</p>}
         <div className="pose-details__carousel-container">
-          <PoseCarousel pose={pose} media={media} onDelete={handleDelete} />
+          <PoseCarousel
+            pose={pose}
+            media={media}
+            onDelete={handleDelete} // Pass handleDelete for media management
+          />
+          {media.length > 0 && (
+            <button
+              className="pose-details__delete-icon"
+              onClick={() => handleDelete(media[0].id)} // Delete the first media item
+            >
+              <img src="/assets/icons/delete_outline-24px.svg" alt="Delete" />
+            </button>
+          )}
         </div>
         <section className="pose-details__description">
           <h1>{pose.english_name}</h1>
