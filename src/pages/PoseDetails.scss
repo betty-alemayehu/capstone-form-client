@@ -43,6 +43,11 @@
     }
   }
 
+  &__sanskrit {
+    font-weight: 400;
+    font-size: medium;
+  }
+
   &__carousel-container {
     width: 100vw; // Ensure PoseCarousel stretches full width
     max-width: 480px;

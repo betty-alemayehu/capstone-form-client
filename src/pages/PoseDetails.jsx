@@ -78,7 +78,7 @@ const PoseDetails = () => {
     }
   };
 
-  if (!pose) return <p>Loading...</p>;
+  if (!pose) return <p className="loading"></p>;
 
   return (
     <article className="pose-details">
@@ -105,8 +105,8 @@ const PoseDetails = () => {
           )}
         </div>
         <section className="pose-details__description">
-          <h1>{pose.english_name}</h1>
-          <h2>{pose.sanskrit_name}</h2>
+          <h2>{pose.english_name}</h2>
+          <h2 className="pose-details__sanskrit">{pose.sanskrit_name}</h2>
           <p>{pose.pose_description}</p>
           <h3>Benefits</h3>
           <p>{pose.pose_benefits}</p>

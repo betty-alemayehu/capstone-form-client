@@ -23,7 +23,7 @@ const ProfileSettings = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [completedCount, setCompletedCount] = useState(0);
   const { user, logout, updateUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -40,9 +40,10 @@ const ProfileSettings = () => {
       } catch (err) {
         console.error("Error fetching user details:", err);
         setError("Failed to load user details.");
-      } finally {
-        setLoading(false);
       }
+      // finally {
+      //   setLoading(false);
+      // }
     };
 
     const fetchCompletedCount = async () => {
@@ -63,9 +64,10 @@ const ProfileSettings = () => {
     if (user) {
       fetchUserDetails();
       fetchCompletedCount();
-    } else {
-      setLoading(false);
     }
+    // else {
+    //   setLoading(false);
+    // }
   }, [user]);
 
   const handleSubmit = async (e) => {
@@ -130,7 +132,7 @@ const ProfileSettings = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  // if (loading) return <p>Loading...</p>;
 
   return (
     <main className="profile-settings">
@@ -141,7 +143,6 @@ const ProfileSettings = () => {
           className="profile-settings__avatar"
           src="/assets/images/user_image_placeholder.png"
           alt="Profile avatar"
-          loading="lazy"
         />
         <h3>{displayName}</h3>
         <p>{displayEmail}</p>

@@ -28,11 +28,22 @@
     max-width: 480px; /* Limit the container width */
     width: 100%; /* Allow responsiveness */
     padding: 0 16px; /* Padding for content spacing */
+    max-height: 4rem;
+  }
+
+  &__header-logo-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  &__header-logo {
+    max-height: 3rem;
   }
 
   &__progress-circle {
-    width: 4rem; /* Size of the progress circle */
-    height: 4rem;
+    width: 3rem; /* Size of the progress circle */
+    height: 3rem;
   }
 
   &__sub-header {
@@ -40,7 +51,7 @@
     top: 5rem; /* Position it below the main header */
     z-index: 0; /* Ensure it's below the main header */
     background: #f8f8f8; /* Slightly different background for visibility */
-    padding: 1.5rem 0 1rem 0;
+    padding: 1.5rem 1rem 1rem 1rem;
     width: 100%;
     max-width: 480px;
     text-align: center;
@@ -50,6 +61,7 @@
     flex-direction: column;
     align-items: center;
     h2 {
+      font-size: medium;
       padding-top: 0;
     }
 

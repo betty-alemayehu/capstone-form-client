@@ -136,7 +136,14 @@ const HomeTree = () => {
     <div className="tree">
       <div className="tree__header">
         <div className="tree__header-container">
-          <h1>Logo Here</h1>
+          <div className="tree__header-logo-container">
+            <img
+              className="tree__header-logo"
+              src="/assets/images/Puffin-logo.png"
+              alt="puffin site logo"
+            />
+            <h1>BodyLingo</h1>
+          </div>
           <div className="tree__progress-circle">
             <CircularProgressbar
               value={percentageComplete}
