@@ -140,7 +140,7 @@ const HomeTree = () => {
             <img
               className="tree__header-logo"
               src="/assets/images/Puffin-logo.png"
-              alt="puffin site logo"
+              alt="site logo"
             />
             <h1>BodyLingo</h1>
           </div>

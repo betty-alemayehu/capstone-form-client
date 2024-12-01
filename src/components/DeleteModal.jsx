@@ -22,7 +22,7 @@ const DeleteModal = ({ completedCount, onDelete, onClose }) => {
             ? "You will lose progress on 1 Pose!"
             : `You will lose progress on ${completedCount} poses!`}
         </h3>
-        <img src="/assets/images/Puffin-logo.png" alt="pincha site logo" />
+        <img src="/assets/images/Puffin-logo.png" alt="site logo" />
         <div className="delete-modal__actions">
           <button className="button button--secondary" onClick={onClose}>
             Cancel

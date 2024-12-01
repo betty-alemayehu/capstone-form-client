@@ -19,6 +19,8 @@ const PoseDetails = () => {
   const [media, setMedia] = useState([]);
   const [error, setError] = useState(null);
   const [refresh, setRefresh] = useState(false);
+  const [currentMediaId, setCurrentMediaId] = useState(null); // Track the current media ID
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,6 +33,7 @@ const PoseDetails = () => {
 
         const mediaResponse = await getUserMediaByPose(user.user_id, poseId);
         setMedia(mediaResponse || []);
+        setCurrentMediaId(mediaResponse?.[0]?.id || null); // Set initial media ID
       } catch (err) {
         console.error("Error fetching pose details:", err.message);
         setError("Failed to fetch pose details. Please try again.");
@@ -40,14 +43,14 @@ const PoseDetails = () => {
     fetchDetails();
   }, [poseId, user, refresh]);
 
-  const handleDelete = async (mediaId) => {
-    if (!mediaId) {
-      console.error("Cannot delete default");
+  const handleDelete = async () => {
+    if (!currentMediaId) {
+      console.error("Cannot delete default image");
       return;
     }
 
     try {
-      await deleteMedia(mediaId);
+      await deleteMedia(currentMediaId);
       setRefresh((prev) => !prev); // Trigger refresh
     } catch (err) {
       console.error("Error deleting media:", err.message);
@@ -74,11 +77,12 @@ const PoseDetails = () => {
       await uploadMedia(formData);
       setRefresh((prev) => !prev);
     } catch (err) {
+      console.error("Error uploading media:", err.message);
       setError("Failed to upload file. Please try again.");
     }
   };
 
-  if (!pose) return <p className="loading"></p>;
+  if (!pose) return <p>Loading...</p>;
 
   return (
     <article className="pose-details">
@@ -93,14 +97,18 @@ const PoseDetails = () => {
           <PoseCarousel
             pose={pose}
             media={media}
-            onDelete={handleDelete} // Pass handleDelete for media management
+            onSlideChange={(id) => setCurrentMediaId(id)} // Update the current media ID
           />
-          {media.length > 0 && (
+          {!media.some((item) => item.id === currentMediaId) ? null : (
             <button
               className="pose-details__delete-icon"
-              onClick={() => handleDelete(media[0].id)} // Delete the first media item
+              onClick={handleDelete}
+              aria-label="Delete current media"
             >
-              <img src="/assets/icons/delete_outline-24px.svg" alt="Delete" />
+              <img
+                src="/assets/icons/delete_outline-24px.svg"
+                alt="Delete Media"
+              />
             </button>
           )}
         </div>

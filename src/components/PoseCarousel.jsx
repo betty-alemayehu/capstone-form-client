@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import "./PoseCarousel.scss";
 
-const PoseCarousel = ({ pose, media }) => {
+const PoseCarousel = ({ pose, media, onSlideChange }) => {
   const [carouselItems, setCarouselItems] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -20,6 +20,7 @@ const PoseCarousel = ({ pose, media }) => {
     }));
 
     const defaultImage = {
+      id: null, // Default images have no ID
       url: pose.url_png,
       name: "Default Pose Image",
       isDefault: true,
@@ -27,6 +28,13 @@ const PoseCarousel = ({ pose, media }) => {
 
     setCarouselItems([...sortedMedia, defaultImage]);
   }, [pose, media]);
+
+  useEffect(() => {
+    // Notify parent when the current slide changes
+    if (carouselItems[currentSlide]) {
+      onSlideChange(carouselItems[currentSlide]?.id);
+    }
+  }, [currentSlide, carouselItems, onSlideChange]);
 
   const handleDotClick = (index) => {
     setCurrentSlide(index);
