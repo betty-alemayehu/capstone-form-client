@@ -1,3 +1,4 @@
+//Button.jsx
 import PropTypes from "prop-types";
 import "./Button.scss";
 
@@ -6,8 +7,13 @@ const Button = ({
   variant = "primary",
   children,
   onClick,
+  className = "",
 }) => (
-  <button className={`button button--${variant}`} type={type} onClick={onClick}>
+  <button
+    className={`button button--${variant} ${className}`}
+    type={type}
+    onClick={onClick}
+  >
     {children}
   </button>
 );
@@ -18,12 +24,12 @@ Button.propTypes = {
     "primary",
     "secondary",
     "tertiary",
-    "link",
     "delete",
     "hidden",
   ]),
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default Button;

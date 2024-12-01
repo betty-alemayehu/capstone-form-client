@@ -1,20 +1,22 @@
 // NavBar.scss
+@use "../styles/variables" as *;
+
 .navbar {
-  background: #fff;
+  background: $color-primary-bg;
   display: flex;
-  justify-content: center; /* Center the container */
-  min-height: 88px;
+  justify-content: center;
+  min-height: 5.5rem;
   width: 100%;
-  gap: 4px;
-  padding: 16px 16px 30px;
+  gap: $spacing-base-unit;
+  padding: $spacing-base-unit $spacing-base-unit 2rem;
   z-index: 10;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Add a shadow for separation */
+  box-shadow: 0 -0.125rem 0.625rem rgba(0, 0, 0, 0.1);
 
   &__container {
     display: flex;
-    max-width: 480px; /* Limit the content width */
-    width: 100%; /* Allow the container to expand within the max width */
-    gap: 4px; /* Maintain spacing between buttons */
+    max-width: $max-width-mobile;
+    width: 100%;
+    gap: $spacing-base-unit;
   }
 
   &__button {
@@ -25,38 +27,49 @@
     text-decoration: none;
     background: transparent;
     border: none;
-    color: #71727a; // Inactive color
-    font-size: 0.75rem; // Matches button font size
-    font-weight: 600;
     cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
 
     &:hover {
-      transform: scale(1.1); // Subtle hover effect
+      transform: scale(1.1);
     }
 
     &--active {
-      color: #4caf50; // Active color (green, for example)
+      .navbar__label {
+        color: $color-primary-cta;
+      }
+
+      .navbar__icon {
+        filter: brightness(0) saturate(100%) invert(20%) sepia(97%)
+          saturate(6000%) hue-rotate(200deg) brightness(85%) contrast(90%);
+      }
     }
   }
 
   &__icon {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 4px;
-    filter: grayscale(100%); // Default: greyscale for inactive
-    opacity: 0.6; // Dim the icon slightly for inactive state
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 0.25rem;
+    filter: brightness(0) saturate(100%) invert(85%) sepia(11%) saturate(400%)
+      hue-rotate(210deg) brightness(90%) contrast(85%);
+    opacity: 1;
     transition: filter 0.3s ease, opacity 0.3s ease;
 
     &--active {
-      filter: none; // Remove greyscale for active
-      opacity: 1; // Fully visible for active
+      filter: brightness(0) saturate(100%) invert(20%) sepia(97%)
+        saturate(6000%) hue-rotate(200deg) brightness(85%) contrast(90%);
     }
   }
 
   &__label {
-    font: 400 10px/1.4 "Inter", sans-serif;
-    margin-top: 8px;
+    font: $font-weight-regular 0.625rem/1.4 $font-family-base;
+    margin-top: $spacing-base-unit / 2;
     letter-spacing: 0.15px;
+    color: $color-primary-label;
+    transition: color 0.3s ease;
+
+    &.navbar__label--active {
+      color: $color-primary-cta;
+      font: $font-weight-bold 0.625rem/1.4 $font-family-base;
+    }
   }
 }

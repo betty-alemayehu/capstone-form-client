@@ -4,8 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import "./NavBar.scss";
 
 const NavBar = () => {
-  const location = useLocation(); // Hook to get the current route
-  const [activeTab, setActiveTab] = useState(location.pathname); // Initialize with current path
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(location.pathname);
 
   const tabs = [
     {
@@ -31,23 +31,29 @@ const NavBar = () => {
   return (
     <nav className="navbar">
       <div className="navbar__container">
-        {tabs.map((tab, index) => (
+        {tabs.map(({ name, link, icon, iconAlt }) => (
           <Link
-            key={index}
-            to={tab.link}
+            key={link}
+            to={link}
             className={`navbar__button ${
-              activeTab === tab.link ? "navbar__button--active" : ""
+              activeTab === link ? "navbar__button--active" : ""
             }`}
-            onClick={() => setActiveTab(tab.link)} // Update active tab on click
+            onClick={() => setActiveTab(link)}
           >
             <img
-              src={tab.icon}
-              alt={tab.iconAlt}
+              src={icon}
+              alt={iconAlt}
               className={`navbar__icon ${
-                activeTab === tab.link ? "navbar__icon--active" : ""
+                activeTab === link ? "navbar__icon--active" : ""
               }`}
             />
-            <span className="navbar__label">{tab.name}</span>
+            <span
+              className={`navbar__label ${
+                activeTab === link ? "navbar__label--active" : ""
+              }`}
+            >
+              {name}
+            </span>
           </Link>
         ))}
       </div>

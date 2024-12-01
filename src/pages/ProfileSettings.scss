@@ -1,34 +1,60 @@
 //ProfileSettings.scss
 @use "../styles/variables" as *;
+
 .profile-settings {
-  background: #fff;
-  max-width: 480px;
-  width: 100%;
+  background: $color-primary-bg;
+  width: calc(100% - $spacing-gutter-mobile * 2);
+  max-width: $max-width-mobile;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: $spacing-gutter-mobile;
-  width: calc(100% - $spacing-gutter-mobile * 2);
-  max-width: 480px;
 
   &__hero {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
   &__avatar {
     max-height: 7rem;
     max-width: 7rem;
     align-self: center;
+    border-radius: 50%;
+    filter: brightness(0) saturate(100%) invert(10%) sepia(70%) saturate(7000%)
+      hue-rotate(200deg) brightness(90%) contrast(100%);
   }
 
   &__title {
     text-align: center;
+    color: $color-primary-text;
+    font: $font-weight-bold 1.5rem/2rem $font-family-base;
   }
 
   &__form {
     display: flex;
     flex-direction: column;
     gap: $spacing-gutter-mobile;
+  }
+
+  &__error {
+    color: $color-error;
+    text-align: center;
+    font-size: 0.875rem;
+    margin-bottom: $spacing-gutter-mobile;
+  }
+
+  &__ctas {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-gutter-mobile;
+
+    .button--secondary {
+      margin-bottom: $spacing-base-unit;
+    }
+
+    .button--delete {
+      margin-top: 0;
+    }
   }
 }

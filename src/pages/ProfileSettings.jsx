@@ -3,7 +3,6 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../utils/UserContext";
 import { validateProfileForm } from "../utils/validation";
-
 import {
   getUserById,
   updateUserById,
@@ -12,6 +11,7 @@ import {
 } from "../services/api";
 import DeleteModal from "../components/DeleteModal";
 import FormInput from "../components/FormInput";
+import Button from "../components/Button";
 import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
@@ -23,7 +23,6 @@ const ProfileSettings = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(true);
   const [completedCount, setCompletedCount] = useState(0);
   const { user, logout, updateUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -31,33 +30,28 @@ const ProfileSettings = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await getUserById(user.user_id);
-        const { name, email } = response.data;
+        const { data } = await getUserById(user.user_id);
+        const { name, email } = data;
         setDisplayName(name || "");
         setDisplayEmail(email || "");
         setFormName(name || "");
         setFormEmail(email || "");
-      } catch (err) {
-        console.error("Error fetching user details:", err);
+      } catch {
         setError("Failed to load user details.");
       }
-      // finally {
-      //   setLoading(false);
-      // }
     };
 
     const fetchCompletedCount = async () => {
       if (!user) return;
-
       try {
-        const response = await getUserProgressionsWithMedia(user.user_id);
-        const progressions = response.data || [];
-        const count = progressions.filter(
-          (progression) => progression.status === "Completed"
-        ).length;
-        setCompletedCount(count);
-      } catch (err) {
-        console.error("Error fetching progressions:", err);
+        const { data: progressions } = await getUserProgressionsWithMedia(
+          user.user_id
+        );
+        setCompletedCount(
+          progressions.filter((p) => p.status === "Completed").length
+        );
+      } catch {
+        console.error("Error fetching progressions.");
       }
     };
 
@@ -65,14 +59,10 @@ const ProfileSettings = () => {
       fetchUserDetails();
       fetchCompletedCount();
     }
-    // else {
-    //   setLoading(false);
-    // }
   }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = {
       name: formName.trim(),
       email: formEmail.trim(),
@@ -80,9 +70,10 @@ const ProfileSettings = () => {
     };
 
     const validationErrors = validateProfileForm(formData);
-    setErrors(validationErrors);
-
-    if (Object.keys(validationErrors).length > 0) return; // Stop if there are errors
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     const updatedData = {
       ...(formData.name && { name: formData.name }),
@@ -90,17 +81,16 @@ const ProfileSettings = () => {
       ...(formData.password && { password: formData.password.trim() }),
     };
 
-    if (Object.keys(updatedData).length === 0) {
+    if (!Object.keys(updatedData).length) {
       setError("Please update at least one field before submitting.");
       return;
     }
 
     try {
-      const response = await updateUserById(user.user_id, updatedData);
-      updateUser({ name: response.data.name, email: response.data.email });
-
-      setDisplayName(response.data.name);
-      setDisplayEmail(response.data.email);
+      const { data } = await updateUserById(user.user_id, updatedData);
+      updateUser({ name: data.name, email: data.email });
+      setDisplayName(data.name);
+      setDisplayEmail(data.email);
       setFormName("");
       setFormEmail("");
       setPassword("");
@@ -108,12 +98,8 @@ const ProfileSettings = () => {
       setError(null);
     } catch (err) {
       if (err.response?.status === 409) {
-        setErrors((prev) => ({
-          ...prev,
-          email: "Email is already in use.",
-        }));
+        setErrors((prev) => ({ ...prev, email: "Email is already in use." }));
       } else {
-        console.error("Error updating profile:", err);
         setError("Failed to update profile. Please try again.");
       }
     }
@@ -124,15 +110,12 @@ const ProfileSettings = () => {
       await deleteUserById(user.user_id);
       logout();
       navigate("/");
-    } catch (err) {
-      console.error("Error deleting account:", err);
+    } catch {
       setError("Failed to delete account. Please try again.");
     } finally {
       setIsModalOpen(false);
     }
   };
-
-  // if (loading) return <p>Loading...</p>;
 
   return (
     <main className="profile-settings">
@@ -141,7 +124,7 @@ const ProfileSettings = () => {
       <section className="profile-settings__hero">
         <img
           className="profile-settings__avatar"
-          src="/assets/images/user_image_placeholder.png"
+          src="/assets/icons/user_icon.png"
           alt="Profile avatar"
         />
         <h3>{displayName}</h3>
@@ -149,44 +132,36 @@ const ProfileSettings = () => {
       </section>
       <form className="profile-settings__form" onSubmit={handleSubmit}>
         <FormInput
-          label=""
-          value={formName} // Keeps the input field empty
+          value={formName}
           onChange={(e) => setFormName(e.target.value)}
           error={errors.name}
-          placeholder={displayName || "Name"} // Display current name as placeholder only
+          placeholder={displayName || "Name"}
         />
         <FormInput
-          label=""
           type="email"
-          value={formEmail} // Keeps the input field empty
+          value={formEmail}
           onChange={(e) => setFormEmail(e.target.value)}
           error={errors.email}
-          placeholder={displayEmail || "Email"} // Display current email as placeholder only
+          placeholder={displayEmail || "Email"}
         />
         <FormInput
-          label=""
           type="password"
-          value={password} // Keeps the input field empty
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
           error={errors.password}
-          placeholder="Update Your Password" // Static placeholder text
+          placeholder="Update Your Password"
         />
-
-        <button type="submit" className="button button--primary">
+        <Button type="submit" variant="primary">
           Save
-        </button>
+        </Button>
       </form>
-      {/* <hr /> */}
       <section className="profile-settings__ctas">
-        <button className="button button--secondary" onClick={logout}>
+        <Button variant="secondary" onClick={logout}>
           Logout
-        </button>
-        <button
-          className="button button--tertiary delete"
-          onClick={() => setIsModalOpen(true)}
-        >
+        </Button>
+        <Button variant="tertiary-delete" onClick={() => setIsModalOpen(true)}>
           Delete Account
-        </button>
+        </Button>
       </section>
       {isModalOpen && (
         <DeleteModal

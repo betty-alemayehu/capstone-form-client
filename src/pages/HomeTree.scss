@@ -30,7 +30,13 @@
     padding: 0 $spacing-gutter-mobile;
     max-height: 4rem;
   }
-
+  &__header-logo-container {
+    display: flex;
+    flex-direction: row;
+    img {
+      max-height: 4rem;
+    }
+  }
   &__progress-circle {
     width: 3rem;
     height: 3rem;
