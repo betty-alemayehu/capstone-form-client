@@ -93,7 +93,8 @@ const CollectionsPage = () => {
       />
 
       {isLoading ? (
-        <p className="collections-page__loading">Loading recommendations...</p>
+        // <p className="collections-page__loading">Loading recommendations...</p>
+        <p className="collections-page__loading"></p>
       ) : (
         <section className="workout-grid">
           {filteredWorkouts.map((workout, index) => (
