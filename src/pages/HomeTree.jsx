@@ -1,6 +1,6 @@
 //HomeTree.jsx
 import "./HomeTree.scss";
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useContext } from "react";
 import TreeNode from "../components/TreeNode";
 import { getUserProgressionsWithMedia } from "../services/api";
 import { UserContext } from "../utils/UserContext";
@@ -13,12 +13,6 @@ const HomeTree = () => {
   const [progressions, setProgressions] = useState([]);
   const [error, setError] = useState(null);
   const { user } = useContext(UserContext);
-
-  const sectionRefs = useRef({
-    Beginner: null,
-    Intermediate: null,
-    Advanced: null,
-  });
 
   useEffect(() => {
     const fetchProgressionsWithMedia = async () => {
@@ -34,8 +28,8 @@ const HomeTree = () => {
             progression.status === "Completed" &&
             progression.media_url &&
             !progression.media_url.startsWith("http")
-              ? `${BASE_URL}${progression.media_url}` // Prepend BASE_URL for relative paths
-              : progression.media_url, // Leave absolute URLs as they are
+              ? `${BASE_URL}${progression.media_url}`
+              : progression.media_url,
         }));
 
         setProgressions(updatedData);
@@ -48,43 +42,25 @@ const HomeTree = () => {
     fetchProgressionsWithMedia();
   }, [user]);
 
-  const groupByDifficulty = (progressions) => {
-    return progressions.reduce(
-      (groups, progression) => {
-        const { difficulty } = progression;
-        if (!groups[difficulty]) groups[difficulty] = [];
-        groups[difficulty].push(progression);
-        return groups;
-      },
-      { Beginner: [], Intermediate: [], Advanced: [] }
-    );
-  };
+  const groupByDifficulty = (progressions) =>
+    progressions.reduce((groups, progression) => {
+      const { difficulty } = progression;
+      groups[difficulty] = groups[difficulty] || [];
+      groups[difficulty].push(progression);
+      return groups;
+    }, {});
 
   const difficultyGroups = groupByDifficulty(progressions);
+  const difficultyOrder = ["Beginner", "Intermediate", "Advanced"];
 
-  const completedCount = Array.isArray(progressions)
-    ? progressions.filter((progression) => progression.status === "Completed")
-        .length
-    : 0;
+  const completedCount = progressions.filter(
+    (progression) => progression.status === "Completed"
+  ).length;
 
   const percentageComplete =
     progressions.length > 0
       ? Math.round((completedCount / progressions.length) * 100)
       : 0;
-
-  const getAlignment = (index) => {
-    const pattern = [
-      "center",
-      "center-right",
-      "right",
-      "center-right",
-      "center",
-      "center-left",
-      "left",
-      "center-left",
-    ];
-    return pattern[index % pattern.length];
-  };
 
   return (
     <div className="tree">
@@ -98,10 +74,10 @@ const HomeTree = () => {
               value={percentageComplete}
               text={`${percentageComplete}%`}
               styles={buildStyles({
-                textSize: "16px",
-                pathColor: "#4caf50",
-                textColor: "#4caf50",
-                trailColor: "#679436",
+                textSize: "20px",
+                pathColor: "#679436",
+                textColor: "#679436",
+                trailColor: "#c4bdc6ff",
               })}
             />
           </div>
@@ -109,54 +85,25 @@ const HomeTree = () => {
       </div>
       <div className="tree__content">
         {error && <p className="error">{error}</p>}
-        <div
-          ref={(el) => (sectionRefs.current.Beginner = el)}
-          className="tree__section tree__section--Beginner"
-        >
-          <h3 className="tree__section-title">Beginner</h3>
-          <div className="tree__nodes">
-            {difficultyGroups.Beginner.map((progression, index) => (
-              <div
-                key={progression.progression_id}
-                className={`tree-node tree-node--${getAlignment(index)}`}
-              >
-                <TreeNode progression={progression} />
+        {difficultyOrder.map((difficulty) =>
+          difficultyGroups[difficulty] ? (
+            <div
+              key={difficulty}
+              className={`tree__section tree__section--${difficulty}`}
+            >
+              <h3 className="tree__section-title">{difficulty}</h3>
+              <div className="tree__nodes">
+                {difficultyGroups[difficulty].map((progression, index) => (
+                  <TreeNode
+                    key={progression.progression_id}
+                    progression={progression}
+                    index={index}
+                  />
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-        <div
-          ref={(el) => (sectionRefs.current.Intermediate = el)}
-          className="tree__section tree__section--Intermediate"
-        >
-          <h3 className="tree__section-title">Intermediate</h3>
-          <div className="tree__nodes">
-            {difficultyGroups.Intermediate.map((progression, index) => (
-              <div
-                key={progression.progression_id}
-                className={`tree-node tree-node--${getAlignment(index)}`}
-              >
-                <TreeNode progression={progression} />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div
-          ref={(el) => (sectionRefs.current.Advanced = el)}
-          className="tree__section tree__section--Advanced"
-        >
-          <h3 className="tree__section-title">Advanced</h3>
-          <div className="tree__nodes">
-            {difficultyGroups.Advanced.map((progression, index) => (
-              <div
-                key={progression.progression_id}
-                className={`tree-node tree-node--${getAlignment(index)}`}
-              >
-                <TreeNode progression={progression} />
-              </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          ) : null
+        )}
       </div>
     </div>
   );

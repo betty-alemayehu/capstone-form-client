@@ -2,22 +2,22 @@
 @use "../styles/variables" as *;
 
 .tree {
-  background: #fff;
+  background: $color-primary-bg;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   &__header {
-    position: fixed; /* Fix the main header at the top */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* Full width */
-    background: #fff; /* Match the background */
-    z-index: 10; /* Ensure it stays on top */
+    width: 100%;
+    background: $color-primary-bg;
+    z-index: 10;
     display: flex;
-    justify-content: center; /* Center-align the header content */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for separation */
-    padding: 8px 0; /* Padding inside the header */
+    justify-content: center;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    padding: $spacing-base-unit;
     text-align: center;
   }
 
@@ -25,155 +25,43 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 480px; /* Limit the container width */
-    width: 100%; /* Allow responsiveness */
-    padding: 0 16px; /* Padding for content spacing */
+    max-width: $max-width-mobile;
+    width: 100%;
+    padding: 0 $spacing-gutter-mobile;
     max-height: 4rem;
   }
 
-  &__header-logo-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-  }
-  &__header-logo {
-    max-height: 3rem;
-  }
-
   &__progress-circle {
-    width: 3rem; /* Size of the progress circle */
+    width: 3rem;
     height: 3rem;
   }
 
-  &__sub-header {
-    position: sticky; /* Makes the sub-header sticky */
-    top: 5rem; /* Position it below the main header */
-    z-index: 0; /* Ensure it's below the main header */
-    background: #f8f8f8; /* Slightly different background for visibility */
-    padding: 1.5rem 1rem 1rem 1rem;
-    width: 100%;
-    max-width: 480px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-    border-radius: 0 0 8px 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    h2 {
-      font-size: medium;
-      padding-top: 0;
-    }
-
-    // &--Beginner {
-    //   // border: 1px solid #ccc;
-    //   // background-color: #f5d3a6;
-    //   // background-color: burgundy;
-    // }
-
-    // &--Intermediate {
-    //   // border: 1px solid #ccc;
-    //   // background-color: #a49c5c;
-    //   // background-color: #f5d3a6;
-    // }
-
-    // &--Advanced {
-    //   // border: 1px solid #ccc;
-    //   // background-color: #7f8b4b;
-    //   // background-color: #7f8b4b;
-    // }
-  }
-
   &__content {
-    margin-top: 80px; /* Space for the fixed main header and sticky sub-header */
+    margin-top: 5rem;
     display: flex;
     flex-direction: column;
-    gap: 1 rem; /* Space between sections */
-    width: 100%; /* Full width */
-    max-width: 480px; /* Limit content width */
+    gap: $spacing-base-unit * 2;
+    width: 100%;
+    max-width: $max-width-mobile;
   }
 
   &__section {
     &-title {
       padding-left: $spacing-gutter-mobile;
     }
-    &--Beginner {
-      padding-bottom: 1rem;
-      border-bottom: 1px dashed #ccc;
-      // border-radius: 8px;
-      // background-color: #fff;
-    }
 
-    &--Intermediate {
-      padding-bottom: 1rem;
-
-      border-bottom: 1px dashed #ccc;
-      // border-radius: 8px;
-      // background-color: #fafbfb;
-    }
-
+    &--Beginner,
+    &--Intermediate,
     &--Advanced {
-      padding-bottom: 1rem;
-
-      // border-bottom: 1px solid #ccc;
-      // border-radius: 8px;
-      // background-color: lavender; /* Fixed invalid color */
+      padding-bottom: $spacing-base-unit * 2;
+      border-bottom: 1px dashed $color-primary-label;
     }
   }
 
   &__nodes {
     display: flex;
     flex-direction: column;
-    gap: 1rem; /* Space between nodes */
-    margin-top: 1rem;
+    gap: $spacing-gutter-mobile;
+    margin-top: $spacing-base-unit * 2;
   }
-}
-
-.tree-node {
-  display: flex;
-  justify-content: center;
-
-  img {
-    border-radius: 100%;
-    object-fit: cover;
-    max-width: 5rem;
-    max-height: 5rem;
-    min-width: 5rem;
-    min-height: 5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
-
-    &:hover {
-      transform: translateY(-5px); /* Slight lift effect */
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add subtle shadow on hover */
-    }
-  }
-
-  &--center {
-    justify-content: center;
-  }
-
-  &--right {
-    justify-content: flex-end;
-    padding-right: 20%;
-  }
-
-  &--center-right {
-    justify-content: flex-end;
-    padding-right: 30%;
-  }
-
-  &--left {
-    justify-content: flex-start;
-    padding-left: 20%;
-  }
-
-  &--center-left {
-    justify-content: flex-start;
-    padding-left: 30%;
-  }
-}
-
-.Completed {
-  border: 5px solid green;
-  border-radius: 100%;
 }
