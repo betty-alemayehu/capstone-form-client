@@ -148,14 +148,14 @@ const ProfileSettings = () => {
       </section>
       <form className="profile-settings__form" onSubmit={handleSubmit}>
         <FormInput
-          label="Name"
+          label=""
           value={formName} // Keeps the input field empty
           onChange={(e) => setFormName(e.target.value)}
           error={errors.name}
           placeholder={displayName || "Name"} // Display current name as placeholder only
         />
         <FormInput
-          label="Email"
+          label=""
           type="email"
           value={formEmail} // Keeps the input field empty
           onChange={(e) => setFormEmail(e.target.value)}
@@ -163,7 +163,7 @@ const ProfileSettings = () => {
           placeholder={displayEmail || "Email"} // Display current email as placeholder only
         />
         <FormInput
-          label="Password"
+          label=""
           type="password"
           value={password} // Keeps the input field empty
           onChange={(e) => setPassword(e.target.value)}

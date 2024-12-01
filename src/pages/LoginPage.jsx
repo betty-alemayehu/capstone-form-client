@@ -70,9 +70,9 @@ const LoginPage = () => {
           <h1>Welcome!</h1>
           <form className="login-page__form" onSubmit={handleSubmit}>
             <FormInput
-              label="Email"
+              label=""
               type="email"
-              placeholder="Insert your email"
+              placeholder="Email Address"
               value={form.email}
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, email: e.target.value }))
@@ -80,9 +80,9 @@ const LoginPage = () => {
               error={errors.email}
             />
             <FormInput
-              label="Password"
+              label=""
               type="password"
-              placeholder="Insert your password"
+              placeholder="Password"
               value={form.password}
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, password: e.target.value }))

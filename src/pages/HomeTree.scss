@@ -40,7 +40,7 @@
     top: 5rem; /* Position it below the main header */
     z-index: 0; /* Ensure it's below the main header */
     background: #f8f8f8; /* Slightly different background for visibility */
-    padding: 8px 0;
+    padding: 1.5rem 0 1rem 0;
     width: 100%;
     max-width: 480px;
     text-align: center;
@@ -55,17 +55,20 @@
 
     &--Beginner {
       // border: 1px solid #ccc;
-      background-color: #f5d3a6;
+      // background-color: #f5d3a6;
+      // background-color: burgundy;
     }
 
     &--Intermediate {
       // border: 1px solid #ccc;
-      background-color: #a49c5c;
+      // background-color: #a49c5c;
+      // background-color: #f5d3a6;
     }
 
     &--Advanced {
       // border: 1px solid #ccc;
-      background-color: #7f8b4b;
+      // background-color: #7f8b4b;
+      // background-color: #7f8b4b;
     }
   }
 
@@ -81,7 +84,7 @@
   &__section {
     &--Beginner {
       padding-bottom: 1rem;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px dashed #ccc;
       // border-radius: 8px;
       // background-color: #fff;
     }
@@ -89,7 +92,7 @@
     &--Intermediate {
       padding-bottom: 1rem;
 
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px dashed #ccc;
       // border-radius: 8px;
       // background-color: #fafbfb;
     }
@@ -97,7 +100,7 @@
     &--Advanced {
       padding-bottom: 1rem;
 
-      border-bottom: 1px solid #ccc;
+      // border-bottom: 1px solid #ccc;
       // border-radius: 8px;
       // background-color: lavender; /* Fixed invalid color */
     }

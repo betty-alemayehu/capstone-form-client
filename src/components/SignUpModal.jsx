@@ -102,18 +102,20 @@ const SignUpModal = ({ onClose }) => {
               I agree to the{" "}
               <a
                 href="https://lumon.industries/company/legal/"
+                className="terms__register-link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <strong>Terms and Conditions</strong>
+                Terms and Conditions
               </a>{" "}
               and{" "}
               <a
                 href="https://lumon.industries/company/legal/"
+                className="terms__register-link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <strong>Privacy Policy</strong>
+                Privacy Policy
               </a>
               .
             </label>

@@ -37,10 +37,20 @@
   // gap: 1rem;
 }
 
-.terms strong {
-  font-weight: bold;
-}
-
 .terms {
   margin: 1rem 0;
+  &__register-link {
+    color: #007bff; /* Link blue color */
+    font-weight: bold;
+    text-decoration: none; /* Remove underline */
+
+    &:hover {
+      text-decoration: underline; /* Underline on hover */
+    }
+
+    &:focus {
+      outline: none; /* Removes focus outline */
+      text-decoration: underline;
+    }
+  }
 }
