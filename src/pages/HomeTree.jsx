@@ -101,7 +101,7 @@ const HomeTree = () => {
                 textSize: "16px",
                 pathColor: "#4caf50",
                 textColor: "#4caf50",
-                trailColor: "#d6d6d6",
+                trailColor: "#679436",
               })}
             />
           </div>

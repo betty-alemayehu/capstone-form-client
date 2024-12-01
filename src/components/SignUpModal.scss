@@ -1,3 +1,5 @@
+//SignUpModal.scss
+@use "../styles/variables" as *;
 .sign-up-modal {
   position: fixed;
   bottom: 0;
@@ -40,7 +42,7 @@
 .terms {
   margin: 1rem 0;
   &__register-link {
-    color: #007bff; /* Link blue color */
+    color: $color-secondary-links; /* Link blue color */
     font-weight: bold;
     text-decoration: none; /* Remove underline */
 

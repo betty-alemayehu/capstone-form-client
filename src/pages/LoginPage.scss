@@ -2,25 +2,26 @@
 @use "../styles/variables" as *;
 
 .login-page {
-  height: 100vh; /* Restrict to full viewport height */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   &__content-wrapper {
-    max-width: 480px; /* Constrain the content width */
-    width: 100%; /* Allow flexibility on smaller viewports */
-    padding: 1rem; /* Add some spacing */
-    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+    max-width: $max-width-mobile;
+    width: 100%;
+    padding: $spacing-gutter-mobile;
+    transition: opacity 0.5s ease, transform 0.5s ease;
     opacity: 1;
     transform: translateY(0);
   }
 
   &--hidden {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(1.25rem);
   }
+
   &__form {
     display: flex;
     flex-direction: column;
@@ -28,61 +29,29 @@
   }
 
   &__image-wrapper {
-    flex-shrink: 1; /* Allow the image to shrink if needed */
     display: flex;
     justify-content: center;
     align-items: center;
-    max-height: 40%; /* Restrict the image to 40% of the viewport */
+    max-height: 40%;
     width: 100%;
   }
 
   &__image {
-    object-fit: contain; /* Ensure the image scales proportionally */
-    max-width: 100%; /* Prevent the image from exceeding its container width */
-    height: 100%; /* Scale the image to fit the container */
-    max-height: 25vh;
+    object-fit: contain;
+    max-width: 100%;
+    height: auto;
   }
 
-  &__ctas {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* Allow this section to grow and occupy remaining space */
-  }
   &__passwordreset-link {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
+    color: $color-secondary-links;
+    font-weight: $font-weight-demi;
+    text-decoration: none;
 
-    text-align: left;
-    color: #007bff; /* Link blue color */
-    font-weight: bold;
-    text-decoration: none; /* Remove underline */
-
-    &:hover {
-      text-decoration: underline; /* Underline on hover */
-    }
-
+    &:hover,
     &:focus {
-      outline: none; /* Removes focus outline */
       text-decoration: underline;
     }
-  }
-  &__ORoauth {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  &__divider {
-    flex: 1;
-    border: none;
-    border-top: 1px solid #ccc;
-    height: 1px;
-  }
-
-  &__continue {
-    padding: 0 0.5rem;
-    color: #333;
-    white-space: nowrap; //Prevent text wrapping
   }
 
   &__options {
@@ -90,76 +59,59 @@
     flex-direction: column;
     gap: $spacing-gutter-mobile;
   }
-}
 
-.login-page__extra {
-  text-align: center;
-}
+  &__ORoauth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-base-unit;
+  }
 
-.login-page__register {
-  text-align: center;
-}
+  &__divider {
+    flex: 1;
+    border-top: 1px solid $color-secondary-divider;
+    height: 1px;
+  }
 
-.button-link {
-  background: none;
-  border: none;
-  color: #007bff;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0;
-}
+  &__continue {
+    padding: 0 $spacing-base-unit;
+    color: $color-primary-label;
+  }
 
-.button-link:hover {
-  color: #0056b3;
-}
+  &__oauth-icons {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-gutter-mobile;
+  }
 
-.login-page__divider {
-  border: none;
-  border-top: 1px solid #ccc;
-}
+  .oauth-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: $spacing-base-unit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-.login-page__continue {
-  text-align: center;
-  font-size: 1rem;
-  color: #666;
-}
-
-.login-page__oauth-icons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.oauth-icon {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.oauth-icon img {
-  width: 24px;
-  height: 24px;
-}
-.login-page__register {
-  text-align: center;
-
-  &-link {
-    color: #007bff; /* Link blue color */
-    font-weight: bold;
-    text-decoration: none; /* Remove underline */
-
-    &:hover {
-      text-decoration: underline; /* Underline on hover */
+    img {
+      width: 1.5rem;
+      height: 1.5rem;
     }
+  }
 
-    &:focus {
-      outline: none; /* Removes focus outline */
-      text-decoration: underline;
+  &__register {
+    text-align: center;
+
+    &-link {
+      color: $color-secondary-links;
+      font-weight: $font-weight-demi;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
     }
   }
 }

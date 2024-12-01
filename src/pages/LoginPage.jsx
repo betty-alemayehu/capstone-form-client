@@ -36,22 +36,15 @@ const LoginPage = () => {
         navigate("/home-tree");
       } catch (err) {
         const status = err.response?.status;
-        if (status === 404) {
-          setErrors((prev) => ({
-            ...prev,
-            general: "User does not exist. Please register first.",
-          }));
-        } else if (status === 401) {
-          setErrors((prev) => ({
-            ...prev,
-            general: "Invalid email or password. Please try again.",
-          }));
-        } else {
-          setErrors((prev) => ({
-            ...prev,
-            general: "An error occurred. Please try again later.",
-          }));
-        }
+        setErrors((prev) => ({
+          ...prev,
+          general:
+            status === 404
+              ? "User does not exist. Please register first."
+              : status === 401
+              ? "Invalid email or password. Please try again."
+              : "An error occurred. Please try again later.",
+        }));
       }
     }
   };
@@ -70,7 +63,6 @@ const LoginPage = () => {
           <h1>Welcome!</h1>
           <form className="login-page__form" onSubmit={handleSubmit}>
             <FormInput
-              label=""
               type="email"
               placeholder="Email Address"
               value={form.email}
@@ -80,7 +72,6 @@ const LoginPage = () => {
               error={errors.email}
             />
             <FormInput
-              label=""
               type="password"
               placeholder="Password"
               value={form.password}
@@ -93,17 +84,15 @@ const LoginPage = () => {
               <span className="error-message error-message--general">
                 <img
                   src="/assets/icons/error-24px.svg"
-                  alt="error icon"
+                  alt="Error icon"
                   className="error-icon"
                 />
                 {errors.general}
               </span>
             )}
-
             <a href="#" className="login-page__passwordreset-link">
               Forgot password?
             </a>
-
             <Button type="submit">Login</Button>
           </form>
           <section className="login-page__options">
@@ -113,7 +102,7 @@ const LoginPage = () => {
                 href="#"
                 className="login-page__register-link"
                 onClick={(e) => {
-                  e.preventDefault(); // Prevents page refresh
+                  e.preventDefault();
                   setShowSignUpModal(true);
                 }}
               >
@@ -121,27 +110,27 @@ const LoginPage = () => {
               </a>
             </p>
             <div className="login-page__ORoauth">
-              <hr className="login-page__divider" />{" "}
-              <p className="login-page__continue"> OR </p>{" "}
+              <hr className="login-page__divider" />
+              <p className="login-page__continue">OR</p>
               <hr className="login-page__divider" />
             </div>
             <div className="login-page__oauth-icons">
               <button className="oauth-icon">
                 <img
                   src="https://pipedream.com/s.v0/app_m02hPO/logo/orig"
-                  alt="Google"
+                  alt="Google Login"
                 />
               </button>
               <button className="oauth-icon">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/0/747.png"
-                  alt="Apple"
+                  alt="Apple Login"
                 />
               </button>
               <button className="oauth-icon">
                 <img
                   src="https://cdn-icons-png.flaticon.com/256/124/124010.png"
-                  alt="Facebook"
+                  alt="Facebook Login"
                 />
               </button>
             </div>

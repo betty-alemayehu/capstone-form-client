@@ -9,7 +9,7 @@ const SplashScreen = () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate("/"); // Navigate after x seconds
+      navigate("/"); // Redirect after timeout
     }, 1500);
 
     return () => clearTimeout(timeout); // Cleanup timeout
@@ -22,14 +22,14 @@ const SplashScreen = () => {
           <img
             className="splash-screen__image"
             src="assets/images/pincha_animation.gif"
-            alt="gif animation of man doing forearm stand"
+            alt="Animation of man doing forearm stand"
           />
         </div>
-        <section className="splash-screen__ctas">
-          <Button variant="hidden" type="submit">
+        <section className="splash-screen__cta-buttons">
+          <Button variant="hidden" type="button">
             Get Started
           </Button>
-          <Button variant="hidden" type="submit">
+          <Button variant="hidden" type="button">
             I Already Have An Account
           </Button>
         </section>

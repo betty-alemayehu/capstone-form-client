@@ -98,7 +98,7 @@ const App = () => {
                     </ProtectedRoute>
                   }
                 />
-                <Route path="*" element={<LandingPage />} />
+                <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </div>
             {showNavBar && <NavBar />}

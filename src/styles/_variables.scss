@@ -5,29 +5,32 @@ $font-weight-regular: 400;
 $font-weight-demi: 600;
 $font-weight-bold: 700;
 
-// Spacing and padding
+// Spacing and padding (in rem)
 $spacing-base-unit: 0.5rem; // Base unit for scaling spacing
 $spacing-gutter-mobile: 1rem; // Mobile padding
 $spacing-gutter-tablet-desktop: 1.5rem; // Tablet and desktop padding
+$max-width-mobile: 30rem; // 480px converted to rem (480 / 16 = 30rem)
 
 // Site colors
 
 // Primary colors
-$color-primary-text: #323232; // Black for text
-$color-primary-cta: #006ffd; // Blue for CTAs
-$color-primary-label: #afafaf; // Silver for labels and secondary text
-$color-primary-bg: #ffffff; // White for background and CTA text
+$color-primary-text: #000000ff; // Black for text
+$color-primary-cta: #0d3650ff; // Blue for CTAs and cta-secondary text
+$color-primary-label: #c4bdc6ff; // Grey for secondary text
+$color-primary-bg: #ffffff; // White for background and CTA text on primary
+$color-completed: #679436; // Green for completed activities
 
 // Secondary colors
-$color-secondary-divider: #e1e1e1; // Mercury for dividers
-$color-secondary-field-bg: #fafafa; // Alabaster for form fields
-$color-secondary-bg: #f7e7d4; //splash screen
+$color-secondary-text: #d9947fff;
+$color-secondary-divider: #c4bdc6ff; // Dividers between tree sections
+$color-secondary-field-bg: #c4bdc6ff; // Grey for form fields inputs
+$color-secondary-links: #369cbb; // Terms and conditions links, register now link
 
 // Error state
-$color-error: #d22d2d; // Red for error messages
+$color-error: #ce3947ff; // Red for error messages, and delete cta
 
-// Buttons
-$button-border-radius: 12px;
-$button-padding: 17px 16px;
-$button-min-height: 48px;
-$button-gap: 8px;
+// Buttons (in rem)
+$button-border-radius: 0.75rem; // 12px converted to rem (12 / 16 = 0.75rem)
+$button-padding: 1.0625rem 1rem; // 17px 16px converted to rem
+$button-min-height: 3rem; // 48px converted to rem (48 / 16 = 3rem)
+$button-gap: 0.5rem; // 8px converted to rem (8 / 16 = 0.5rem)

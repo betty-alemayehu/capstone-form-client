@@ -18,16 +18,3 @@ $breakpoint-desktop: 1280px;
     @content;
   }
 }
-
-// Mixin for container padding
-// @mixin container-padding {
-//   padding: 0 $spacing-base-unit * 2;
-
-//   @include tablet {
-//     padding: 0 $spacing-base-unit * 4;
-//   }
-
-//   @include desktop {
-//     padding: 0 $spacing-base-unit * 10;
-//   }
-// }
