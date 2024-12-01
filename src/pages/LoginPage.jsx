@@ -62,7 +62,7 @@ const LoginPage = () => {
         <div className="login-page__image-wrapper">
           <img
             className="login-page__image"
-            src="/assets/images/pincha_animation.png"
+            src="/assets/images/Puffin.png"
             alt="Login Illustration"
           />
         </div>

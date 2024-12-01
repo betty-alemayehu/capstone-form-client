@@ -15,7 +15,7 @@ const LandingPage = () => {
         <div className="landing-page__image-wrapper">
           <img
             className="landing-page__image"
-            src="/assets/images/pincha_animation.png"
+            src="/assets/images/Puffin.png"
             alt="Landing"
           />
         </div>
