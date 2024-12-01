@@ -31,7 +31,7 @@ const App = () => {
       const timer = setTimeout(() => {
         setShowSplash(false);
         sessionStorage.setItem("splashShown", "true");
-      }, 6900);
+      }, 3500);
       return () => clearTimeout(timer);
     }
   }, [showSplash]);

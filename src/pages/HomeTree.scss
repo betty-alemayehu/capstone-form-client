@@ -65,23 +65,23 @@
       padding-top: 0;
     }
 
-    &--Beginner {
-      // border: 1px solid #ccc;
-      // background-color: #f5d3a6;
-      // background-color: burgundy;
-    }
+    // &--Beginner {
+    //   // border: 1px solid #ccc;
+    //   // background-color: #f5d3a6;
+    //   // background-color: burgundy;
+    // }
 
-    &--Intermediate {
-      // border: 1px solid #ccc;
-      // background-color: #a49c5c;
-      // background-color: #f5d3a6;
-    }
+    // &--Intermediate {
+    //   // border: 1px solid #ccc;
+    //   // background-color: #a49c5c;
+    //   // background-color: #f5d3a6;
+    // }
 
-    &--Advanced {
-      // border: 1px solid #ccc;
-      // background-color: #7f8b4b;
-      // background-color: #7f8b4b;
-    }
+    // &--Advanced {
+    //   // border: 1px solid #ccc;
+    //   // background-color: #7f8b4b;
+    //   // background-color: #7f8b4b;
+    // }
   }
 
   &__content {
@@ -94,6 +94,9 @@
   }
 
   &__section {
+    &-title {
+      padding-left: $spacing-gutter-mobile;
+    }
     &--Beginner {
       padding-bottom: 1rem;
       border-bottom: 1px dashed #ccc;

@@ -14,13 +14,11 @@ const HomeTree = () => {
   const [error, setError] = useState(null);
   const { user } = useContext(UserContext);
 
-  const [activeSection, setActiveSection] = useState("Beginner"); // Track the active section
-
-  const sectionRefs = {
-    Beginner: useRef(null),
-    Intermediate: useRef(null),
-    Advanced: useRef(null),
-  };
+  const sectionRefs = useRef({
+    Beginner: null,
+    Intermediate: null,
+    Advanced: null,
+  });
 
   useEffect(() => {
     const fetchProgressionsWithMedia = async () => {
@@ -88,60 +86,11 @@ const HomeTree = () => {
     return pattern[index % pattern.length];
   };
 
-  useEffect(() => {
-    const observerOptions = {
-      root: null, // Viewport as root
-      threshold: 0.1, // Trigger when at least 10% of the section is visible
-    };
-
-    const observerCallback = (entries) => {
-      // Sort by intersection ratio to handle overlapping sections
-      const visibleSections = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-      if (visibleSections.length > 0) {
-        setActiveSection(visibleSections[0].target.dataset.level); // Use the most visible section
-      }
-    };
-
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    );
-
-    // Observe all section elements
-    Object.values(sectionRefs).forEach((ref) => {
-      if (ref.current) observer.observe(ref.current);
-    });
-
-    // Initial check for the current scroll position
-    const initialSection = Object.keys(sectionRefs).find((level) => {
-      const section = sectionRefs[level]?.current;
-      if (!section) return false;
-      const rect = section.getBoundingClientRect();
-      return rect.top >= 0 && rect.top <= window.innerHeight / 2; // Check if section is near the top
-    });
-
-    if (initialSection) {
-      setActiveSection(initialSection); // Set the active section based on initial viewport
-    } else {
-      setActiveSection("Beginner"); // Default fallback
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div className="tree">
       <div className="tree__header">
         <div className="tree__header-container">
           <div className="tree__header-logo-container">
-            <img
-              className="tree__header-logo"
-              src="/assets/images/Puffin-logo.png"
-              alt="site logo"
-            />
             <h1>BodyLingo</h1>
           </div>
           <div className="tree__progress-circle">
@@ -158,30 +107,56 @@ const HomeTree = () => {
           </div>
         </div>
       </div>
-      <div className={`tree__sub-header tree__sub-header--${activeSection}`}>
-        <h2>{activeSection}</h2> {/* Sub-header for active section */}
-      </div>
       <div className="tree__content">
         {error && <p className="error">{error}</p>}
-        {["Beginner", "Intermediate", "Advanced"].map((level) => (
-          <div
-            key={level}
-            className={`tree__section--${level}`}
-            data-level={level} // Add data attribute for Intersection Observer
-            ref={sectionRefs[level]} // Attach reference for observer
-          >
-            <div className="tree__nodes">
-              {difficultyGroups[level].map((progression, index) => (
-                <div
-                  key={progression.progression_id}
-                  className={`tree-node tree-node--${getAlignment(index)}`}
-                >
-                  <TreeNode progression={progression} />
-                </div>
-              ))}
-            </div>
+        <div
+          ref={(el) => (sectionRefs.current.Beginner = el)}
+          className="tree__section tree__section--Beginner"
+        >
+          <h3 className="tree__section-title">Beginner</h3>
+          <div className="tree__nodes">
+            {difficultyGroups.Beginner.map((progression, index) => (
+              <div
+                key={progression.progression_id}
+                className={`tree-node tree-node--${getAlignment(index)}`}
+              >
+                <TreeNode progression={progression} />
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+        <div
+          ref={(el) => (sectionRefs.current.Intermediate = el)}
+          className="tree__section tree__section--Intermediate"
+        >
+          <h3 className="tree__section-title">Intermediate</h3>
+          <div className="tree__nodes">
+            {difficultyGroups.Intermediate.map((progression, index) => (
+              <div
+                key={progression.progression_id}
+                className={`tree-node tree-node--${getAlignment(index)}`}
+              >
+                <TreeNode progression={progression} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div
+          ref={(el) => (sectionRefs.current.Advanced = el)}
+          className="tree__section tree__section--Advanced"
+        >
+          <h3 className="tree__section-title">Advanced</h3>
+          <div className="tree__nodes">
+            {difficultyGroups.Advanced.map((progression, index) => (
+              <div
+                key={progression.progression_id}
+                className={`tree-node tree-node--${getAlignment(index)}`}
+              >
+                <TreeNode progression={progression} />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
