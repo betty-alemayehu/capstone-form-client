@@ -75,19 +75,23 @@ li {
   color: $color-error;
   margin-bottom: $spacing-base-unit;
   text-align: center;
+}
 
-  &-message {
-    display: flex;
-    align-items: center;
-    margin-top: $spacing-base-unit;
-    font-size: 0.75rem;
-  }
+.error-message {
+  color: $color-error;
 
-  &-icon {
-    margin-right: $spacing-base-unit;
-    width: 1.25rem;
-    height: 1.25rem;
-  }
+  display: flex;
+  align-items: center;
+  margin-top: $spacing-base-unit;
+  font-size: 0.75rem;
+}
+
+.error-icon {
+  color: $color-error;
+
+  margin-right: $spacing-base-unit;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .input--error {
