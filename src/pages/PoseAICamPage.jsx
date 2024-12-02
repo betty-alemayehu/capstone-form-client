@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Pose, POSE_CONNECTIONS } from "@mediapipe/pose";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { Camera } from "@mediapipe/camera_utils";
-import { poseDatabase } from "../utils/poseDatabase"; // Import the poseDatabase
+import { poseDatabase } from "../utils/poseDatabase";
 import "./PoseAICamPage.scss";
 
 export function PoseAICamPage() {

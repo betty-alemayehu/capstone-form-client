@@ -39,7 +39,7 @@
     position: relative;
     margin-bottom: $spacing-base-unit;
 
-    // Ensure delete icon is anchored to the bottom right of this container
+    // Don't move this out - it ensures delete icon is anchored to the bottom right of this container
     &__delete-icon {
       position: absolute;
       bottom: $spacing-base-unit;
