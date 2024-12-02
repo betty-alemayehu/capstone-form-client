@@ -1,15 +1,16 @@
 //PoseCarousel.scss
+@use "../styles/variables" as *;
+
 .pose-carousel {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; // Stretch the widget to fill the parent container
+  width: 100%;
 
   &__carousel {
     display: flex;
     flex-direction: column;
-    width: 100%; // Ensure the carousel takes full width
-    height: 100%; // Full height for the cover effect
+    width: 100%;
   }
 
   &__image-wrapper {
@@ -17,53 +18,56 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 50vh; // Adjust for desired vertical space
-    overflow: hidden; // Prevent any overflow from images
+    height: 50vh; // Set wrapper height to 30% of viewport
+    overflow: hidden;
+    position: relative; // Contain absolute-positioned image
   }
 
   &__image {
-    width: 100%; // Take full width
-    height: 100%; // Take full height
-    object-fit: cover; // Ensure the image covers the container area
-    object-position: center; // Center the image within the container
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // Ensures the image covers the wrapper area
+    object-position: center; // Centers the image
   }
 
   &__dots {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    margin-top: 16px;
+    gap: $spacing-base-unit;
+    margin-top: $spacing-base-unit * 2;
   }
 
   &__dot {
     border: none;
-    border-radius: 24px;
+    border-radius: $button-border-radius;
     opacity: 0.1;
-    width: 8px;
-    height: 8px;
+    width: 0.5rem;
+    height: 0.5rem;
     cursor: pointer;
-    background: #006ffd;
+    background: $color-primary-cta;
 
     &:focus-visible {
-      outline: 2px solid #006ffd;
-      outline-offset: 2px;
+      outline: 0.125rem solid $color-primary-cta;
+      outline-offset: 0.125rem;
     }
 
     &--active {
-      background: #006ffd;
+      background: $color-primary-cta;
       opacity: 1;
     }
   }
 
   &__caption {
-    color: #71727a;
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: 0.12px;
+    color: $color-primary-label;
+    font-family: $font-family-base;
+    font-size: 0.75rem;
+    font-weight: $font-weight-regular;
+    line-height: 1.4;
     text-align: center;
-    margin-top: 8px;
+    margin-top: $spacing-base-unit;
   }
 }

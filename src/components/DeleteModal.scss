@@ -1,3 +1,4 @@
+//DeleteModal.scss
 @use "../styles/variables" as *;
 
 .delete-modal-overlay {
@@ -14,23 +15,38 @@
 }
 
 .delete-modal {
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  background: $color-primary-bg;
+  border-radius: $button-border-radius;
+  box-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.3);
   padding: $spacing-gutter-mobile;
   text-align: center;
   width: calc(100% - $spacing-gutter-mobile * 4);
-  max-width: 480px;
+  max-width: $max-width-mobile;
+
+  &__title {
+    font: $font-weight-bold 1.25rem/1.75rem $font-family-base;
+    margin-bottom: $spacing-base-unit;
+    color: $color-primary-text;
+  }
+
+  &__message {
+    font: $font-weight-regular 0.875rem/1.5 $font-family-base;
+    color: $color-primary-text;
+    margin-bottom: $spacing-base-unit * 2;
+  }
 
   &__actions {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    margin-top: 20px;
+    gap: $spacing-base-unit;
+    margin-top: $spacing-base-unit;
   }
+
   img {
     width: calc(100% - $spacing-gutter-mobile * 4);
-    max-width: 480px;
+    max-width: $max-width-mobile;
+    border-radius: $button-border-radius;
+    margin: $spacing-base-unit 0;
   }
 }

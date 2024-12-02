@@ -1,11 +1,12 @@
 //PoseCarousel.jsx
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { format } from "date-fns";
 import "./PoseCarousel.scss";
 
 const PoseCarousel = ({ pose, media, onSlideChange }) => {
   const [carouselItems, setCarouselItems] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const carouselRef = useRef(null);
 
   useEffect(() => {
     const baseURL = import.meta.env.VITE_API_URL;
@@ -20,7 +21,7 @@ const PoseCarousel = ({ pose, media, onSlideChange }) => {
     }));
 
     const defaultImage = {
-      id: null, // Default images have no ID
+      id: null,
       url: pose.url_png,
       name: "Default Pose Image",
       isDefault: true,
@@ -30,7 +31,6 @@ const PoseCarousel = ({ pose, media, onSlideChange }) => {
   }, [pose, media]);
 
   useEffect(() => {
-    // Notify parent when the current slide changes
     if (carouselItems[currentSlide]) {
       onSlideChange(carouselItems[currentSlide]?.id);
     }
@@ -40,8 +40,44 @@ const PoseCarousel = ({ pose, media, onSlideChange }) => {
     setCurrentSlide(index);
   };
 
+  // Swipe functionality, refer to https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
+  const handleSwipe = (e) => {
+    const threshold = 50; // Minimum swipe distance to register
+    const touchStartX = e.changedTouches[0].clientX;
+
+    let touchEndX = null;
+
+    const onTouchMove = (event) => {
+      touchEndX = event.changedTouches[0].clientX;
+    };
+
+    const onTouchEnd = () => {
+      if (touchEndX !== null) {
+        const swipeDistance = touchStartX - touchEndX;
+
+        if (Math.abs(swipeDistance) > threshold) {
+          if (swipeDistance > 0 && currentSlide < carouselItems.length - 1) {
+            // Swipe left, go to next slide
+            setCurrentSlide((prev) => prev + 1);
+          } else if (swipeDistance < 0 && currentSlide > 0) {
+            // Swipe right, go to previous slide
+            setCurrentSlide((prev) => prev - 1);
+          }
+        }
+      }
+
+      // Cleanup listeners
+      carouselRef.current.removeEventListener("touchmove", onTouchMove);
+      carouselRef.current.removeEventListener("touchend", onTouchEnd);
+    };
+
+    // Add listeners
+    carouselRef.current.addEventListener("touchmove", onTouchMove);
+    carouselRef.current.addEventListener("touchend", onTouchEnd);
+  };
+
   return (
-    <div className="pose-carousel">
+    <div className="pose-carousel" ref={carouselRef} onTouchStart={handleSwipe}>
       <div className="pose-carousel__carousel">
         <div className="pose-carousel__image-wrapper">
           <img

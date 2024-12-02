@@ -1,3 +1,5 @@
+//SearchBar.jsx
+import PropTypes from "prop-types";
 import "./SearchBar.scss";
 
 const SearchBar = ({ placeholder, onSearch }) => {
@@ -17,6 +19,11 @@ const SearchBar = ({ placeholder, onSearch }) => {
       />
     </form>
   );
+};
+
+SearchBar.propTypes = {
+  placeholder: PropTypes.string,
+  onSearch: PropTypes.func.isRequired, // Ensure onSearch is passed and is a function
 };
 
 export default SearchBar;

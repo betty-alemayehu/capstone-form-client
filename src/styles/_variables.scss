@@ -7,7 +7,7 @@ $font-weight-bold: 700;
 
 // Spacing and padding (in rem)
 $spacing-base-unit: 0.5rem; // Base unit for scaling spacing
-$spacing-gutter-mobile: 1rem; // Mobile padding
+$spacing-gutter-mobile: 1rem; // http://localhost:5050/uploads/1_11.pngMobile padding
 $spacing-gutter-tablet-desktop: 1.5rem; // Tablet and desktop padding
 $max-width-mobile: 30rem; // 480px converted to rem (480 / 16 = 30rem)
 
@@ -23,7 +23,7 @@ $color-completed: #679436; // Green for completed activities
 // Secondary colors
 $color-secondary-text: #d9947fff;
 $color-secondary-divider: #c4bdc6ff; // Dividers between tree sections
-$color-secondary-field-bg: #c4bdc6ff; // Grey for form fields inputs
+$color-secondary-field-bg: #f0f1f4; // Grey for form fields inputs
 $color-secondary-links: #369cbb; // Terms and conditions links, register now link
 
 // Error state

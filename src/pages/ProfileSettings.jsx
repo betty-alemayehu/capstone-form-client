@@ -135,14 +135,14 @@ const ProfileSettings = () => {
           value={formName}
           onChange={(e) => setFormName(e.target.value)}
           error={errors.name}
-          placeholder={displayName || "Name"}
+          placeholder={"Update Your Name"}
         />
         <FormInput
           type="email"
           value={formEmail}
           onChange={(e) => setFormEmail(e.target.value)}
           error={errors.email}
-          placeholder={displayEmail || "Email"}
+          placeholder="Update Your Email"
         />
         <FormInput
           type="password"

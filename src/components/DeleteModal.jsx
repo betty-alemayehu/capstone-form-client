@@ -1,13 +1,10 @@
 //DeleteModal.scss
 import "./DeleteModal.scss";
+import Button from "../components/Button";
 
 const DeleteModal = ({ completedCount, onDelete, onClose }) => {
   return (
-    <div
-      className="delete-modal-overlay"
-      role="dialog"
-      aria-labelledby="delete-modal-title"
-    >
+    <div className="delete-modal-overlay">
       <div className="delete-modal">
         <h2 id="delete-modal-title" className="delete-modal__title">
           Are you sure?
@@ -24,12 +21,12 @@ const DeleteModal = ({ completedCount, onDelete, onClose }) => {
         </h3>
         <img src="/assets/images/pincha_animation-logo.png" alt="site logo" />
         <div className="delete-modal__actions">
-          <button className="button button--secondary" onClick={onClose}>
+          <Button variant="secondary" onClick={onClose}>
             Cancel
-          </button>
-          <button className="button button--delete" onClick={onDelete}>
+          </Button>
+          <Button variant="delete" onClick={onDelete}>
             Delete
-          </button>
+          </Button>
         </div>
       </div>
     </div>

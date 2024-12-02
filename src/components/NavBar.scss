@@ -62,8 +62,8 @@
 
   &__label {
     font: $font-weight-regular 0.625rem/1.4 $font-family-base;
-    margin-top: $spacing-base-unit / 2;
-    letter-spacing: 0.15px;
+    margin-top: calc($spacing-base-unit / 2);
+    letter-spacing: 0.0094rem;
     color: $color-primary-label;
     transition: color 0.3s ease;
 

@@ -1,32 +1,33 @@
+//FormInput.scss
 @use "../styles/variables" as *;
+
 .form {
   display: flex;
   flex-direction: column;
-  &__label {
-    font-weight: bold;
-    margin-bottom: 4px;
-  }
-  &__input {
-    border: 1px solid #ccc;
-    padding: 8px;
 
-    font-family: "Inter", sans-serif;
-    font-size: 14px;
+  &__label {
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-base-unit;
+  }
+
+  &__input {
+    padding: $spacing-base-unit $spacing-gutter-mobile;
+    border: 0.0625rem solid $color-secondary-field-bg;
+    border-radius: $button-border-radius;
+    background: $color-secondary-field-bg;
+    font-family: $font-family-base;
+    font-size: 0.875rem; // Matches $font-size-small
     line-height: 1.4;
-    color: #1f2024;
-    padding: 12px;
-    border: 1px solid #c5c6cc;
-    border-radius: 8px;
-    background: #f8f9fe;
+    color: $color-primary-text;
     width: 100%;
 
     &:focus {
-      outline: 2px solid #006ffd;
-      outline-offset: 2px;
+      outline: 0.125rem solid $color-primary-cta;
+      outline-offset: $spacing-base-unit;
     }
 
     &::placeholder {
-      color: #71727a; // Placeholder color
+      color: $color-primary-label;
       font-style: italic;
     }
 
@@ -34,14 +35,18 @@
       border-color: $color-error;
     }
   }
+
   &__error {
     color: $color-error;
-    font-size: 12px;
-    margin-top: 4px;
+    font-size: 0.75rem;
+    margin-top: $spacing-base-unit;
     display: flex;
     align-items: center;
-  }
-  &__error-icon {
-    margin-right: 4px;
+
+    &-icon {
+      margin-right: $spacing-base-unit;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
   }
 }

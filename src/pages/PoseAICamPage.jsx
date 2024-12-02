@@ -116,7 +116,6 @@ export function PoseAICamPage() {
           }`}
         >
           <article className="pose-ai-cam-page__feedback-content">
-            <h2 className="pose-ai-cam-page__feedback-title">Feedback</h2>
             <p className="pose-ai-cam-page__feedback-message">{feedback}</p>
           </article>
         </section>

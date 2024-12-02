@@ -28,7 +28,7 @@
   &--secondary {
     background: transparent;
     color: $color-primary-cta;
-    border: 2px solid $color-primary-cta;
+    border: 0.125rem solid $color-primary-cta;
 
     &:hover {
       opacity: 0.9;

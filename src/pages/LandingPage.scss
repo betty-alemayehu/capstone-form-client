@@ -1,4 +1,5 @@
 //LandingPage.scss
+@use "../styles/variables" as *;
 .landing-page {
   height: 100vh;
   display: flex;
@@ -6,7 +7,7 @@
   align-items: center;
 
   &__content-wrapper {
-    max-width: 480px;
+    max-width: $max-width-mobile;
     width: 100%;
     height: 100%; /* Match Splash Screen */
     display: flex;
