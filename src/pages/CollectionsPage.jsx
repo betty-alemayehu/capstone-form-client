@@ -1,5 +1,6 @@
 //CollectionsPage.jsx
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getUserProgressionsWithMedia } from "../services/api";
 import "./CollectionsPage.scss";
 import SearchBar from "../components/SearchBar";
@@ -60,6 +61,7 @@ const CollectionsPage = () => {
         if (userId) {
           const response = await getUserProgressionsWithMedia(userId);
           posesData = response.data.map((progression) => ({
+            id: progression.pose_id, // Include pose ID for navigation
             title: progression.english_name,
             category: progression.pose_benefits || "Yoga Pose",
             image: progression.media_url.startsWith("/")
@@ -70,6 +72,7 @@ const CollectionsPage = () => {
         }
 
         const formattedRecommendations = recommendationsData.map((rec) => ({
+          id: null, // No pose ID for recommendations
           title: rec.relatedPose,
           category: rec.recommendation,
           image: rec.image,
@@ -107,8 +110,9 @@ const CollectionsPage = () => {
       ) : (
         <section className="collections-page__grid">
           {filteredWorkouts.map((workout, index) => (
-            <article
+            <Link
               key={index}
+              to={workout.id ? `/pose-card/${workout.id}` : "#"}
               className={`collections-page__card ${
                 workout.highlight ? "collections-page__card--highlight" : ""
               }`}
@@ -130,7 +134,7 @@ const CollectionsPage = () => {
                 <h3 className="collections-page__title">{workout.title}</h3>
                 <p className="collections-page__category">{workout.category}</p>
               </div>
-            </article>
+            </Link>
           ))}
         </section>
       )}
