@@ -80,11 +80,18 @@
     background: $color-primary-bg;
     padding: $spacing-gutter-mobile;
     box-shadow: 0 -0.125rem 0.625rem rgba(0, 0, 0, 0.1);
-
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: $spacing-gutter-mobile;
+    flex-direction: row;
+    justify-content: center;
+    &-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: $spacing-gutter-mobile;
+      width: 100%;
+      max-width: $max-width-mobile;
+    }
   }
 
   &__file-input {
