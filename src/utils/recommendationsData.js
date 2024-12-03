@@ -18,7 +18,7 @@ export const recommendationsData = [
   {
     id: 45,
     relatedPose: "Warrior Two",
-    recommendation: "Lunge (Fitness)",
+    recommendation: "Lunge",
     category: "Cross-Functional Training",
     image:
       "https://www.wikihow.com/images/thumb/d/dd/Do-Lunges-Step-8-Version-5.jpg/v4-460px-Do-Lunges-Step-8-Version-5.jpg",
@@ -42,7 +42,7 @@ export const recommendationsData = [
   {
     id: 17,
     relatedPose: "Extended Hand to Toe",
-    recommendation: "Pistol Squat (Calisthenics)",
+    recommendation: "Pistol Squat",
     category: "Calisthenics",
     image:
       "https://hips.hearstapps.com/hmg-prod/images/pistol-squat-regular-pistol-squat-233-1654102650.jpg?crop=0.744xw:0.558xh;0.120xw,0.397xh&resize=1200:*",
