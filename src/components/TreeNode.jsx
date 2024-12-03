@@ -15,7 +15,7 @@ const getAlignment = (index) => {
     "left",
     "center-left",
   ];
-  return pattern[index % pattern.length];
+  return pattern[index % pattern.length]; // Alternate alignment based on index
 };
 
 const TreeNode = ({ progression, index }) => {
@@ -30,17 +30,19 @@ const TreeNode = ({ progression, index }) => {
   };
 
   return (
-    <li className={`tree-node tree-node--${getAlignment(index)}`}>
+    <li
+      className={`tree-node ${
+        status === "Completed" ? "Completed" : ""
+      } tree-node--${getAlignment(index)}`}
+    >
       <img
         src={media_url || PLACEHOLDER_IMAGE}
         alt={english_name || "Pose"}
-        className={`tree-node__image ${
-          status === "Completed" ? "Completed" : ""
-        }`}
+        className={status === "Completed" ? "Completed" : ""}
         onError={(e) => {
           e.target.src = PLACEHOLDER_IMAGE;
         }}
-        onClick={handleNodeClick} // Link behavior now tied only to the image
+        onClick={handleNodeClick}
       />
     </li>
   );

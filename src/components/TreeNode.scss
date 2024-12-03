@@ -2,54 +2,87 @@
 @use "../styles/variables" as *;
 
 .tree-node {
+  position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 5rem;
+  height: 5rem;
+  margin: 0;
+
+  /* Default circle background */
+  &:before {
+    content: "";
+    position: absolute;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background: #e5e5e5; /* Default grey background for uncompleted nodes */
+    box-shadow: 0 0.4375rem 0 #8f8f8f; /* Default grey shadow */
+    z-index: 0;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Completed nodes styling */
+  &.Completed {
+    &:before {
+      background: $color-completed; /* Green background for completed nodes */
+      box-shadow: 0 0.4375rem 0 $color-completed; /* Green shadow for completed nodes */
+    }
+  }
 
   img {
-    border-radius: 100%;
+    position: relative;
+    z-index: 1;
+    border-radius: 50%;
     object-fit: cover;
-    max-width: 5rem;
-    max-height: 5rem;
-    min-width: 5rem;
-    min-height: 5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 
-    &:hover {
-      transform: translateY(-0.3125rem);
-      box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.2);
-    }
-
-    &.Completed {
-      border: 0.3125rem solid $color-completed;
-      filter: none; // Keep full color for completed nodes
-    }
-
+    /* Apply grayscale for uncompleted nodes */
     &:not(.Completed) {
-      filter: grayscale(100%) opacity(0.8); // Apply greyscale to uncompleted nodes
+      filter: grayscale(100%) opacity(0.8);
     }
   }
 
-  &--center {
-    justify-content: center;
+  /* Active state (pressed effect) */
+  &:active {
+    &:before {
+      box-shadow: 0 0.25rem 0 #8f8f8f inset; /* Inset shadow for uncompleted nodes */
+    }
+
+    &.Completed:before {
+      box-shadow: 0 0.25rem 0 $color-completed inset; /* Inset shadow for completed nodes */
+    }
+
+    img {
+      transform: translateY(0.125rem); /* Press effect for image */
+    }
   }
 
-  &--right {
-    justify-content: flex-end;
-    padding-right: 20%;
+  /* Alignment classes */
+  &--center {
+    align-self: center;
   }
 
   &--center-right {
-    justify-content: flex-end;
-    padding-right: 30%;
+    align-self: center;
+    margin-right: -20%;
   }
 
-  &--left {
-    justify-content: flex-start;
-    padding-left: 20%;
+  &--right {
+    align-self: flex-end;
+    margin-right: 20%;
   }
 
   &--center-left {
-    justify-content: flex-start;
-    padding-left: 30%;
+    align-self: center;
+    margin-left: -20%;
+  }
+
+  &--left {
+    align-self: flex-start;
+    margin-left: 20%;
   }
 }
