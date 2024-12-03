@@ -124,7 +124,7 @@ const ProfileSettings = () => {
       <section className="profile-settings__hero">
         <img
           className="profile-settings__avatar"
-          src="/assets/icons/user_icon.png"
+          src="/assets/icons/user_icon.svg"
           alt="Profile avatar"
         />
         <h3>{displayName}</h3>
@@ -159,7 +159,7 @@ const ProfileSettings = () => {
         <Button variant="secondary" onClick={logout}>
           Logout
         </Button>
-        <Button variant="tertiary-delete" onClick={() => setIsModalOpen(true)}>
+        <Button variant="delete" onClick={() => setIsModalOpen(true)}>
           Delete Account
         </Button>
       </section>

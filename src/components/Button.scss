@@ -3,7 +3,8 @@
 
 .button {
   font-family: $font-family-base;
-  font-size: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: bold;
   align-self: stretch;
   border-radius: $button-border-radius;
   min-height: $button-min-height;
@@ -15,6 +16,7 @@
   font: inherit;
   white-space: nowrap;
   text-align: center;
+  text-transform: uppercase;
 
   &--primary {
     background: $color-primary-cta;

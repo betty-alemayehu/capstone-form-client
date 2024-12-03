@@ -23,9 +23,11 @@
     left: $spacing-gutter-mobile;
     z-index: 20;
     background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
+    border-radius: 100%;
     padding: $spacing-base-unit;
     cursor: pointer;
+    max-width: 2.5rem;
+    max-height: 2.5rem;
 
     img {
       width: 1.5rem;

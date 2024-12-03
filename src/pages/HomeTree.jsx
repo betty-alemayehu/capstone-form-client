@@ -67,21 +67,21 @@ const HomeTree = () => {
       <div className="tree__header">
         <div className="tree__header-container">
           <div className="tree__header-logo-container">
-            <img
-              src="/assets/images/pincha_animation-logo.png"
-              alt="site logo"
-            />
-            <h1>BodyLingo</h1>
+            <h1>bodylingo</h1>
           </div>
           <div className="tree__progress-circle">
+            <img
+              src="public/assets/icons/light_icon.svg"
+              alt="light bolt icon"
+            />
             <CircularProgressbar
               value={percentageComplete}
               text={`${percentageComplete}%`}
               styles={buildStyles({
-                textSize: "20px",
-                pathColor: "#0d3650ff",
-                textColor: "#0d3650ff",
-                trailColor: "#c4bdc6ff",
+                textSize: "24px",
+                pathColor: "#ffc800",
+                textColor: "#1A1A1A",
+                trailColor: "#E5E5E5",
               })}
             />
           </div>

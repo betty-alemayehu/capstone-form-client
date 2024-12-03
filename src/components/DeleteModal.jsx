@@ -10,7 +10,7 @@ const DeleteModal = ({ completedCount, onDelete, onClose }) => {
           Are you sure?
         </h2>
         <p className="delete-modal__message">
-          Are you sure you want to delete your BodyLingo account forever?{" "}
+          Are you sure you want to delete your bodylingo account forever?{" "}
         </p>
         <h3>
           {completedCount === 0

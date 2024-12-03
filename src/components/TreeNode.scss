@@ -12,7 +12,7 @@
     max-height: 5rem;
     min-width: 5rem;
     min-height: 5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.2s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 
     &:hover {
       transform: translateY(-0.3125rem);
@@ -21,6 +21,11 @@
 
     &.Completed {
       border: 0.3125rem solid $color-completed;
+      filter: none; // Keep full color for completed nodes
+    }
+
+    &:not(.Completed) {
+      filter: grayscale(100%) opacity(0.8); // Apply greyscale to uncompleted nodes
     }
   }
 

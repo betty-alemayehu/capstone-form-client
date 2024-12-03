@@ -1,12 +1,12 @@
-# 🤸 BodyLingo
+# 🤸 bodylingo
 
-💡 **TL;DR:** BodyLingo gamifies fitness learning with a progression tree and AI feedback, making physical movement mastery accessible, engaging, and affordable.
+💡 **TL;DR:** bodylingo gamifies fitness learning with a progression tree and AI feedback, making physical movement mastery accessible, engaging, and affordable.
 
 ---
 
 ## **Problem Space**
 
-Physical movement mastery is expensive, intimidating, and lacks feedback. BodyLingo helps beginners and practitioners build confidence, track progress, and refine techniques affordably.
+Physical movement mastery is expensive, intimidating, and lacks feedback. bodylingo helps beginners and practitioners build confidence, track progress, and refine techniques affordably.
 
 ---
 

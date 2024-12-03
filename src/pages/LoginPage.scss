@@ -43,7 +43,7 @@
   }
 
   &__passwordreset-link {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: $color-secondary-links;
     font-weight: $font-weight-demi;
     text-decoration: none;
@@ -101,6 +101,7 @@
 
   &__register {
     text-align: center;
+    font-size: 16px;
 
     &-link {
       color: $color-secondary-links;

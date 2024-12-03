@@ -1,4 +1,4 @@
-<h1 align="left">🤸 BodyLingo</h1>
+<h1 align="left">🤸 bodylingo</h1>
 <h2 align="left" style="font-weight: normal; color: gray;"><em>Learn the "language" of movement</em></h2>
 
 ---
@@ -11,13 +11,13 @@
 
 ## 📖 Overview
 
-BodyLingo is a **gamified fitness app** designed to make learning and mastering physical movements enjoyable and interactive. Inspired by apps like _Duolingo_ and _CodeSignal_, it offers a **progressive "tree path"** of poses and activities across disciplines like yoga, calisthenics, and dance. Users can learn poses, upload images to evaluate their form, and track their progress visually. With integrated features for **AI-powered posture feedback**, BodyLingo helps users grow from beginner to expert in their chosen disciplines.
+bodylingo is a **gamified fitness app** designed to make learning and mastering physical movements enjoyable and interactive. Inspired by apps like _Duolingo_ and _CodeSignal_, it offers a **progressive "tree path"** of poses and activities across disciplines like yoga, calisthenics, and dance. Users can learn poses, upload images to evaluate their form, and track their progress visually. With integrated features for **AI-powered posture feedback**, bodylingo helps users grow from beginner to expert in their chosen disciplines.
 
 ---
 
 ## 🚧 Problem Space
 
-Mastering physical movements like yoga, dance, or calisthenics is challenging due to high costs (despite minimal equipment), lack of feedback, and inconsistent practice. **Beginners** often feel **intimidated**, while experienced users **struggle to track progress** or **refine technique affordably**. BodyLingo solves these issues with gamified guidance, progress tracking, and personalized feedback.
+Mastering physical movements like yoga, dance, or calisthenics is challenging due to high costs (despite minimal equipment), lack of feedback, and inconsistent practice. **Beginners** often feel **intimidated**, while experienced users **struggle to track progress** or **refine technique affordably**. bodylingo solves these issues with gamified guidance, progress tracking, and personalized feedback.
 
 ---
 

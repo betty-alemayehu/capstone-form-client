@@ -11,19 +11,19 @@ const NavBar = () => {
     {
       name: "Learn",
       link: "/home-tree",
-      icon: "/assets/icons/collections-icon.png",
+      icon: "/assets/icons/home_icon.svg",
       iconAlt: "Learn icon",
     },
     {
       name: "Discover",
       link: "/collections",
-      icon: "/assets/icons/discover-icon.png",
+      icon: "/assets/icons/weight_discover_icon.svg",
       iconAlt: "Collections icon",
     },
     {
       name: "Profile",
       link: "/profile-settings",
-      icon: "/assets/icons/user_icon.png",
+      icon: "/assets/icons/user_icon.svg",
       iconAlt: "Profile settings icon",
     },
   ];
@@ -31,7 +31,7 @@ const NavBar = () => {
   return (
     <nav className="navbar">
       <div className="navbar__container">
-        {tabs.map(({ name, link, icon, iconAlt }) => (
+        {tabs.map(({ link, icon, iconAlt }) => (
           <Link
             key={link}
             to={link}
@@ -47,13 +47,6 @@ const NavBar = () => {
                 activeTab === link ? "navbar__icon--active" : ""
               }`}
             />
-            <span
-              className={`navbar__label ${
-                activeTab === link ? "navbar__label--active" : ""
-              }`}
-            >
-              {name}
-            </span>
           </Link>
         ))}
       </div>

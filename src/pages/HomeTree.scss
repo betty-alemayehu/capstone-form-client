@@ -17,7 +17,6 @@
     display: flex;
     justify-content: center;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-    padding: $spacing-base-unit;
     text-align: center;
   }
 
@@ -26,8 +25,7 @@
     justify-content: space-between;
     align-items: center;
     max-width: $max-width-mobile;
-    width: 100%;
-    padding: 0 $spacing-gutter-mobile;
+    width: calc(100% - $spacing-gutter-mobile * 2);
     max-height: 4rem;
   }
   &__header-logo-container {
@@ -38,8 +36,10 @@
     }
   }
   &__progress-circle {
-    width: 3rem;
     height: 3rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
   }
 
   &__content {
@@ -47,13 +47,14 @@
     display: flex;
     flex-direction: column;
     gap: $spacing-base-unit * 2;
-    width: 100%;
+    width: calc(100% - $spacing-gutter-mobile * 2);
     max-width: $max-width-mobile;
   }
 
   &__section {
     &-title {
-      padding-left: $spacing-gutter-mobile;
+      // padding-left: $spacing-gutter-mobile;
+      text-align: left;
     }
 
     &--Beginner,

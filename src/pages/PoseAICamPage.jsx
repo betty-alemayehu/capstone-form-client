@@ -97,7 +97,7 @@ export function PoseAICamPage() {
       <header className="pose-ai-cam-page__back-button-wrapper">
         <img
           onClick={handleBackClick}
-          src="/assets/icons/arrow_back-24px.png"
+          src="/assets/icons/arrow_back-24px.svg"
           alt="Back"
           className="pose-ai-cam-page__back-button"
         />

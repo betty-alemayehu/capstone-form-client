@@ -17,12 +17,10 @@
   }
 
   &__avatar {
-    max-height: 7rem;
-    max-width: 7rem;
+    height: 7rem;
+    width: 7rem;
     align-self: center;
     border-radius: 50%;
-    filter: brightness(0) saturate(100%) invert(10%) sepia(70%) saturate(7000%)
-      hue-rotate(200deg) brightness(90%) contrast(100%);
   }
 
   &__title {
