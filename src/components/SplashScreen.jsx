@@ -21,7 +21,7 @@ const SplashScreen = () => {
         <div className="splash-screen__image-wrapper">
           <img
             className="splash-screen__image"
-            src="assets/images/pincha_animation.gif"
+            src="assets/images/splash_animation.gif"
             alt="Animation of man doing forearm stand"
           />
         </div>

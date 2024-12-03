@@ -67,7 +67,7 @@ const HomeTree = () => {
       <div className="tree__header">
         <div className="tree__header-container">
           <div className="tree__header-logo-container">
-            <h1>bodylingo</h1>
+            <h1 className="tree__header-logo">bodylingo</h1>
           </div>
           <div className="tree__progress-circle">
             <img

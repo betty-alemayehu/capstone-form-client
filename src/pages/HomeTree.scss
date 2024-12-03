@@ -39,6 +39,11 @@
     width: calc(100% - $spacing-gutter-mobile * 2);
     max-height: 4rem;
   }
+
+  h1 {
+    color: $color-primary-cta;
+  }
+
   &__header-logo-container {
     display: flex;
     flex-direction: row;
@@ -68,10 +73,13 @@
     }
 
     &--Beginner,
-    &--Intermediate,
+    &--Intermediate {
+      padding-bottom: $spacing-base-unit * 4;
+      border-bottom: 0.0625rem dashed $color-primary-label;
+    }
+
     &--Advanced {
       padding-bottom: $spacing-base-unit * 2;
-      border-bottom: 0.0625rem dashed $color-primary-label;
     }
   }
 }

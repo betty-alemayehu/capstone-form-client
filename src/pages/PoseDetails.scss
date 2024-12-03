@@ -65,7 +65,7 @@
 
   &__subtitle {
     font-size: medium;
-    font-weight: $font-weight-regular;
+    font-weight: 300;
   }
 
   &__description {
@@ -80,7 +80,8 @@
     bottom: 0;
     width: 100%;
     background: $color-primary-bg;
-    padding: $spacing-gutter-mobile;
+    padding: $spacing-gutter-mobile $spacing-gutter-mobile
+      $spacing-gutter-mobile * 2 $spacing-gutter-mobile;
     box-shadow: 0 -0.125rem 0.625rem rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: row;

@@ -22,97 +22,94 @@ import "./App.scss";
 import "./styles/_global.scss";
 
 const App = () => {
-  const [showSplash, setShowSplash] = useState(
-    !sessionStorage.getItem("splashShown")
-  );
+  const { loading } = useContext(UserContext);
+  const location = useLocation();
+  const [showSplash, setShowSplash] = useState(false);
 
   useEffect(() => {
-    if (showSplash) {
+    if (location.pathname === "/") {
+      setShowSplash(true);
       const timer = setTimeout(() => {
         setShowSplash(false);
-        sessionStorage.setItem("splashShown", "true");
-      }, 3500);
+      }, 2000);
       return () => clearTimeout(timer);
+    } else {
+      setShowSplash(false);
     }
-  }, [showSplash]);
+  }, [location]);
 
-  const AppContent = () => {
-    const location = useLocation();
-    const { loading } = useContext(UserContext);
+  const showNavBar =
+    !["/", "/login", "/logout", "/pose-AI-cam"].includes(location.pathname) &&
+    !location.pathname.startsWith("/pose-card/");
 
-    const showNavBar =
-      !["/", "/login", "/logout", "/pose-AI-cam"].includes(location.pathname) &&
-      !location.pathname.startsWith("/pose-card/");
-
-    if (loading) {
-      return <p>Loading application...</p>;
-    }
-
-    return (
-      <div className="app-container">
-        {showSplash ? (
-          <SplashScreen />
-        ) : (
-          <>
-            <div className="app-content">
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route
-                  path="/home-tree"
-                  element={
-                    <ProtectedRoute>
-                      <HomeTree />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/pose-card/:id"
-                  element={
-                    <ProtectedRoute>
-                      <PoseDetails />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/profile-settings"
-                  element={
-                    <ProtectedRoute>
-                      <ProfileSettings />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/collections"
-                  element={
-                    <ProtectedRoute>
-                      <CollectionsPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/pose-AI-cam"
-                  element={
-                    <ProtectedRoute>
-                      <PoseAICamPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="*" element={<Navigate to="/" />} />
-              </Routes>
-            </div>
-            {showNavBar && <NavBar />}
-          </>
-        )}
-      </div>
-    );
-  };
+  if (loading) {
+    return <p>Loading application...</p>;
+  }
 
   return (
-    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      <AppContent />
-    </Router>
+    <div className="app-container">
+      {showSplash ? (
+        <SplashScreen />
+      ) : (
+        <>
+          <div className="app-content">
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route
+                path="/home-tree"
+                element={
+                  <ProtectedRoute>
+                    <HomeTree />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/pose-card/:id"
+                element={
+                  <ProtectedRoute>
+                    <PoseDetails />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile-settings"
+                element={
+                  <ProtectedRoute>
+                    <ProfileSettings />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/collections"
+                element={
+                  <ProtectedRoute>
+                    <CollectionsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/pose-AI-cam"
+                element={
+                  <ProtectedRoute>
+                    <PoseAICamPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </div>
+          {showNavBar && <NavBar />}
+        </>
+      )}
+    </div>
   );
 };
 
-export default App;
+const AppWrapper = () => (
+  <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <App />
+  </Router>
+);
+
+export default AppWrapper;

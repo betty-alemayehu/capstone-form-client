@@ -14,20 +14,21 @@ $max-width-mobile: 30rem; // 480px converted to rem (480 / 16 = 30rem)
 // Site colors
 
 // Primary colors
-$color-primary-text: #000000ff; // Black for text
-$color-primary-cta: #0d3650ff; // Blue for CTAs and cta-secondary text
-$color-primary-label: #c4bdc6ff; // Grey for secondary text
+$color-primary-text: #1a1a1a; // Black for text
+$color-primary-cta: #0e8a00; // Blue for CTAs and cta-secondary text
+$color-primary-label: #8f8f8f; // Grey for secondary text
 $color-primary-bg: #ffffff; // White for background and CTA text on primary
-$color-completed: #679436; // Green for completed activities
+$color-completed: #0e8a00; // Green for completed activities
 
 // Secondary colors
-$color-secondary-text: #d9947fff;
-$color-secondary-divider: #c4bdc6ff; // Dividers between tree sections
-$color-secondary-field-bg: #f0f1f4; // Grey for form fields inputs
-$color-secondary-links: #369cbb; // Terms and conditions links, register now link
+$color-secondary-text: #ff9600;
+$color-secondary-cta: #ffeba3;
+$color-secondary-divider: #8f8f8f; // Dividers between tree sections
+$color-secondary-field-bg: #f7f7f7; // Grey for form fields inputs
+$color-secondary-links: #007db2; // Terms and conditions links, register now link
 
 // Error state
-$color-error: #ce3947ff; // Red for error messages, and delete cta
+$color-error: #ed0c0c; // Red for error messages, and delete cta
 
 // Buttons (in rem)
 $button-border-radius: 0.75rem; // 12px converted to rem (12 / 16 = 0.75rem)

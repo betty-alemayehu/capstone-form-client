@@ -124,7 +124,7 @@ const ProfileSettings = () => {
       <section className="profile-settings__hero">
         <img
           className="profile-settings__avatar"
-          src="/assets/icons/user_icon.svg"
+          src="/assets/icons/user_profile.svg"
           alt="Profile avatar"
         />
         <h3>{displayName}</h3>

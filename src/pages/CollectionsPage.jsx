@@ -23,9 +23,11 @@ const CollectionsPage = () => {
         if (userId) {
           const response = await getUserProgressionsWithMedia(userId);
           posesData = response.data.map((progression) => ({
-            id: progression.pose_id, // Include pose ID for navigation
+            id: progression.pose_id,
             title: progression.english_name,
-            category: progression.pose_benefits || "Yoga Pose",
+            relatedPose: progression.english_name, // Include relatedPose for filtering
+            category: "Yoga",
+            description: progression.pose_description || "",
             image: progression.media_url.startsWith("/")
               ? `${baseURL}${progression.media_url}`
               : progression.media_url,
@@ -34,9 +36,11 @@ const CollectionsPage = () => {
         }
 
         const formattedRecommendations = recommendationsData.map((rec) => ({
-          id: null, // No pose ID for recommendations
-          title: rec.relatedPose,
-          category: rec.recommendation,
+          id: rec.id,
+          title: rec.recommendation,
+          relatedPose: rec.relatedPose,
+          category: rec.category,
+          description: rec.description || "",
           image: rec.image,
           highlight: false,
         }));
@@ -55,10 +59,10 @@ const CollectionsPage = () => {
     fetchCombinedData();
   }, []);
 
-  const filteredWorkouts = workouts.filter(
-    (workout) =>
-      workout.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      workout.category.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredWorkouts = workouts.filter((workout) =>
+    Object.values(workout).some((value) =>
+      String(value).toLowerCase().includes(searchQuery.toLowerCase())
+    )
   );
 
   return (
