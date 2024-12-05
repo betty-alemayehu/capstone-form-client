@@ -70,10 +70,7 @@ const HomeTree = () => {
             <h1 className="tree__header-logo">bodylingo</h1>
           </div>
           <div className="tree__progress-circle">
-            <img
-              src="public/assets/icons/light_icon.svg"
-              alt="light bolt icon"
-            />
+            <img src="/assets/icons/light_icon.svg" alt="light bolt icon" />
             <CircularProgressbar
               value={percentageComplete}
               text={`${percentageComplete}%`}
