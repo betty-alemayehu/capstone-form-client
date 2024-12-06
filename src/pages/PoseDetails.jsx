@@ -131,9 +131,9 @@ const PoseDetails = () => {
           </Button>
           <Button
             variant="primary"
-            onClick={() => navigate("/pose-AI-cam", { state: { poseId } })}
+            // onClick={() => navigate("/pose-AI-cam", { state: { poseId } })}
           >
-            Check My Form
+            Check My Form 🚧
           </Button>
         </div>
       </section>
