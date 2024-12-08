@@ -126,12 +126,12 @@ const PoseDetails = () => {
             accept="image/*"
             onChange={handleFileChange}
           />
-          <Button variant="secondary" onClick={triggerFileUpload}>
+          <Button variant="primary" onClick={triggerFileUpload}>
             Upload Practice
           </Button>
           <Button
-            variant="primary"
-            // onClick={() => navigate("/pose-AI-cam", { state: { poseId } })}
+            variant="secondary"
+            onClick={() => navigate("/pose-AI-cam", { state: { poseId } })}
           >
             Check My Form 🚧
           </Button>

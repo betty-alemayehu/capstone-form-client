@@ -1,9 +1,6 @@
 //PoseAICamPage.jsx
 import { useRef, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Pose, POSE_CONNECTIONS } from "@mediapipe/pose";
-import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
-import { Camera } from "@mediapipe/camera_utils";
 import { poseDatabase } from "../utils/poseDatabase";
 import "./PoseAICamPage.scss";
 
@@ -19,7 +16,8 @@ export function PoseAICamPage() {
   useEffect(() => {
     if (!videoRef.current || !canvasRef.current) return;
 
-    const pose = new Pose({
+    // Use Pose from the global MediaPipe object
+    const pose = new window.Pose({
       locateFile: (file) =>
         `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
     });
@@ -39,8 +37,9 @@ export function PoseAICamPage() {
       }
     });
 
+    // Use Camera from the global MediaPipe object
     const videoElement = videoRef.current;
-    const camera = new Camera(videoElement, {
+    const camera = new window.Camera(videoElement, {
       onFrame: async () => {
         await pose.send({ image: videoElement });
       },
@@ -63,11 +62,12 @@ export function PoseAICamPage() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
-    drawConnectors(ctx, results.poseLandmarks, POSE_CONNECTIONS, {
+    // Use drawConnectors and drawLandmarks from the global MediaPipe object
+    window.drawConnectors(ctx, results.poseLandmarks, window.POSE_CONNECTIONS, {
       color: "#00FF00",
       lineWidth: 4,
     });
-    drawLandmarks(ctx, results.poseLandmarks, {
+    window.drawLandmarks(ctx, results.poseLandmarks, {
       color: "#FF0000",
       lineWidth: 2,
     });

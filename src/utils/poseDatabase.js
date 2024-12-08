@@ -1,22 +1,22 @@
 // src/utils/poseDatabase.js
 
 export const poseDatabase = {
-  // mountain: {
-  //   name: "Mountain Pose",
-  //   conditions: (landmarks) => {
-  //     const leftAnkle = landmarks[27];
-  //     const rightAnkle = landmarks[28];
-  //     const leftKnee = landmarks[25];
-  //     const rightKnee = landmarks[26];
+  mountain: {
+    name: "Mountain Pose",
+    conditions: (landmarks) => {
+      const leftAnkle = landmarks[27];
+      const rightAnkle = landmarks[28];
+      const leftKnee = landmarks[25];
+      const rightKnee = landmarks[26];
 
-  //     const feetClose = Math.abs(leftAnkle.x - rightAnkle.x) < 0.1;
-  //     const kneesAligned = Math.abs(leftKnee.x - rightKnee.x) < 0.1;
+      const feetClose = Math.abs(leftAnkle.x - rightAnkle.x) < 0.1;
+      const kneesAligned = Math.abs(leftKnee.x - rightKnee.x) < 0.1;
 
-  //     return feetClose && kneesAligned;
-  //   },
-  //   feedback:
-  //     "Great job! You're standing upright with feet together for Mountain Pose.",
-  // },
+      return feetClose && kneesAligned;
+    },
+    feedback:
+      "Great job! You're standing upright with feet together for Mountain Pose.",
+  },
   extendedHandToToe: {
     name: "Extended Hand-to-Big-Toe Pose (Utthita Hasta Pādāṅguṣṭhāsana)",
     conditions: (landmarks) => {
