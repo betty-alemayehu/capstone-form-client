@@ -13,7 +13,7 @@ const PoseCarousel = ({ pose, media, onSlideChange }) => {
 
     const sortedMedia = media.map((item) => ({
       id: item.id,
-      url: `${baseURL}${item.custom_media}`,
+      url: `${item.custom_media}`,
       name: item.created_at
         ? format(new Date(item.created_at), "MMM yyyy")
         : "User Uploaded Image",
