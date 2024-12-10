@@ -9,8 +9,6 @@ const PoseCarousel = ({ pose, media, onSlideChange }) => {
   const carouselRef = useRef(null);
 
   useEffect(() => {
-    const baseURL = import.meta.env.VITE_API_URL;
-
     const sortedMedia = media.map((item) => ({
       id: item.id,
       url: `${item.custom_media}`,
